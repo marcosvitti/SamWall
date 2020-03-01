@@ -1140,10 +1140,10 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_listNFMouseClicked
 
     private void editUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editUserMouseClicked
-         // Método abrir o frame para adicionar um usuário
-        AddUser addUser = new AddUser(userName.getText(), false, -1); // Instância o novo frame
-        addUser.setLocationRelativeTo(null); // Defini a localização no meio da tela
-        addUser.setVisible(true); // Defini o frame como visivel
+        // Método abrir o frame para adicionar um usuário
+        BlockUser blockUser = new BlockUser(userName.getText(), "Editar Usuário"); // Instância o novo frame
+        blockUser.setLocationRelativeTo(null); // Defini a localização no meio da tela
+        blockUser.setVisible(true); // Defini o frame como visivel
         resetPanels(new JPanel[]{jPanelGerenciamentoUser}); // Método para mudar a visibilidade do menu
     }//GEN-LAST:event_editUserMouseClicked
 

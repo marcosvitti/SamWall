@@ -1,0 +1,16 @@
+==============================SAMWALL==============================
+= PARA FUNCIONAR PERFEITAMENTE O SOFTWARE,                        =
+= INCLUA AS BIBLIOTECAS DE JTATTOO E JDBC SQL SERVER.             =
+= SEGUINDO OS SEGUINTES PASSOS (PARA O NETBEANS):                 =
+=       1 - BOTÃO DIREITO EM BLIBLIOTECAS                         =
+=       2 - ADICIONAR JAR/PASTA                                   =
+=       3 - NAVEGUE ATÉ ONDE ESTÁ SALVO O PROJETO                 =
+=           3.1 - EXEMPO:                                         =
+=                E:\Camolesi\CRUD_Camolesi\CRUD                   =
+=       4 - ABRA A PASTA \src                                     =
+=       5 - ABRA A PASTA \config                                  =
+=       6 - SELECIONE JTattoo-1.6.11.jar                          =
+=       7 - REFAÇA OS PASSOS 1, 2, 3, 4, 5                        =
+=       8 - SELECIONE mssql-jdbc-7.4.1.jre8.jar                   =
+=       9 - PROCESSO FINALIZADO!                                  =
+==============================SAMWALL==============================

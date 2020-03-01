@@ -30,6 +30,13 @@ public class DataBase {
     private final String caminho = "jdbc:mysql://127.0.0.1:3306/projeto_nf";
     private final String usuario = "root";
     private final String senha = "root";
+    /*PARA HABILITAR O AZURE DESCOMENTE ESSE CODIGO E O DA LINHA 88*/
+    /*
+    private final String driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
+    private final String caminho = "jdbc:sqlserver://samwall.database.windows.net;databaseName=projeto_nf";
+    private final String usuario = "samwall";
+    private final String senha = "root_s4mw4a!!";
+    */
     
     public static synchronized DataBase getInstance(){
         if (INSTANCIA == null){
@@ -78,6 +85,7 @@ public class DataBase {
     public void selectLoginCommandSQL(String username, String password) throws SQLException {
         try {
             String command = "SELECT * FROM colaboradores WHERE LOGIN='" + username + "' AND SENHA=SHA1('" + password + "')";
+            //String command = "SELECT * FROM colaboradores WHERE LOGIN='" + username + "' AND SENHA=sys.fn_varbintohexsubstring(0, HASHBYTES('SHA1','" + password + "'), 1, 0)";
             stm = con.createStatement();
             System.out.println(command);
             rs = stm.executeQuery(command);
