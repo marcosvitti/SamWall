@@ -2,26 +2,22 @@ package screens;
 
 //==================================> Importações pertinentes á execução do frame
 import com.jtattoo.plaf.DecorationHelper;
-import dataBase.DataBase;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
-import java.sql.SQLException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import javax.swing.JOptionPane;
 import javax.swing.UIManager;
+import controller.controllerLogin;
 //==================================> Fim das importações
 
 public class Login extends javax.swing.JFrame {
 
-    private final DataBase con = DataBase.getInstance(); // Instanciação da variável interações com o banco de dados
-
     public Login() {  // Método para instanciar o frame login
         initComponents(); // Inicia Componentes do frame de login
         password.setEchoChar(Character.forDigit(0, 0)); // Inicializa o campo password como caracteres visíveis
-        con.connection(); // Inicializa a conexão com o banco de dados
+        controllerLogin.connection(); // Inicializa a conexão com o banco de dados
         this.setLocationRelativeTo(null); // Inicializa o frame centralizado na tela
     } // Fim do método de instanciação
 
@@ -29,27 +25,6 @@ public class Login extends javax.swing.JFrame {
     public Image getIconImage() { // Método para alterar o icone da barra de tarefas
         return Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("pictures/iconLogoBar.png")); // Seta uma imagem como ícone
     } // Fim do método para alterar o icone da barra de tarefas
-
-    public void logar() { // Método para validar se o usuário está cadastrado no banco
-        try { // Tentar realizar a validação do usuário
-            con.selectLoginCommandSQL(username.getText(), password.getText()); // Função para realizar a validação do usuário
-            //Main main = new Main(username.getText(), con); // Se o usuário existir no banco é instânciado o novo frame =>
-            Main main = new Main(username.getText()); // Se o usuário existir no banco é instânciado o novo frame =>
-            //=> passando como parâmetro o nome do usuário, para printar mensagens personalizadas, e =>
-            //=> a própria conexão para não ficar instânciando novas conexões nos outros frames
-            //main.setExtendedState(JFrame.MAXIMIZED_BOTH); // Inicializa o frame main com full screen
-            main.setExtendedState(6); // Inicializa o frame main com full screen
-            main.setLocationRelativeTo(null); // Inicializa o frame main centralizado na tela
-            main.setVisible(true); // Muda a visibilidade do novo frame instânciado para visível
-            dispose(); // Fecha a tela atual 
-        } catch (SQLException ex) { // Caso a validação do usuário falhe é lançado uma exception
-            JOptionPane.showMessageDialog(null, "Usuário/Senha estão incorretos", "ERRO", JOptionPane.ERROR_MESSAGE); // Cria uma tela de aviso ao usuário
-            username.setText("Username"); // O texto do campo username é alterado para o valor padrão
-            password.setText("Password"); // O texto do campo password é alterado para o valor padrão
-            password.setEchoChar(Character.forDigit(0, 0)); // O texto do campo password é alterado como caracteres visíveis
-            exit.requestFocus(); // O foco é alterado para o botão exit
-        }
-    }// Fim do método para validar se o usuário está cadastrado no banco
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -245,13 +220,21 @@ public class Login extends javax.swing.JFrame {
 
     private void exitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitActionPerformed
         // Método para realizar o encerramento da aplicação
-        con.disconnection(); // Realiza da desconexão com o banco
+        controllerLogin.disconnection(); // Realiza da desconexão com o banco
         System.exit(0); // Fecha o frame da aplicação
     }//GEN-LAST:event_exitActionPerformed
 
     private void logonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logonActionPerformed
         // Método para chamar a método logar, responsável por realizar o login ao sistema 
-        logar(); // Chama o método logar
+        String[] resp = controllerLogin.logar(username.getText(), password.getText()); // Chama o método logar
+        if(resp[0].equals("SUCCESS")){
+            dispose();
+        } else {
+            username.setText("Username");
+            password.setText("Password");
+            password.setEchoChar(Character.forDigit(0, 0));
+            exit.requestFocus();
+        }
     }//GEN-LAST:event_logonActionPerformed
 
     private void logonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logonMouseEntered
@@ -267,7 +250,15 @@ public class Login extends javax.swing.JFrame {
     private void passwordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passwordKeyPressed
         // Método para realizar o login quando a tecla 'ENTER' for pressinada e estiver no campo password
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) { // Verifica se a tecla 'ENTER' foi pressionada
-            logar(); // Chama o método logar
+            String[] resp = controllerLogin.logar(username.getText(), password.getText()); // Chama o método logar
+            if(resp[0].equals("SUCCESS")){
+            dispose();
+        } else {
+            username.setText("Username");
+            password.setText("Password");
+            password.setEchoChar(Character.forDigit(0, 0));
+            exit.requestFocus();
+        }
         } // Fim da verificação
     }//GEN-LAST:event_passwordKeyPressed
 

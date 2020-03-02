@@ -241,18 +241,18 @@ public class AddUser extends javax.swing.JFrame {
 
         jPasswordField1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jPasswordField1.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        jPanel5.add(jPasswordField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, 310, 40));
+        jPanel5.add(jPasswordField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, 310, 30));
 
-        jLabel12.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel12.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(255, 255, 255));
         jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel12.setText(" Confirma Senha :  ");
         jPanel5.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 310, 40));
 
         jTextFieldSenha.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jPanel5.add(jTextFieldSenha, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, 310, 40));
+        jPanel5.add(jTextFieldSenha, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, 310, 30));
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel2.setText("Senha :  ");
@@ -264,26 +264,26 @@ public class AddUser extends javax.swing.JFrame {
                 jTextFieldLoginKeyTyped(evt);
             }
         });
-        jPanel5.add(jTextFieldLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 310, 40));
+        jPanel5.add(jTextFieldLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 310, 30));
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel1.setText("Login :  ");
         jPanel5.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 310, 40));
 
-        jPanel4.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 400, 350, 280));
+        jPanel4.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 360, 350, 280));
 
-        jLabel14.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
+        jLabel14.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         jLabel14.setForeground(new java.awt.Color(255, 255, 255));
         jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel14.setText("Novo Usuário");
-        jPanel4.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 780, 80));
+        jPanel4.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 780, 40));
 
         jPanel6.setBackground(new java.awt.Color(84, 127, 206));
         jPanel6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel4.setText("Nome :  ");
@@ -296,9 +296,9 @@ public class AddUser extends javax.swing.JFrame {
                 jTextFieldNomeKeyTyped(evt);
             }
         });
-        jPanel6.add(jTextFieldNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 310, 40));
+        jPanel6.add(jTextFieldNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 310, 30));
 
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel5.setText("Sobrenome :  ");
@@ -311,9 +311,9 @@ public class AddUser extends javax.swing.JFrame {
                 jTextFieldSobreNomeKeyTyped(evt);
             }
         });
-        jPanel6.add(jTextFieldSobreNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, 310, 40));
+        jPanel6.add(jTextFieldSobreNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, 310, 30));
 
-        jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel9.setText("CPF :  ");
@@ -326,9 +326,9 @@ public class AddUser extends javax.swing.JFrame {
                 jTextFieldCPFKeyTyped(evt);
             }
         });
-        jPanel6.add(jTextFieldCPF, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, 310, 40));
+        jPanel6.add(jTextFieldCPF, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, 310, 30));
 
-        jLabel11.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel11.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(255, 255, 255));
         jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel11.setText("Telefone :  ");
@@ -341,9 +341,9 @@ public class AddUser extends javax.swing.JFrame {
                 jTextFieldTelefoneKeyTyped(evt);
             }
         });
-        jPanel6.add(jTextFieldTelefone, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 300, 310, 40));
+        jPanel6.add(jTextFieldTelefone, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 300, 310, 30));
 
-        jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel10.setText("Celular :  ");
@@ -356,9 +356,9 @@ public class AddUser extends javax.swing.JFrame {
                 jTextFieldCelularKeyTyped(evt);
             }
         });
-        jPanel6.add(jTextFieldCelular, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 380, 310, 40));
+        jPanel6.add(jTextFieldCelular, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 380, 310, 30));
 
-        jLabel18.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel18.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
         jLabel18.setForeground(new java.awt.Color(255, 255, 255));
         jLabel18.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel18.setText("E-mail :");
@@ -371,9 +371,9 @@ public class AddUser extends javax.swing.JFrame {
                 jTextFieldEmailKeyTyped(evt);
             }
         });
-        jPanel6.add(jTextFieldEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 460, 310, 50));
+        jPanel6.add(jTextFieldEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 460, 310, 30));
 
-        jPanel4.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 110, 350, 570));
+        jPanel4.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, 350, 570));
 
         jPanel7.setBackground(new java.awt.Color(84, 127, 206));
         jPanel7.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -384,38 +384,38 @@ public class AddUser extends javax.swing.JFrame {
                 jTextFieldCargoKeyTyped(evt);
             }
         });
-        jPanel7.add(jTextFieldCargo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 310, 40));
+        jPanel7.add(jTextFieldCargo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 310, 30));
 
-        jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel6.setText("Cargo :  ");
         jPanel7.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 310, 40));
 
-        jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel7.setText("Status :  ");
         jPanel7.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 310, 40));
 
-        jComboBoxStatus.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jComboBoxStatus.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jComboBoxStatus.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Ativo", "Inativo" }));
         jComboBoxStatus.setBorder(null);
         jComboBoxStatus.setEnabled(false);
-        jPanel7.add(jComboBoxStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, 310, 40));
+        jPanel7.add(jComboBoxStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, 310, 30));
 
-        jComboBoxTipo.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jComboBoxTipo.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jComboBoxTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Administrador", "Usuário" }));
         jComboBoxTipo.setBorder(null);
-        jPanel7.add(jComboBoxTipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, 310, 40));
+        jPanel7.add(jComboBoxTipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, 310, 30));
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel3.setText("Tipo :  ");
         jPanel7.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 310, 40));
 
-        jPanel4.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 110, 350, 280));
+        jPanel4.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 70, 350, 280));
 
         addUser.setBackground(new java.awt.Color(84, 127, 206));
         addUser.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -435,7 +435,7 @@ public class AddUser extends javax.swing.JFrame {
         jLabel15.setText("Inserir Usuário");
         addUser.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 69, 326, 48));
 
-        jPanel4.add(addUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 730, 350, 130));
+        jPanel4.add(addUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 650, 350, 130));
 
         cleanUser.setBackground(new java.awt.Color(84, 127, 206));
         cleanUser.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -455,9 +455,9 @@ public class AddUser extends javax.swing.JFrame {
         jLabel16.setText("Limpar Campos");
         cleanUser.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 69, 326, 48));
 
-        jPanel4.add(cleanUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 730, 350, 130));
+        jPanel4.add(cleanUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 650, 350, 130));
 
-        getContentPane().add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 780, 900));
+        getContentPane().add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 780, 810));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

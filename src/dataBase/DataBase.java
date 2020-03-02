@@ -10,7 +10,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.StringTokenizer;
 import javax.swing.DefaultCellEditor;
 import javax.swing.JComboBox;
@@ -30,13 +29,14 @@ public class DataBase {
     private final String caminho = "jdbc:mysql://127.0.0.1:3306/projeto_nf";
     private final String usuario = "root";
     private final String senha = "root";
+    
     /*PARA HABILITAR O AZURE DESCOMENTE ESSE CODIGO E O DA LINHA 88*/
-    /*
-    private final String driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
+    
+    /*private final String driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
     private final String caminho = "jdbc:sqlserver://samwall.database.windows.net;databaseName=projeto_nf";
     private final String usuario = "samwall";
-    private final String senha = "root_s4mw4a!!";
-    */
+    private final String senha = "root_s4mw4a!!";*/
+    
     
     public static synchronized DataBase getInstance(){
         if (INSTANCIA == null){
@@ -45,12 +45,16 @@ public class DataBase {
         return INSTANCIA;
     }
 
+    public static synchronized String SHA1(String s){
+        return "sys.fn_varbintohexsubstring(0, HASHBYTES('SHA1','" + s + "'), 1, 0)";
+    }
+
     public void connection() {
         try {
             System.setProperty("jdbc.Drivers", driver);
             con = DriverManager.getConnection(caminho, usuario, senha);
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Connection unsuccessfully completed : \n "
+            JOptionPane.showMessageDialog(null, "Erro de conexão : \n "
                     + ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
             System.exit(0);
         }
@@ -60,7 +64,7 @@ public class DataBase {
         try {
             con.close();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Disconnection unsuccessfully completed :\n"
+            JOptionPane.showMessageDialog(null, "Erro de disconexão : \n"
                     + ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
         }
     }
@@ -80,6 +84,46 @@ public class DataBase {
         }
         query = controller == 0 ? "" : " WHERE " + query;
         return "SELECT * FROM " + table + query;
+    }
+    
+
+    public void select(String table, String[] campos, String[] wheres ) throws SQLException {
+        try {
+            String command = "SELECT ";
+            for (int i=0; i<campos.length; i++) {
+                if(!campos[i].equals("")){
+                    command += campos[i];
+                    if(campos.length-1 != i){
+                        command += ",";
+                    }
+                    command += " ";
+                }
+            }
+            command += "FROM " + table;
+            if(wheres.length > -1){
+                command += " WHERE ";
+                for (int i=0; i<wheres.length; i++) {
+                    command += !wheres[i].contains("sys.fn_varbintohexsubstring") ? campos[i] + "='" + wheres[i] + "'" : campos[i] + "=" + wheres[i];
+                    if(wheres.length-1 != i){
+                        command += " AND";
+                    }
+                    command += " ";
+                }
+            }
+            command += ";";
+            stm = con.createStatement();
+            System.out.println(command);
+            rs = stm.executeQuery(command);
+            if (rs.next()) {
+                for(String campo : campos){
+                    rs.getString(campo);
+                }
+            } else {
+                throw new SQLException();
+            }
+        } catch (SQLException ex) {
+            throw new SQLException();
+        }
     }
 
     public void selectLoginCommandSQL(String username, String password) throws SQLException {
