@@ -586,7 +586,7 @@ public class SearchNF extends javax.swing.JFrame {
 
     private void returnScreenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_returnScreenActionPerformed
         // Botão para voltar à tela anterior
-        Main main = new Main(userName.getText(), con);
+        Main main = new Main(userName.getText());
         main.setVisible(true);
         dispose();
     }//GEN-LAST:event_returnScreenActionPerformed
@@ -745,7 +745,7 @@ public class SearchNF extends javax.swing.JFrame {
                 int id_colab = con.obterColab("SELECT ID_USER FROM COLABORADORES WHERE LOGIN= '" + user + "'");
 
                 con.updateNota("UPDATE nf_a SET ID_FORNECEDOR_FK= " + fornece + "," + " VALOR_NF =" + valor + ", QTD_PARCELA=" + parcela + ", " + " ID_COLAB_FK=" + id_colab + ", STATUS_NF='" + status + "', " + " OBSERVACOES='" + obs + "' WHERE NUM_NF =" + jTextFieldNumNF.getText());
-                Main main = new Main(userName.getText(), con);
+                Main main = new Main(userName.getText());
                 main.setVisible(true);
                 dispose();
             } catch (SQLException e) {

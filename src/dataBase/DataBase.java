@@ -25,17 +25,20 @@ public class DataBase {
     private Connection con;
     private Statement stm;
     private ResultSet rs;
+    
+    /*
     private final String driver = "com.mysql.jdbc.Driver";
     private final String caminho = "jdbc:mysql://127.0.0.1:3306/projeto_nf";
     private final String usuario = "root";
     private final String senha = "root";
+    */
     
     /*PARA HABILITAR O AZURE DESCOMENTE ESSE CODIGO E O DA LINHA 88*/
     
-    /*private final String driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
+    private final String driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
     private final String caminho = "jdbc:sqlserver://samwall.database.windows.net;databaseName=projeto_nf";
     private final String usuario = "samwall";
-    private final String senha = "root_s4mw4a!!";*/
+    private final String senha = "root_s4mw4a!!";
     
     
     public static synchronized DataBase getInstance(){
@@ -87,7 +90,8 @@ public class DataBase {
     }
     
 
-    public void select(String table, String[] campos, String[] wheres ) throws SQLException {
+    public ArrayList select(String table, String[] campos, String[] wheres ) throws SQLException {
+        ArrayList arrayReturn = new ArrayList<>();
         try {
             String command = "SELECT ";
             for (int i=0; i<campos.length; i++) {
@@ -116,7 +120,7 @@ public class DataBase {
             rs = stm.executeQuery(command);
             if (rs.next()) {
                 for(String campo : campos){
-                    rs.getString(campo);
+                    arrayReturn.add(rs.getString(campo));
                 }
             } else {
                 throw new SQLException();
@@ -124,6 +128,7 @@ public class DataBase {
         } catch (SQLException ex) {
             throw new SQLException();
         }
+        return arrayReturn;
     }
 
     public void selectLoginCommandSQL(String username, String password) throws SQLException {

@@ -1,15 +1,13 @@
 package screens;
 
 //==================================> Importações pertinentes á execução do frame
-import com.jtattoo.plaf.DecorationHelper;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import javax.swing.UIManager;
-import controller.controllerLogin;
+import controller.ControllerLogin;
 //==================================> Fim das importações
 
 public class Login extends javax.swing.JFrame {
@@ -17,7 +15,7 @@ public class Login extends javax.swing.JFrame {
     public Login() {  // Método para instanciar o frame login
         initComponents(); // Inicia Componentes do frame de login
         password.setEchoChar(Character.forDigit(0, 0)); // Inicializa o campo password como caracteres visíveis
-        controllerLogin.connection(); // Inicializa a conexão com o banco de dados
+        ControllerLogin.connection(this); // Inicializa a conexão com o banco de dados
         this.setLocationRelativeTo(null); // Inicializa o frame centralizado na tela
     } // Fim do método de instanciação
 
@@ -220,21 +218,17 @@ public class Login extends javax.swing.JFrame {
 
     private void exitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitActionPerformed
         // Método para realizar o encerramento da aplicação
-        controllerLogin.disconnection(); // Realiza da desconexão com o banco
+        ControllerLogin.disconnection(this); // Realiza da desconexão com o banco
         System.exit(0); // Fecha o frame da aplicação
     }//GEN-LAST:event_exitActionPerformed
 
     private void logonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logonActionPerformed
         // Método para chamar a método logar, responsável por realizar o login ao sistema 
-        String[] resp = controllerLogin.logar(username.getText(), password.getText()); // Chama o método logar
-        if(resp[0].equals("SUCCESS")){
-            dispose();
-        } else {
-            username.setText("Username");
-            password.setText("Password");
-            password.setEchoChar(Character.forDigit(0, 0));
-            exit.requestFocus();
-        }
+        String[] resp = ControllerLogin.logar(username.getText(), password.getText(), this); // Chama o método logar
+        username.setText("Username");
+        password.setText("Password");
+        password.setEchoChar(Character.forDigit(0, 0));
+        exit.requestFocus();
     }//GEN-LAST:event_logonActionPerformed
 
     private void logonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logonMouseEntered
@@ -250,15 +244,11 @@ public class Login extends javax.swing.JFrame {
     private void passwordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passwordKeyPressed
         // Método para realizar o login quando a tecla 'ENTER' for pressinada e estiver no campo password
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) { // Verifica se a tecla 'ENTER' foi pressionada
-            String[] resp = controllerLogin.logar(username.getText(), password.getText()); // Chama o método logar
-            if(resp[0].equals("SUCCESS")){
-            dispose();
-        } else {
+            String[] resp = ControllerLogin.logar(username.getText(), password.getText(), this); // Chama o método logar
             username.setText("Username");
             password.setText("Password");
             password.setEchoChar(Character.forDigit(0, 0));
             exit.requestFocus();
-        }
         } // Fim da verificação
     }//GEN-LAST:event_passwordKeyPressed
 
@@ -274,25 +264,6 @@ public class Login extends javax.swing.JFrame {
             evt.consume();// Não deixa ele ser escrito
         } // Fim da vetificação
     }//GEN-LAST:event_usernameKeyTyped
-
-    public static void main(String args[]) { // Método Main, responsável por iniciar a aplicação
-        try { // Tentar usar o LookAndFeel da API jtattoo
-            UIManager.setLookAndFeel("com.jtattoo.plaf.graphite.GraphiteLookAndFeel"); // Escolha do tema a ser usado
-            DecorationHelper.decorateWindows(false); // Desativa os botões de Minimizar, Maximizar e Redimensionar do frame
-        } catch (ClassNotFoundException
-                | InstantiationException
-                | IllegalAccessException
-                | javax.swing.UnsupportedLookAndFeelException ex) { // Caso ocorra alguma exception
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex); // Mostra o erro pertinente a exception 
-        }
-
-        java.awt.EventQueue.invokeLater(() -> { // Método para instânciar o frame Login
-            Login frame = new Login(); // Instânciação do frame
-            frame.setVisible(true); // Mudando a visibilidade como visível
-            frame.requestFocus(); // Mudando o foco para o frame
-        }); // Fim do método de invocação
-    } // Fim do método Main
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel background;
     private javax.swing.JButton exit;

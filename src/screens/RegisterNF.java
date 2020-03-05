@@ -496,7 +496,7 @@ public class RegisterNF extends javax.swing.JFrame {
 
     private void returnScreenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_returnScreenActionPerformed
         // Botão para voltar à tela anterior
-        Main main = new Main(userName.getText(), con);
+        Main main = new Main(userName.getText());
         main.setVisible(true);
         dispose();
     }//GEN-LAST:event_returnScreenActionPerformed
@@ -678,7 +678,7 @@ public class RegisterNF extends javax.swing.JFrame {
             Double valor = new Double(jTextFieldValor.getText());
             try {
                 con.updateNota("UPDATE nf_a SET VALOR_NF =" + valor + " WHERE NUM_NF =" + jTextFieldNumNF.getText());
-                Main main = new Main(userName.getText(), con);
+                Main main = new Main(userName.getText());
                 main.setVisible(true);
                 dispose();
             } catch (SQLException e) {

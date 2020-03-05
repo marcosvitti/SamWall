@@ -7,13 +7,14 @@ import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 //==================================> Fim das importações
 
 public class Main extends javax.swing.JFrame {
 
-    private DataBase con = DataBase.getInstance(); // Declaração da variável interações com o banco de dados
+    private final DataBase con = DataBase.getInstance(); // Declaração da variável interações com o banco de dados
 
     public Main(String username) { // Método para instanciar o frame main
         initComponents(); // Inicia Componentes do frame de main
@@ -30,7 +31,9 @@ public class Main extends javax.swing.JFrame {
 
     private String buscaUserName(String username, DataBase con) { // Método para buscar o nome do colaborador pelo seu username 
         try { // Tentar realizar a busca pelo usuário
-            return con.selectUserNameCommandSQL(username); // Retorna o resposta da função, o nome completo do usuário
+            //return con.selectUserNameCommandSQL(username); // Retorna o resposta da função, o nome completo do usuário
+            ArrayList nome = con.select("COLABORADORES", new String[] {"LOGIN","NOME","SOBRENOME"}, new String[] {username}); // Retorna o resposta da função, o nome completo do usuário
+            return nome.get(1) + " " + nome.get(2);
         } catch (SQLException ex) { // Caso a busca do usuário falhe é lançado uma exception
             JOptionPane.showMessageDialog(null, "Usuário não encontrado", "ERROR", JOptionPane.ERROR_MESSAGE); // Mostra um aviso para o usuário
         }

@@ -496,7 +496,7 @@ public class AddUser extends javax.swing.JFrame {
             }
             
             con.inserirDados("INSERT INTO colaboradores ( LOGIN, SENHA, NOME, SOBRENOME, CARGO, TELEFONE, CELULAR, CPF, DATA_CADASTRO, STATUS, TIPO, EMAIL) "
-                    + "VALUES ('" + login + "',SHA1('" + senha + "'),'" + nome + "','" + sobrenome + "','" + cargo + "','" + telefone + "','" + celular + "','" + cpf + "', NOW(), " + status + ",'" + tipo + "','" + email + "');");
+                    + "VALUES ('" + login + "'," + DataBase.SHA1(senha) + ",'" + nome + "','" + sobrenome + "','" + cargo + "','" + telefone + "','" + celular + "','" + cpf + "', getdate(), " + status + ",'" + tipo + "','" + email + "');");
             // Realiza a inserção do novo usuário no banco
             JOptionPane.showMessageDialog(null, "Usuário cadastrado com sucesso!", "SUCESSO", JOptionPane.INFORMATION_MESSAGE); // Mostra a mensagem de sucesso
 
