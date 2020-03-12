@@ -20,8 +20,8 @@ public class Main extends javax.swing.JFrame {
         initComponents(); // Inicia Componentes do frame de main
         userName.setText(buscaUserName(username, con)); // Definir o nome do usuário usando o método buscaUserName
         tipoUser(username); // Verificar o tipo de prioridade do usuário
-        resetPanels(new JPanel[]{jPanelPerfil, jPanelGerenciamentoUser, jPanelGerenciamentoNotasFiscais}); // Chama a função para esconder os panels do menu
-        side_pane.setPreferredSize(new Dimension(160, Toolkit.getDefaultToolkit().getScreenSize().height)); // Defini o tamanho da barra do menu lateral esquerdo
+        resetPanels(new JPanel[]{jPanelPerfil, jPanelGerenciamentoUser, jPanelGerenciamentoNotasFiscais, jPanelGerenciamentoPedidoCompra}); // Chama a função para esconder os panels do menu
+        side_pane.setPreferredSize(new Dimension(170, Toolkit.getDefaultToolkit().getScreenSize().height)); // Defini o tamanho da barra do menu lateral esquerdo
     } // Fim do método de instanciação
 
     @Override
@@ -81,15 +81,18 @@ public class Main extends javax.swing.JFrame {
         btnHome = new javax.swing.JPanel();
         ind_1 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
+        btnPC = new javax.swing.JPanel();
+        jLabel12 = new javax.swing.JLabel();
+        ind_4 = new javax.swing.JPanel();
         btnNotasFiscais = new javax.swing.JPanel();
         ind_2 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
+        btPerfil = new javax.swing.JPanel();
+        jLabel16 = new javax.swing.JLabel();
+        ind_6 = new javax.swing.JPanel();
         btnUsuarios = new javax.swing.JPanel();
-        ind_3 = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
-        btnPerfil = new javax.swing.JPanel();
-        ind_4 = new javax.swing.JPanel();
-        jLabel12 = new javax.swing.JLabel();
+        ind_3 = new javax.swing.JPanel();
         jPanelGerenciamentoUser = new javax.swing.JPanel();
         addUser = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
@@ -110,26 +113,18 @@ public class Main extends javax.swing.JFrame {
         tittleGerenciamentoUser = new javax.swing.JPanel();
         jLabel27 = new javax.swing.JLabel();
         jSeparator6 = new javax.swing.JSeparator();
-        jPanelGerenciamentoNotasFiscais = new javax.swing.JPanel();
-        addNF = new javax.swing.JPanel();
-        jLabel8 = new javax.swing.JLabel();
-        jSeparator10 = new javax.swing.JSeparator();
-        jLabel15 = new javax.swing.JLabel();
-        editNF = new javax.swing.JPanel();
-        jLabel29 = new javax.swing.JLabel();
-        jSeparator11 = new javax.swing.JSeparator();
-        jLabel30 = new javax.swing.JLabel();
-        listNF = new javax.swing.JPanel();
-        jLabel31 = new javax.swing.JLabel();
-        jSeparator12 = new javax.swing.JSeparator();
-        jLabel32 = new javax.swing.JLabel();
-        blockNF = new javax.swing.JPanel();
-        jLabel33 = new javax.swing.JLabel();
-        jSeparator13 = new javax.swing.JSeparator();
-        jLabel34 = new javax.swing.JLabel();
-        tittleGerenciamentoUser1 = new javax.swing.JPanel();
-        jLabel35 = new javax.swing.JLabel();
-        jSeparator14 = new javax.swing.JSeparator();
+        jPanelGerenciamentoPedidoCompra = new javax.swing.JPanel();
+        addNF1 = new javax.swing.JPanel();
+        jLabel13 = new javax.swing.JLabel();
+        jSeparator15 = new javax.swing.JSeparator();
+        jLabel36 = new javax.swing.JLabel();
+        listNF1 = new javax.swing.JPanel();
+        jLabel39 = new javax.swing.JLabel();
+        jSeparator17 = new javax.swing.JSeparator();
+        jLabel40 = new javax.swing.JLabel();
+        tittleGerenciamentoUser2 = new javax.swing.JPanel();
+        jLabel43 = new javax.swing.JLabel();
+        jSeparator19 = new javax.swing.JSeparator();
         jPanelPerfil = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         btn_exit = new javax.swing.JLabel();
@@ -146,6 +141,18 @@ public class Main extends javax.swing.JFrame {
         jLabel19 = new javax.swing.JLabel();
         jSeparator8 = new javax.swing.JSeparator();
         jLabel20 = new javax.swing.JLabel();
+        jPanelGerenciamentoNotasFiscais = new javax.swing.JPanel();
+        editNF = new javax.swing.JPanel();
+        jLabel29 = new javax.swing.JLabel();
+        jSeparator11 = new javax.swing.JSeparator();
+        jLabel30 = new javax.swing.JLabel();
+        listNF = new javax.swing.JPanel();
+        jLabel31 = new javax.swing.JLabel();
+        jSeparator12 = new javax.swing.JSeparator();
+        jLabel32 = new javax.swing.JLabel();
+        tittleGerenciamentoUser1 = new javax.swing.JPanel();
+        jLabel35 = new javax.swing.JLabel();
+        jSeparator14 = new javax.swing.JSeparator();
         jLabel2 = new javax.swing.JLabel();
         search = new javax.swing.JButton();
         listar = new javax.swing.JButton();
@@ -154,6 +161,11 @@ public class Main extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setIconImage(getIconImage());
         setSize(new java.awt.Dimension(0, 0));
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                formMouseEntered(evt);
+            }
+        });
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
@@ -187,7 +199,7 @@ public class Main extends javax.swing.JFrame {
         ind_1.setLayout(ind_1Layout);
         ind_1Layout.setHorizontalGroup(
             ind_1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 3, Short.MAX_VALUE)
+            .addGap(0, 1, Short.MAX_VALUE)
         );
         ind_1Layout.setVerticalGroup(
             ind_1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -203,23 +215,71 @@ public class Main extends javax.swing.JFrame {
         btnHomeLayout.setHorizontalGroup(
             btnHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(btnHomeLayout.createSequentialGroup()
-                .addComponent(ind_1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(ind_1, javax.swing.GroupLayout.PREFERRED_SIZE, 1, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         btnHomeLayout.setVerticalGroup(
             btnHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(btnHomeLayout.createSequentialGroup()
                 .addComponent(ind_1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(btnHomeLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        side_pane.add(btnHome, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 120, 160, -1));
+        side_pane.add(btnHome, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 150, 170, -1));
+
+        btnPC.setBackground(new java.awt.Color(23, 35, 51));
+        btnPC.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnPC.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnPCMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnPCMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnPCMouseExited(evt);
+            }
+        });
+
+        jLabel12.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel12.setText("Pedido de Compra");
+
+        ind_4.setOpaque(false);
+        ind_4.setPreferredSize(new java.awt.Dimension(3, 51));
+
+        javax.swing.GroupLayout ind_4Layout = new javax.swing.GroupLayout(ind_4);
+        ind_4.setLayout(ind_4Layout);
+        ind_4Layout.setHorizontalGroup(
+            ind_4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1, Short.MAX_VALUE)
+        );
+        ind_4Layout.setVerticalGroup(
+            ind_4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 51, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout btnPCLayout = new javax.swing.GroupLayout(btnPC);
+        btnPC.setLayout(btnPCLayout);
+        btnPCLayout.setHorizontalGroup(
+            btnPCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btnPCLayout.createSequentialGroup()
+                .addComponent(ind_4, javax.swing.GroupLayout.PREFERRED_SIZE, 1, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, 165, Short.MAX_VALUE))
+        );
+        btnPCLayout.setVerticalGroup(
+            btnPCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(ind_4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(btnPCLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel12))
+        );
+
+        side_pane.add(btnPC, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 210, 170, -1));
 
         btnNotasFiscais.setBackground(new java.awt.Color(23, 35, 51));
         btnNotasFiscais.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -242,11 +302,11 @@ public class Main extends javax.swing.JFrame {
         ind_2.setLayout(ind_2Layout);
         ind_2Layout.setHorizontalGroup(
             ind_2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 3, Short.MAX_VALUE)
+            .addGap(0, 1, Short.MAX_VALUE)
         );
         ind_2Layout.setVerticalGroup(
             ind_2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 51, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -258,23 +318,75 @@ public class Main extends javax.swing.JFrame {
         btnNotasFiscaisLayout.setHorizontalGroup(
             btnNotasFiscaisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(btnNotasFiscaisLayout.createSequentialGroup()
-                .addComponent(ind_2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(ind_2, javax.swing.GroupLayout.PREFERRED_SIZE, 1, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         btnNotasFiscaisLayout.setVerticalGroup(
             btnNotasFiscaisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnNotasFiscaisLayout.createSequentialGroup()
-                .addComponent(ind_2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(btnNotasFiscaisLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(ind_2, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnNotasFiscaisLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
-        side_pane.add(btnNotasFiscais, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 170, 160, 50));
+        side_pane.add(btnNotasFiscais, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 270, 170, -1));
+
+        btPerfil.setBackground(new java.awt.Color(23, 35, 51));
+        btPerfil.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btPerfil.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btPerfilMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btPerfilMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btPerfilMouseExited(evt);
+            }
+        });
+
+        jLabel16.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel16.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel16.setText("Perfil");
+
+        ind_6.setOpaque(false);
+        ind_6.setPreferredSize(new java.awt.Dimension(3, 51));
+
+        javax.swing.GroupLayout ind_6Layout = new javax.swing.GroupLayout(ind_6);
+        ind_6.setLayout(ind_6Layout);
+        ind_6Layout.setHorizontalGroup(
+            ind_6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 2, Short.MAX_VALUE)
+        );
+        ind_6Layout.setVerticalGroup(
+            ind_6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout btPerfilLayout = new javax.swing.GroupLayout(btPerfil);
+        btPerfil.setLayout(btPerfilLayout);
+        btPerfilLayout.setHorizontalGroup(
+            btPerfilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btPerfilLayout.createSequentialGroup()
+                .addComponent(ind_6, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        btPerfilLayout.setVerticalGroup(
+            btPerfilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(ind_6, javax.swing.GroupLayout.DEFAULT_SIZE, 54, Short.MAX_VALUE)
+            .addGroup(btPerfilLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel16)
+                .addContainerGap(18, Short.MAX_VALUE))
+        );
+
+        side_pane.add(btPerfil, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 330, 170, -1));
+        btPerfil.getAccessibleContext().setAccessibleName("Perfil");
 
         btnUsuarios.setBackground(new java.awt.Color(23, 35, 51));
         btnUsuarios.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -290,6 +402,10 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
+        jLabel11.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel11.setText("Usuários");
+
         ind_3.setOpaque(false);
         ind_3.setPreferredSize(new java.awt.Dimension(3, 51));
 
@@ -297,98 +413,42 @@ public class Main extends javax.swing.JFrame {
         ind_3.setLayout(ind_3Layout);
         ind_3Layout.setHorizontalGroup(
             ind_3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 3, Short.MAX_VALUE)
+            .addGap(0, 1, Short.MAX_VALUE)
         );
         ind_3Layout.setVerticalGroup(
             ind_3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 51, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
-
-        jLabel11.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel11.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel11.setText("Usuários");
 
         javax.swing.GroupLayout btnUsuariosLayout = new javax.swing.GroupLayout(btnUsuarios);
         btnUsuarios.setLayout(btnUsuariosLayout);
         btnUsuariosLayout.setHorizontalGroup(
             btnUsuariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(btnUsuariosLayout.createSequentialGroup()
-                .addComponent(ind_3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(ind_3, javax.swing.GroupLayout.PREFERRED_SIZE, 1, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         btnUsuariosLayout.setVerticalGroup(
             btnUsuariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnUsuariosLayout.createSequentialGroup()
-                .addComponent(ind_3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(btnUsuariosLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnUsuariosLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(11, 11, 11))
+            .addComponent(ind_3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
         );
 
-        side_pane.add(btnUsuarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 220, 160, -1));
-
-        btnPerfil.setBackground(new java.awt.Color(23, 35, 51));
-        btnPerfil.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnPerfil.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnPerfilMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnPerfilMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnPerfilMouseExited(evt);
-            }
-        });
-
-        ind_4.setOpaque(false);
-        ind_4.setPreferredSize(new java.awt.Dimension(3, 51));
-
-        javax.swing.GroupLayout ind_4Layout = new javax.swing.GroupLayout(ind_4);
-        ind_4.setLayout(ind_4Layout);
-        ind_4Layout.setHorizontalGroup(
-            ind_4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 3, Short.MAX_VALUE)
-        );
-        ind_4Layout.setVerticalGroup(
-            ind_4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 51, Short.MAX_VALUE)
-        );
-
-        jLabel12.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel12.setText("Perfil");
-
-        javax.swing.GroupLayout btnPerfilLayout = new javax.swing.GroupLayout(btnPerfil);
-        btnPerfil.setLayout(btnPerfilLayout);
-        btnPerfilLayout.setHorizontalGroup(
-            btnPerfilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnPerfilLayout.createSequentialGroup()
-                .addComponent(ind_4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        btnPerfilLayout.setVerticalGroup(
-            btnPerfilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnPerfilLayout.createSequentialGroup()
-                .addComponent(ind_4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(btnPerfilLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-
-        side_pane.add(btnPerfil, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 270, 160, -1));
+        side_pane.add(btnUsuarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 380, 170, 50));
 
         getContentPane().add(side_pane, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         jPanelGerenciamentoUser.setBackground(new java.awt.Color(71, 120, 197));
+        jPanelGerenciamentoUser.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jPanelGerenciamentoUserMouseEntered(evt);
+            }
+        });
         jPanelGerenciamentoUser.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         addUser.setBackground(new java.awt.Color(84, 127, 206));
@@ -469,7 +529,7 @@ public class Main extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(15, 15, 15)
-                .addComponent(jLabel18, javax.swing.GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE)
+                .addComponent(jLabel18, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -588,201 +648,137 @@ public class Main extends javax.swing.JFrame {
 
         jPanelGerenciamentoUser.add(tittleGerenciamentoUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(2, 13, 500, -1));
 
-        getContentPane().add(jPanelGerenciamentoUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 220, 500, 450));
+        getContentPane().add(jPanelGerenciamentoUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 390, 500, 440));
 
-        jPanelGerenciamentoNotasFiscais.setBackground(new java.awt.Color(71, 120, 197));
-        jPanelGerenciamentoNotasFiscais.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jPanelGerenciamentoPedidoCompra.setBackground(new java.awt.Color(71, 120, 197));
+        jPanelGerenciamentoPedidoCompra.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jPanelGerenciamentoPedidoCompraMouseEntered(evt);
+            }
+        });
+        jPanelGerenciamentoPedidoCompra.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        addNF.setBackground(new java.awt.Color(84, 127, 206));
-        addNF.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        addNF.addMouseListener(new java.awt.event.MouseAdapter() {
+        addNF1.setBackground(new java.awt.Color(84, 127, 206));
+        addNF1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        addNF1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                addNFMouseClicked(evt);
+                addNF1MouseClicked(evt);
             }
         });
 
-        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/swing/images/icons8_Contacts_25px.png"))); // NOI18N
+        jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/swing/images/icons8_Contacts_25px.png"))); // NOI18N
 
-        jLabel15.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel15.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel15.setText("Nova NF");
+        jLabel36.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel36.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel36.setText("Nova NF");
 
-        javax.swing.GroupLayout addNFLayout = new javax.swing.GroupLayout(addNF);
-        addNF.setLayout(addNFLayout);
-        addNFLayout.setHorizontalGroup(
-            addNFLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, addNFLayout.createSequentialGroup()
+        javax.swing.GroupLayout addNF1Layout = new javax.swing.GroupLayout(addNF1);
+        addNF1.setLayout(addNF1Layout);
+        addNF1Layout.setHorizontalGroup(
+            addNF1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, addNF1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(addNFLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, 196, Short.MAX_VALUE)
-                    .addComponent(jSeparator10, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, addNFLayout.createSequentialGroup()
-                        .addComponent(jLabel8)
+                .addGroup(addNF1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel36, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                    .addComponent(jSeparator15, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, addNF1Layout.createSequentialGroup()
+                        .addComponent(jLabel13)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
-        addNFLayout.setVerticalGroup(
-            addNFLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(addNFLayout.createSequentialGroup()
+        addNF1Layout.setVerticalGroup(
+            addNF1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(addNF1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel8)
+                .addComponent(jLabel13)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jSeparator15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(15, 15, 15)
-                .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel36, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        jPanelGerenciamentoNotasFiscais.add(addNF, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, 220, 160));
+        jPanelGerenciamentoPedidoCompra.add(addNF1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 220, 160));
 
-        editNF.setBackground(new java.awt.Color(84, 127, 206));
-        editNF.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-
-        jLabel29.setIcon(new javax.swing.ImageIcon(getClass().getResource("/novosIcones/iconsEngrenagem.png"))); // NOI18N
-
-        jLabel30.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel30.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel30.setText("Editar NF");
-
-        javax.swing.GroupLayout editNFLayout = new javax.swing.GroupLayout(editNF);
-        editNF.setLayout(editNFLayout);
-        editNFLayout.setHorizontalGroup(
-            editNFLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, editNFLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(editNFLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel30, javax.swing.GroupLayout.DEFAULT_SIZE, 196, Short.MAX_VALUE)
-                    .addComponent(jSeparator11, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, editNFLayout.createSequentialGroup()
-                        .addComponent(jLabel29)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
-        );
-        editNFLayout.setVerticalGroup(
-            editNFLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(editNFLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel29)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(15, 15, 15)
-                .addComponent(jLabel30, javax.swing.GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-
-        jPanelGerenciamentoNotasFiscais.add(editNF, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 110, 220, 160));
-
-        listNF.setBackground(new java.awt.Color(84, 127, 206));
-        listNF.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        listNF.addMouseListener(new java.awt.event.MouseAdapter() {
+        listNF1.setBackground(new java.awt.Color(84, 127, 206));
+        listNF1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        listNF1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                listNFMouseClicked(evt);
+                listNF1MouseClicked(evt);
             }
         });
 
-        jLabel31.setIcon(new javax.swing.ImageIcon(getClass().getResource("/novosIcones/iconsLista.png"))); // NOI18N
+        jLabel39.setIcon(new javax.swing.ImageIcon(getClass().getResource("/novosIcones/iconsLista.png"))); // NOI18N
 
-        jLabel32.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel32.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel32.setText("Listar NF's");
+        jLabel40.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel40.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel40.setText("Listar NF's");
 
-        javax.swing.GroupLayout listNFLayout = new javax.swing.GroupLayout(listNF);
-        listNF.setLayout(listNFLayout);
-        listNFLayout.setHorizontalGroup(
-            listNFLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, listNFLayout.createSequentialGroup()
+        javax.swing.GroupLayout listNF1Layout = new javax.swing.GroupLayout(listNF1);
+        listNF1.setLayout(listNF1Layout);
+        listNF1Layout.setHorizontalGroup(
+            listNF1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, listNF1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(listNFLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel32, javax.swing.GroupLayout.DEFAULT_SIZE, 196, Short.MAX_VALUE)
-                    .addComponent(jSeparator12, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, listNFLayout.createSequentialGroup()
-                        .addComponent(jLabel31)
+                .addGroup(listNF1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel40, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                    .addComponent(jSeparator17, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, listNF1Layout.createSequentialGroup()
+                        .addComponent(jLabel39)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
-        listNFLayout.setVerticalGroup(
-            listNFLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(listNFLayout.createSequentialGroup()
+        listNF1Layout.setVerticalGroup(
+            listNF1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(listNF1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel31, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel39, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jSeparator17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(21, 21, 21)
-                .addComponent(jLabel32, javax.swing.GroupLayout.DEFAULT_SIZE, 78, Short.MAX_VALUE)
+                .addComponent(jLabel40, javax.swing.GroupLayout.DEFAULT_SIZE, 83, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        jPanelGerenciamentoNotasFiscais.add(listNF, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 290, 220, 160));
+        jPanelGerenciamentoPedidoCompra.add(listNF1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 90, 220, 160));
 
-        blockNF.setBackground(new java.awt.Color(84, 127, 206));
-        blockNF.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        tittleGerenciamentoUser2.setBackground(new java.awt.Color(71, 120, 197));
 
-        jLabel33.setIcon(new javax.swing.ImageIcon(getClass().getResource("/novosIcones/iconsLock.png"))); // NOI18N
+        jLabel43.setBackground(new java.awt.Color(80, 120, 206));
+        jLabel43.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        jLabel43.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel43.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel43.setText("Gerenciar Pedidos de Compra");
 
-        jLabel34.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel34.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel34.setText("Bloquear Usuário");
-
-        javax.swing.GroupLayout blockNFLayout = new javax.swing.GroupLayout(blockNF);
-        blockNF.setLayout(blockNFLayout);
-        blockNFLayout.setHorizontalGroup(
-            blockNFLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, blockNFLayout.createSequentialGroup()
+        javax.swing.GroupLayout tittleGerenciamentoUser2Layout = new javax.swing.GroupLayout(tittleGerenciamentoUser2);
+        tittleGerenciamentoUser2.setLayout(tittleGerenciamentoUser2Layout);
+        tittleGerenciamentoUser2Layout.setHorizontalGroup(
+            tittleGerenciamentoUser2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel43, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tittleGerenciamentoUser2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(blockNFLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel34, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jSeparator13, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, blockNFLayout.createSequentialGroup()
-                        .addComponent(jLabel33)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addComponent(jSeparator19)
                 .addContainerGap())
         );
-        blockNFLayout.setVerticalGroup(
-            blockNFLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(blockNFLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel33)
+        tittleGerenciamentoUser2Layout.setVerticalGroup(
+            tittleGerenciamentoUser2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tittleGerenciamentoUser2Layout.createSequentialGroup()
+                .addComponent(jLabel43)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(15, 15, 15)
-                .addComponent(jLabel34, javax.swing.GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jSeparator19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanelGerenciamentoNotasFiscais.add(blockNF, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 290, 220, 160));
+        jPanelGerenciamentoPedidoCompra.add(tittleGerenciamentoUser2, new org.netbeans.lib.awtextra.AbsoluteConstraints(2, 13, 500, 50));
 
-        tittleGerenciamentoUser1.setBackground(new java.awt.Color(71, 120, 197));
-
-        jLabel35.setBackground(new java.awt.Color(80, 120, 206));
-        jLabel35.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
-        jLabel35.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel35.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel35.setText("Gerenciar Notas Fiscais");
-
-        javax.swing.GroupLayout tittleGerenciamentoUser1Layout = new javax.swing.GroupLayout(tittleGerenciamentoUser1);
-        tittleGerenciamentoUser1.setLayout(tittleGerenciamentoUser1Layout);
-        tittleGerenciamentoUser1Layout.setHorizontalGroup(
-            tittleGerenciamentoUser1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel35, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tittleGerenciamentoUser1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jSeparator14)
-                .addContainerGap())
-        );
-        tittleGerenciamentoUser1Layout.setVerticalGroup(
-            tittleGerenciamentoUser1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tittleGerenciamentoUser1Layout.createSequentialGroup()
-                .addComponent(jLabel35)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(21, Short.MAX_VALUE))
-        );
-
-        jPanelGerenciamentoNotasFiscais.add(tittleGerenciamentoUser1, new org.netbeans.lib.awtextra.AbsoluteConstraints(2, 13, 500, -1));
-
-        getContentPane().add(jPanelGerenciamentoNotasFiscais, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 170, 500, 470));
+        getContentPane().add(jPanelGerenciamentoPedidoCompra, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 210, 500, 290));
 
         jPanelPerfil.setBackground(new java.awt.Color(71, 120, 197));
+        jPanelPerfil.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jPanelPerfilMouseEntered(evt);
+            }
+        });
 
         jPanel4.setBackground(new java.awt.Color(120, 168, 252));
         jPanel4.setPreferredSize(new java.awt.Dimension(285, 90));
@@ -915,7 +911,7 @@ public class Main extends javax.swing.JFrame {
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
         jPanelPerfilLayout.setVerticalGroup(
             jPanelPerfilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -931,7 +927,125 @@ public class Main extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanelPerfil, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 270, 340, 440));
+        getContentPane().add(jPanelPerfil, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 330, -1, 440));
+
+        jPanelGerenciamentoNotasFiscais.setBackground(new java.awt.Color(71, 120, 197));
+        jPanelGerenciamentoNotasFiscais.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jPanelGerenciamentoNotasFiscaisMouseEntered(evt);
+            }
+        });
+        jPanelGerenciamentoNotasFiscais.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        editNF.setBackground(new java.awt.Color(84, 127, 206));
+        editNF.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        jLabel29.setIcon(new javax.swing.ImageIcon(getClass().getResource("/novosIcones/iconsEngrenagem.png"))); // NOI18N
+
+        jLabel30.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel30.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel30.setText("Editar NF");
+
+        javax.swing.GroupLayout editNFLayout = new javax.swing.GroupLayout(editNF);
+        editNF.setLayout(editNFLayout);
+        editNFLayout.setHorizontalGroup(
+            editNFLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, editNFLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(editNFLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel30, javax.swing.GroupLayout.DEFAULT_SIZE, 196, Short.MAX_VALUE)
+                    .addComponent(jSeparator11, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, editNFLayout.createSequentialGroup()
+                        .addComponent(jLabel29)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        editNFLayout.setVerticalGroup(
+            editNFLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(editNFLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel29)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15, 15, 15)
+                .addComponent(jLabel30, javax.swing.GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        jPanelGerenciamentoNotasFiscais.add(editNF, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 220, 160));
+
+        listNF.setBackground(new java.awt.Color(84, 127, 206));
+        listNF.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        listNF.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                listNFMouseClicked(evt);
+            }
+        });
+
+        jLabel31.setIcon(new javax.swing.ImageIcon(getClass().getResource("/novosIcones/iconsLista.png"))); // NOI18N
+
+        jLabel32.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel32.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel32.setText("Listar NF's");
+
+        javax.swing.GroupLayout listNFLayout = new javax.swing.GroupLayout(listNF);
+        listNF.setLayout(listNFLayout);
+        listNFLayout.setHorizontalGroup(
+            listNFLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, listNFLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(listNFLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel32, javax.swing.GroupLayout.DEFAULT_SIZE, 196, Short.MAX_VALUE)
+                    .addComponent(jSeparator12, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, listNFLayout.createSequentialGroup()
+                        .addComponent(jLabel31)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        listNFLayout.setVerticalGroup(
+            listNFLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(listNFLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel31, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(21, 21, 21)
+                .addComponent(jLabel32, javax.swing.GroupLayout.DEFAULT_SIZE, 78, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        jPanelGerenciamentoNotasFiscais.add(listNF, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 100, 220, 160));
+
+        tittleGerenciamentoUser1.setBackground(new java.awt.Color(71, 120, 197));
+
+        jLabel35.setBackground(new java.awt.Color(80, 120, 206));
+        jLabel35.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        jLabel35.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel35.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel35.setText("Gerenciar Notas Fiscais");
+
+        javax.swing.GroupLayout tittleGerenciamentoUser1Layout = new javax.swing.GroupLayout(tittleGerenciamentoUser1);
+        tittleGerenciamentoUser1.setLayout(tittleGerenciamentoUser1Layout);
+        tittleGerenciamentoUser1Layout.setHorizontalGroup(
+            tittleGerenciamentoUser1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel35, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tittleGerenciamentoUser1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jSeparator14)
+                .addContainerGap())
+        );
+        tittleGerenciamentoUser1Layout.setVerticalGroup(
+            tittleGerenciamentoUser1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tittleGerenciamentoUser1Layout.createSequentialGroup()
+                .addComponent(jLabel35)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(21, Short.MAX_VALUE))
+        );
+
+        jPanelGerenciamentoNotasFiscais.add(tittleGerenciamentoUser1, new org.netbeans.lib.awtextra.AbsoluteConstraints(2, 13, 500, -1));
+
+        getContentPane().add(jPanelGerenciamentoNotasFiscais, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 270, 500, 280));
 
         jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(51, 51, 51));
@@ -1062,64 +1176,113 @@ public class Main extends javax.swing.JFrame {
 
     private void btnNotasFiscaisMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNotasFiscaisMouseClicked
         // Método para abrir as opções do menu de notas fiscais
-        jPanelGerenciamentoNotasFiscais.setVisible(!jPanelGerenciamentoNotasFiscais.isVisible()); // Método para mudar a visibilidade do menu
-        resetPanels(new JPanel[]{jPanelGerenciamentoUser, jPanelPerfil}); // Método para mudar a visibilidade dos outros menus
+       // jPanelGerenciamentoNotasFiscais.setVisible(!jPanelGerenciamentoNotasFiscais.isVisible()); // Método para mudar a visibilidade do menu
+       // resetPanels(new JPanel[]{jPanelGerenciamentoUser, jPanelPerfil}); // Método para mudar a visibilidade dos outros menus
     }//GEN-LAST:event_btnNotasFiscaisMouseClicked
 
-    private void btnPerfilMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPerfilMouseClicked
-        // Método para abrir as opções do menu de notas fiscais
-        jPanelPerfil.setVisible(!jPanelPerfil.isVisible()); // Método para mudar a visibilidade do menu
-        resetPanels(new JPanel[]{jPanelGerenciamentoUser, jPanelGerenciamentoNotasFiscais}); // Método para mudar a visibilidade dos outros menus
-    }//GEN-LAST:event_btnPerfilMouseClicked
+    private void btnPCMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPCMouseClicked
+     // Método para abrir as opções do menu de notas fiscais
+       // jPanelGerenciamentoPedidoCompra.setVisible(!jPanelGerenciamentoPedidoCompra.isVisible()); // Método para mudar a visibilidade do menu
+       // resetPanels(new JPanel[]{jPanelGerenciamentoUser, jPanelGerenciamentoNotasFiscais,jPanelPerfil}); // Método para mudar a visibilidade dos outros menus  
+    }//GEN-LAST:event_btnPCMouseClicked
 
     private void btnNotasFiscaisMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNotasFiscaisMouseEntered
         // Método para mudar a cor do botão quando o mouse passa por cima, dando um efeito de hover
         setColor(btnNotasFiscais); // Método para definir a cor do botão
         ind_2.setOpaque(true); // Defini o indice como opaco
+        // Método para abrir as opções do menu de notas fiscais
+        if(jPanelGerenciamentoNotasFiscais.isVisible()!= true)
+        {
+        jPanelGerenciamentoNotasFiscais.setVisible(!jPanelGerenciamentoNotasFiscais.isVisible());
+        }
+        resetPanels(new JPanel[]{jPanelGerenciamentoUser, jPanelPerfil,jPanelGerenciamentoPedidoCompra}); // Método para mudar a visibilidade dos outros menus
+        //função para resetar a visualização de todos botões exceto do selecionado
+        resetColor(new JPanel[]{btnHome}, new JPanel[]{ind_1});
+        resetColor(new JPanel[]{btPerfil}, new JPanel[]{ind_6});
+        resetColor(new JPanel[]{btnPC}, new JPanel[]{ind_4});
+        resetColor(new JPanel[]{btnUsuarios}, new JPanel[]{ind_3});
+        
     }//GEN-LAST:event_btnNotasFiscaisMouseEntered
 
     private void btnNotasFiscaisMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNotasFiscaisMouseExited
         // Método para redefinir as cores do botão e do indice
         resetColor(new JPanel[]{btnNotasFiscais}, new JPanel[]{ind_2}); // Método que realiza a redifinição
+        //método para resetar os paineis ao sair do mouse
+        resetPanels(new JPanel[]{jPanelGerenciamentoUser, jPanelPerfil,jPanelGerenciamentoPedidoCompra,jPanelGerenciamentoNotasFiscais});
     }//GEN-LAST:event_btnNotasFiscaisMouseExited
 
-    private void btnPerfilMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPerfilMouseEntered
-        // Método para mudar a cor do botão quando o mouse passa por cima, dando um efeito de hover
-        setColor(btnPerfil); // Método para definir a cor do botão
+    private void btnPCMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPCMouseEntered
+      // Método para mudar a cor do botão quando o mouse passa por cima, dando um efeito de hover
+        setColor(btnPC); // Método para definir a cor do botão
         ind_4.setOpaque(true); // Defini o indice como opaco
-    }//GEN-LAST:event_btnPerfilMouseEntered
+        // Método para abrir as opções do menu de notas fiscais
+        if(jPanelGerenciamentoPedidoCompra.isVisible()!= true)
+        {
+        jPanelGerenciamentoPedidoCompra.setVisible(!jPanelGerenciamentoPedidoCompra.isVisible());
+        }
+// Método para mudar a visibilidade do menu
+        resetPanels(new JPanel[]{jPanelGerenciamentoUser, jPanelGerenciamentoNotasFiscais,jPanelPerfil}); // Método para mudar a visibilidade dos outros menus 
+        //função para resetar a visualização de todos botões exceto do selecionado
+        resetColor(new JPanel[]{btnHome}, new JPanel[]{ind_1});
+        resetColor(new JPanel[]{btPerfil}, new JPanel[]{ind_6});
+        resetColor(new JPanel[]{btnUsuarios}, new JPanel[]{ind_3});
+        resetColor(new JPanel[]{btnNotasFiscais}, new JPanel[]{ind_2});
+    }//GEN-LAST:event_btnPCMouseEntered
 
-    private void btnPerfilMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPerfilMouseExited
-        // Método para redefinir as cores do botão e do indice
-        resetColor(new JPanel[]{btnPerfil}, new JPanel[]{ind_4}); // Método que realiza a redifinição
-    }//GEN-LAST:event_btnPerfilMouseExited
+    private void btnPCMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPCMouseExited
+    // Método para redefinir as cores do botão e do indice
+        resetColor(new JPanel[]{btnPC}, new JPanel[]{ind_4}); // Método que realiza a redifinição  
+        //metodo para resetar os paineis ao sair do mouse
+        resetPanels(new JPanel[]{jPanelGerenciamentoUser, jPanelGerenciamentoNotasFiscais,jPanelPerfil, jPanelGerenciamentoPedidoCompra}); 
+    }//GEN-LAST:event_btnPCMouseExited
 
     private void btnUsuariosMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnUsuariosMouseEntered
         // Método para mudar a cor do botão quando o mouse passa por cima, dando um efeito de hover
         setColor(btnUsuarios); // Método para definir a cor do botão
         ind_3.setOpaque(true); // Defini o indice como opaco
+        
+        // Método para abrir as opções do menu de usuários
+        if(jPanelGerenciamentoUser.isVisible()!= true)
+        {
+        jPanelGerenciamentoUser.setVisible(!jPanelGerenciamentoUser.isVisible());
+        }
+        resetPanels(new JPanel[]{jPanelPerfil, jPanelGerenciamentoNotasFiscais,jPanelGerenciamentoPedidoCompra}); // Método para mudar a visibilidade dos outros menus
+        //função para resetar a visualização de todos botões exceto do selecionado
+        resetColor(new JPanel[]{btnHome}, new JPanel[]{ind_1});
+        resetColor(new JPanel[]{btPerfil}, new JPanel[]{ind_6});
+        resetColor(new JPanel[]{btnPC}, new JPanel[]{ind_4});
+        resetColor(new JPanel[]{btnNotasFiscais}, new JPanel[]{ind_2});
     }//GEN-LAST:event_btnUsuariosMouseEntered
 
     private void btnUsuariosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnUsuariosMouseExited
         // Método para redefinir as cores do botão e do indice
         resetColor(new JPanel[]{btnUsuarios}, new JPanel[]{ind_3}); // Método que realiza a redifinição
+        resetPanels(new JPanel[]{jPanelPerfil, jPanelGerenciamentoNotasFiscais,jPanelGerenciamentoUser,jPanelGerenciamentoPedidoCompra}); // Método para mudar a visibilidade dos outros menus
     }//GEN-LAST:event_btnUsuariosMouseExited
 
     private void btnHomeMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnHomeMouseEntered
         // Método para mudar a cor do botão quando o mouse passa por cima, dando um efeito de hover
         setColor(btnHome); // Método para definir a cor do botão
         ind_1.setOpaque(true); // Defini o indice como opaco
+        resetPanels(new JPanel[]{jPanelPerfil, jPanelGerenciamentoNotasFiscais,jPanelGerenciamentoUser,jPanelGerenciamentoPedidoCompra}); 
+        //função para resetar todos os botões exceto o selecionado
+        resetColor(new JPanel[]{btPerfil}, new JPanel[]{ind_6});
+        resetColor(new JPanel[]{btnPC}, new JPanel[]{ind_4});
+        resetColor(new JPanel[]{btnUsuarios}, new JPanel[]{ind_3});
+        resetColor(new JPanel[]{btnNotasFiscais}, new JPanel[]{ind_2});
     }//GEN-LAST:event_btnHomeMouseEntered
 
     private void btnHomeMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnHomeMouseExited
         // Método para redefinir as cores do botão e do indice
         resetColor(new JPanel[]{btnHome}, new JPanel[]{ind_1}); // Método que realiza a redifinição
+        ind_1.setOpaque(false); // Defini o indice como opaco
+        resetPanels(new JPanel[]{jPanelPerfil, jPanelGerenciamentoNotasFiscais,jPanelGerenciamentoUser,jPanelGerenciamentoPedidoCompra}); 
     }//GEN-LAST:event_btnHomeMouseExited
 
     private void btnUsuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnUsuariosMouseClicked
         // Método para abrir as opções do menu de usuários
-        jPanelGerenciamentoUser.setVisible(!jPanelGerenciamentoUser.isVisible()); // Método para mudar a visibilidade do menu
-        resetPanels(new JPanel[]{jPanelPerfil, jPanelGerenciamentoNotasFiscais}); // Método para mudar a visibilidade dos outros menus
+      //  jPanelGerenciamentoUser.setVisible(!jPanelGerenciamentoUser.isVisible()); // Método para mudar a visibilidade do menu
+       // resetPanels(new JPanel[]{jPanelPerfil, jPanelGerenciamentoNotasFiscais}); // Método para mudar a visibilidade dos outros menus
     }//GEN-LAST:event_btnUsuariosMouseClicked
 
     private void addUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addUserMouseClicked
@@ -1129,10 +1292,6 @@ public class Main extends javax.swing.JFrame {
         addUser.setVisible(true); // Defini o frame como visivel
         resetPanels(new JPanel[]{jPanelGerenciamentoUser}); // Método para mudar a visibilidade do menu
     }//GEN-LAST:event_addUserMouseClicked
-
-    private void addNFMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addNFMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_addNFMouseClicked
 
     private void listNFMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listNFMouseClicked
         // Método abrir o frame para adicionar um usuário
@@ -1166,14 +1325,100 @@ public class Main extends javax.swing.JFrame {
         resetPanels(new JPanel[]{jPanelGerenciamentoUser}); // Método para mudar a visibilidade do menu
     }//GEN-LAST:event_listUserMouseClicked
 
+    private void btPerfilMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btPerfilMouseExited
+       // Método para redefinir as cores do botão e do indice
+        resetColor(new JPanel[]{btPerfil}, new JPanel[]{ind_6}); // Método que realiza a redifinição
+        //metodo para redefinir todos os paineis ao sair do mouse
+        resetPanels(new JPanel[]{jPanelPerfil, jPanelGerenciamentoNotasFiscais,jPanelGerenciamentoUser,jPanelGerenciamentoPedidoCompra}); 
+    }//GEN-LAST:event_btPerfilMouseExited
+
+    private void btPerfilMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btPerfilMouseEntered
+          // Método para mudar a cor do botão quando o mouse passa por cima, dando um efeito de hover
+        setColor(btPerfil); // Método para definir a cor do botão
+        ind_6.setOpaque(true); // Defini o indice como opaco
+        // Método para abrir as opções do menu de notas fiscais
+        if(jPanelPerfil.isVisible()!= true)
+        {
+        jPanelPerfil.setVisible(!jPanelPerfil.isVisible());
+        }
+        // Método para mudar a visibilidade dos outros menus
+        resetPanels(new JPanel[]{jPanelGerenciamentoUser, jPanelGerenciamentoNotasFiscais,jPanelGerenciamentoPedidoCompra}); 
+        //função para resetar a visualização de todos botões exceto do selecionado
+        resetColor(new JPanel[]{btnHome}, new JPanel[]{ind_1});
+        resetColor(new JPanel[]{btnPC}, new JPanel[]{ind_4});
+        resetColor(new JPanel[]{btnUsuarios}, new JPanel[]{ind_3});
+        resetColor(new JPanel[]{btnNotasFiscais}, new JPanel[]{ind_2});
+    }//GEN-LAST:event_btPerfilMouseEntered
+
+    private void btPerfilMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btPerfilMouseClicked
+      // Método para abrir as opções do menu de notas fiscais
+        //jPanelPerfil.setVisible(!jPanelPerfil.isVisible()); // Método para mudar a visibilidade do menu
+       // resetPanels(new JPanel[]{jPanelGerenciamentoUser, jPanelGerenciamentoNotasFiscais,jPanelGerenciamentoPedidoCompra}); // Método para mudar a visibilidade dos outros menus
+    }//GEN-LAST:event_btPerfilMouseClicked
+
+    private void addNF1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addNF1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_addNF1MouseClicked
+
+    private void listNF1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listNF1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_listNF1MouseClicked
+
+    private void jPanelGerenciamentoPedidoCompraMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelGerenciamentoPedidoCompraMouseEntered
+        // Método para mudar a cor do botão quando o mouse passa por cima, dando um efeito de hover
+        setColor(btnPC); // Método para definir a cor do botão
+        ind_4.setOpaque(true); // Defini o indice como opaco
+        // Método para abrir as opções do menu de notas fiscais
+        jPanelGerenciamentoPedidoCompra.setVisible(!jPanelGerenciamentoPedidoCompra.isVisible()); // Método para mudar a visibilidade do menu
+        resetPanels(new JPanel[]{jPanelGerenciamentoUser, jPanelGerenciamentoNotasFiscais,jPanelPerfil}); // Método para mudar a visibilidade dos outros menus 
+    }//GEN-LAST:event_jPanelGerenciamentoPedidoCompraMouseEntered
+
+    private void jPanelPerfilMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelPerfilMouseEntered
+          // Método para mudar a cor do botão quando o mouse passa por cima, dando um efeito de hover
+        setColor(btPerfil); // Método para definir a cor do botão
+        ind_6.setOpaque(true); // Defini o indice como opaco
+        // Método para abrir as opções do menu de notas fiscais
+        jPanelPerfil.setVisible(!jPanelPerfil.isVisible()); // Método para mudar a visibilidade do menu
+        // Método para mudar a visibilidade dos outros menus
+        resetPanels(new JPanel[]{jPanelGerenciamentoUser, jPanelGerenciamentoNotasFiscais,jPanelGerenciamentoPedidoCompra}); 
+    }//GEN-LAST:event_jPanelPerfilMouseEntered
+
+    private void jPanelGerenciamentoNotasFiscaisMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelGerenciamentoNotasFiscaisMouseEntered
+        // Método para mudar a cor do botão quando o mouse passa por cima, dando um efeito de hover
+        setColor(btnNotasFiscais); // Método para definir a cor do botão
+        ind_2.setOpaque(true); // Defini o indice como opaco
+        // Método para abrir as opções do menu de notas fiscais
+        jPanelGerenciamentoNotasFiscais.setVisible(!jPanelGerenciamentoNotasFiscais.isVisible()); // Método para mudar a visibilidade do menu
+        resetPanels(new JPanel[]{jPanelGerenciamentoUser, jPanelPerfil,jPanelGerenciamentoPedidoCompra}); // Método para mudar a visibilidade dos outros menus
+    }//GEN-LAST:event_jPanelGerenciamentoNotasFiscaisMouseEntered
+
+    private void jPanelGerenciamentoUserMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelGerenciamentoUserMouseEntered
+       // Método para mudar a cor do botão quando o mouse passa por cima, dando um efeito de hover
+        setColor(btnUsuarios); // Método para definir a cor do botão
+        ind_3.setOpaque(true); // Defini o indice como opaco
+        
+        // Método para abrir as opções do menu de usuários
+        jPanelGerenciamentoUser.setVisible(!jPanelGerenciamentoUser.isVisible()); // Método para mudar a visibilidade do menu
+        resetPanels(new JPanel[]{jPanelPerfil, jPanelGerenciamentoNotasFiscais,jPanelGerenciamentoPedidoCompra}); // Método para mudar a visibilidade dos outros menus
+    }//GEN-LAST:event_jPanelGerenciamentoUserMouseEntered
+
+    private void formMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseEntered
+        resetColor(new JPanel[]{btPerfil}, new JPanel[]{ind_6});
+        resetColor(new JPanel[]{btnHome}, new JPanel[]{ind_1});
+        resetColor(new JPanel[]{btnPC}, new JPanel[]{ind_4});
+        resetColor(new JPanel[]{btnUsuarios}, new JPanel[]{ind_3});
+        resetColor(new JPanel[]{btnNotasFiscais}, new JPanel[]{ind_2});
+        resetPanels(new JPanel[]{jPanelPerfil, jPanelGerenciamentoNotasFiscais,jPanelGerenciamentoPedidoCompra,jPanelGerenciamentoUser}); // Método para mudar a visibilidade dos outros menus
+    }//GEN-LAST:event_formMouseEntered
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel addNF;
+    private javax.swing.JPanel addNF1;
     private javax.swing.JPanel addUser;
-    private javax.swing.JPanel blockNF;
     private javax.swing.JPanel blockUser;
+    private javax.swing.JPanel btPerfil;
     private javax.swing.JPanel btnHome;
     private javax.swing.JPanel btnNotasFiscais;
-    private javax.swing.JPanel btnPerfil;
+    private javax.swing.JPanel btnPC;
     private javax.swing.JPanel btnUsuarios;
     private javax.swing.JLabel btn_exit;
     private javax.swing.JPanel editNF;
@@ -1182,12 +1427,14 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JPanel ind_2;
     private javax.swing.JPanel ind_3;
     private javax.swing.JPanel ind_4;
+    private javax.swing.JPanel ind_6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
@@ -1205,24 +1452,27 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel32;
-    private javax.swing.JLabel jLabel33;
-    private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel35;
+    private javax.swing.JLabel jLabel36;
+    private javax.swing.JLabel jLabel39;
+    private javax.swing.JLabel jLabel40;
+    private javax.swing.JLabel jLabel43;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanelGerenciamentoNotasFiscais;
+    private javax.swing.JPanel jPanelGerenciamentoPedidoCompra;
     private javax.swing.JPanel jPanelGerenciamentoUser;
     private javax.swing.JPanel jPanelPerfil;
-    private javax.swing.JSeparator jSeparator10;
     private javax.swing.JSeparator jSeparator11;
     private javax.swing.JSeparator jSeparator12;
-    private javax.swing.JSeparator jSeparator13;
     private javax.swing.JSeparator jSeparator14;
+    private javax.swing.JSeparator jSeparator15;
+    private javax.swing.JSeparator jSeparator17;
+    private javax.swing.JSeparator jSeparator19;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
@@ -1232,6 +1482,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator8;
     private javax.swing.JSeparator jSeparator9;
     private javax.swing.JPanel listNF;
+    private javax.swing.JPanel listNF1;
     private javax.swing.JPanel listUser;
     private javax.swing.JButton listar;
     private javax.swing.JTextField numNF;
@@ -1239,6 +1490,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JPanel side_pane;
     private javax.swing.JPanel tittleGerenciamentoUser;
     private javax.swing.JPanel tittleGerenciamentoUser1;
+    private javax.swing.JPanel tittleGerenciamentoUser2;
     private javax.swing.JLabel user;
     private javax.swing.JLabel userName;
     // End of variables declaration//GEN-END:variables
