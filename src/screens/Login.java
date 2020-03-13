@@ -15,7 +15,6 @@ public class Login extends javax.swing.JFrame {
     public Login() {  // Método para instanciar o frame login
         initComponents(); // Inicia Componentes do frame de login
         password.setEchoChar(Character.forDigit(0, 0)); // Inicializa o campo password como caracteres visíveis
-        ControllerLogin.connection(this); // Inicializa a conexão com o banco de dados
         this.setLocationRelativeTo(null); // Inicializa o frame centralizado na tela
     } // Fim do método de instanciação
 
@@ -218,15 +217,15 @@ public class Login extends javax.swing.JFrame {
 
     private void exitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitActionPerformed
         // Método para realizar o encerramento da aplicação
-        ControllerLogin.disconnection(this); // Realiza da desconexão com o banco
+        ControllerLogin.disconnection(); // Realiza da desconexão com o banco
         System.exit(0); // Fecha o frame da aplicação
     }//GEN-LAST:event_exitActionPerformed
 
     private void logonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logonActionPerformed
         // Método para chamar a método logar, responsável por realizar o login ao sistema 
-        String[] resp = ControllerLogin.logar(username.getText(), password.getText(), this); // Chama o método logar
-        username.setText("Username");
-        password.setText("Password");
+        Object[] resp = ControllerLogin.logar(username.getText(), password.getText(), this); // Chama o método logar
+        username.setText(resp[0].toString());
+        password.setText(resp[1].toString());
         password.setEchoChar(Character.forDigit(0, 0));
         exit.requestFocus();
     }//GEN-LAST:event_logonActionPerformed
@@ -244,9 +243,9 @@ public class Login extends javax.swing.JFrame {
     private void passwordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passwordKeyPressed
         // Método para realizar o login quando a tecla 'ENTER' for pressinada e estiver no campo password
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) { // Verifica se a tecla 'ENTER' foi pressionada
-            String[] resp = ControllerLogin.logar(username.getText(), password.getText(), this); // Chama o método logar
-            username.setText("Username");
-            password.setText("Password");
+            Object[] resp = ControllerLogin.logar(username.getText(), password.getText(), this); // Chama o método logar
+            username.setText(resp[0].toString());
+            password.setText(resp[1].toString());
             password.setEchoChar(Character.forDigit(0, 0));
             exit.requestFocus();
         } // Fim da verificação

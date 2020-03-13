@@ -1,57 +1,30 @@
 package screens;
 
 //==================================> Importações pertinentes á execução do frame
-import dataBase.DataBase;
-import java.awt.Color;
+import controller.ControllerMain;
 import java.awt.Dimension;
-import java.awt.Image;
-import java.awt.Toolkit;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import java.awt.Toolkit;
+import java.awt.Color;
+import java.awt.Image;
 //==================================> Fim das importações
 
 public class Main extends javax.swing.JFrame {
 
-    private final DataBase con = DataBase.getInstance(); // Declaração da variável interações com o banco de dados
-
     public Main(String username) { // Método para instanciar o frame main
         initComponents(); // Inicia Componentes do frame de main
-        userName.setText(buscaUserName(username, con)); // Definir o nome do usuário usando o método buscaUserName
-        tipoUser(username); // Verificar o tipo de prioridade do usuário
+        Object[] resp = ControllerMain.buscaUserName(username);
+        userName.setText(resp[0].toString()); // Definir o nome do usuário usando o método buscaUserName
+        btnUsuarios.setVisible((boolean) resp[1]); // Se for o menu de Gerenciamento de Usuários (btn_3) não fica acessível
         resetPanels(new JPanel[]{jPanelPerfil, jPanelGerenciamentoUser, jPanelGerenciamentoNotasFiscais, jPanelGerenciamentoPedidoCompra}); // Chama a função para esconder os panels do menu
-        side_pane.setPreferredSize(new Dimension(170, Toolkit.getDefaultToolkit().getScreenSize().height)); // Defini o tamanho da barra do menu lateral esquerdo
+        side_pane.setPreferredSize(new Dimension(170, Toolkit.getDefaultToolkit().getScreenSize().height)); // Defini o tamanho da barra do menu lateral esquerdo        
+
     } // Fim do método de instanciação
 
     @Override
     public Image getIconImage() { // Método para alterar o icone da barra de tarefas
         return Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("pictures/iconLogoBar.png")); // Seta uma imagem como ícone
     } // Fim do método para alterar o icone da barra de tarefas
-
-    private String buscaUserName(String username, DataBase con) { // Método para buscar o nome do colaborador pelo seu username 
-        try { // Tentar realizar a busca pelo usuário
-            //return con.selectUserNameCommandSQL(username); // Retorna o resposta da função, o nome completo do usuário
-            ArrayList nome = con.select("COLABORADORES", new String[] {"LOGIN","NOME","SOBRENOME"}, new String[] {username}); // Retorna o resposta da função, o nome completo do usuário
-            return nome.get(1) + " " + nome.get(2);
-        } catch (SQLException ex) { // Caso a busca do usuário falhe é lançado uma exception
-            JOptionPane.showMessageDialog(null, "Usuário não encontrado", "ERROR", JOptionPane.ERROR_MESSAGE); // Mostra um aviso para o usuário
-        }
-        return null; // Retorno apenas lógico, pois a assinatura do método descreve um retorno como string 
-    } // Fim do método para buscar o nome do colaborador
-
-    private void tipoUser(String username) { // Método para buscar o tipo de permissão que o usuário tem no sistema
-        try { // Tentar realizar a busca pelo tipo de permissão que o usuário tem
-            String tipo = con.buscaTipoUser(username); // Função que retorna uma string A (ADM), e para qualquer string diferente disso é usuário normal
-            if (!tipo.equals("A")) { // Testa se a string recebida é diferente de "A"
-                btnUsuarios.setVisible(false); // Se for o menu de Gerenciamento de Usuários (btn_3) não fica acessível
-            } else { // Se não 
-                btnUsuarios.setVisible(true); // O botão do menu fica acessível
-            }
-        } catch (SQLException ex) { // Caso a busca do tipo de usuário falhe é lançado uma exception
-            JOptionPane.showMessageDialog(null, "Usuário não encontrado", "ERROR", JOptionPane.ERROR_MESSAGE); // Mostra um aviso para o usuário
-        }
-    } // Fim do método para buscar o tipo de permissão que o usuário
 
     private void setColor(JPanel pane) { // Método para definir a cor dos botões do menu
         pane.setBackground(new Color(41, 57, 80)); // Defini a cor do background do botão
@@ -1120,7 +1093,7 @@ public class Main extends javax.swing.JFrame {
 
     private void searchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchActionPerformed
         // TODO add your handling code here:
-        try {
+        /*try {
             if (numNF.getText().equals("")) {
                 throw new NumberFormatException();
             }
@@ -1141,7 +1114,7 @@ public class Main extends javax.swing.JFrame {
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "FORMATO INCORRETO!!", "AVISO", JOptionPane.INFORMATION_MESSAGE);
             numNF.setText("");
-        }
+        }*/
     }//GEN-LAST:event_searchActionPerformed
 
     private void listarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listarMouseEntered
@@ -1156,14 +1129,14 @@ public class Main extends javax.swing.JFrame {
 
     private void listarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listarActionPerformed
         // TODO add your handling code here:
-        ListNF a = new ListNF(userName.getText(), con);
-        a.setVisible(true);
-        dispose();
+        //ListNF a = new ListNF(userName.getText());
+        //a.setVisible(true);
+        //dispose();
     }//GEN-LAST:event_listarActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         // Método para realizar o fechamento seguro da aplicação
-        con.disconnection(); // Método para realizar a desconexão com o banco de dados
+        ControllerMain.disconnection(); // Método para realizar a desconexão com o banco de dados
         dispose(); // Função para fechar o frame atual
     }//GEN-LAST:event_formWindowClosing
 
@@ -1295,33 +1268,31 @@ public class Main extends javax.swing.JFrame {
 
     private void listNFMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listNFMouseClicked
         // Método abrir o frame para adicionar um usuário
-        ListNF listNF = new ListNF(userName.getText(), con); // Instância o novo frame
+        /*ListNF listNF = new ListNF(userName.getText(), con); // Instância o novo frame
         listNF.setLocationRelativeTo(null); // Defini a localização no meio da tela
-        listNF.setVisible(true); // Defini o frame como visivel
+        listNF.setVisible(true); // Defini o frame como visivel*/
         resetPanels(new JPanel[]{jPanelGerenciamentoNotasFiscais}); // Método para mudar a visibilidade do menu
     }//GEN-LAST:event_listNFMouseClicked
 
     private void editUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editUserMouseClicked
         // Método abrir o frame para adicionar um usuário
-        BlockUser blockUser = new BlockUser(userName.getText(), "Editar Usuário"); // Instância o novo frame
-        blockUser.setLocationRelativeTo(null); // Defini a localização no meio da tela
-        blockUser.setVisible(true); // Defini o frame como visivel
+        ControllerMain.userAction(userName.getText(), "Editar Usuário");
         resetPanels(new JPanel[]{jPanelGerenciamentoUser}); // Método para mudar a visibilidade do menu
     }//GEN-LAST:event_editUserMouseClicked
 
     private void blockUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_blockUserMouseClicked
         // Método abrir o frame para adicionar um usuário
-        BlockUser blockUser = new BlockUser(userName.getText(), "Bloquear Usuário"); // Instância o novo frame
-        blockUser.setLocationRelativeTo(null); // Defini a localização no meio da tela
-        blockUser.setVisible(true); // Defini o frame como visivel
+        BlockUser user = new BlockUser(userName.getText(), "Bloquear Usuário"); // Instância o novo frame
+        user.setLocationRelativeTo(null); // Defini a localização no meio da tela
+        user.setVisible(true); // Defini o frame como visivel
         resetPanels(new JPanel[]{jPanelGerenciamentoUser}); // Método para mudar a visibilidade do menu
     }//GEN-LAST:event_blockUserMouseClicked
 
     private void listUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listUserMouseClicked
         // Método abrir o frame para adicionar um usuário
-        BlockUser blockUser = new BlockUser(userName.getText(), "Listagem de Usuários"); // Instância o novo frame
-        blockUser.setLocationRelativeTo(null); // Defini a localização no meio da tela
-        blockUser.setVisible(true); // Defini o frame como visivel
+        BlockUser user = new BlockUser(userName.getText(), "Listagem de Usuários"); // Instância o novo frame
+        user.setLocationRelativeTo(null); // Defini a localização no meio da tela
+        user.setVisible(true); // Defini o frame como visivel
         resetPanels(new JPanel[]{jPanelGerenciamentoUser}); // Método para mudar a visibilidade do menu
     }//GEN-LAST:event_listUserMouseClicked
 
