@@ -65,7 +65,9 @@ public class DataBase {
 
     public void disconnection() {
         try {
-            con.close();
+            if(con != null){
+                con.close();
+            }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro de disconexão : \n"
                     + ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
@@ -104,10 +106,22 @@ public class DataBase {
                 }
             }
             command += "FROM " + table;
-            if(wheres.length > -1){
+            if(wheres.length > 0){
                 command += " WHERE ";
                 for (int i=0; i<wheres.length; i++) {
-                    command += !wheres[i].contains("sys.fn_varbintohexsubstring") ? campos[i] + "='" + wheres[i] + "'" : campos[i] + "=" + wheres[i];
+                    if(wheres[i].contains("sys.fn_varbintohexsubstring")) {
+
+                        command += campos[i] + "=" + wheres[i];
+
+                    } else if(wheres[i].contains("LIKE")) {
+
+                        command += campos[i] + " LIKE '" + wheres[i].replaceAll("LIKE ", "") + "'";
+
+                    } else {
+
+                        command += campos[i] + "='" + wheres[i] + "'";
+
+                    }
                     if(wheres.length-1 != i){
                         command += " AND";
                     }
@@ -118,17 +132,164 @@ public class DataBase {
             stm = con.createStatement();
             System.out.println(command);
             rs = stm.executeQuery(command);
-            if (rs.next()) {
+            while (rs.next()) {
                 for(String campo : campos){
                     arrayReturn.add(rs.getString(campo));
                 }
-            } else {
-                throw new SQLException();
             }
         } catch (SQLException ex) {
             throw new SQLException();
         }
         return arrayReturn;
+    }
+
+    public ArrayList insert(String table, String[] campos, String[] values ) throws SQLException {
+        ArrayList arrayReturn = new ArrayList<>();
+        try {
+            String command = "INSERT INTO " + table + "(";
+            for (int i=0; i<campos.length; i++) {
+                if(!campos[i].equals("")){
+                    command += campos[i];
+                    if(campos.length-1 != i){
+                        command += ",";
+                    }
+                    command += " ";
+                }
+            }
+            command += ") VALUES (";
+            for (int i=0; i<values.length; i++) {
+                if(!values[i].equals("")){
+                    command += values[i];
+                    if(values.length-1 != i){
+                        command += ",";
+                    }
+                    command += " ";
+                }
+            }
+            command += ");";
+            stm = con.createStatement();
+            System.out.println(command);
+            rs = stm.executeQuery(command);
+            while (rs.next()) {
+                for(String campo : campos){
+                    arrayReturn.add(rs.getString(campo));
+                }
+            }
+        } catch (SQLException ex) {
+            throw new SQLException();
+        }
+        return arrayReturn;
+    }
+
+    public ArrayList update(String table, String[] campos, String[] values, String[] wheres, String[] condicional ) throws SQLException {
+        ArrayList arrayReturn = new ArrayList<>();
+        try {
+            String command = "UPDATE " + table + " SET ";
+            for (int i=0; i<campos.length; i++) {
+                command += campos[i] + "='" + values[i] + "'";
+                if(values.length-1 != i){
+                    command += " AND";
+                }
+                command += " ";
+            }
+            if(wheres.length > 0){
+                command += "WHERE ";
+                for (int i=0; i<wheres.length; i++) {
+                    if(wheres[i].contains("sys.fn_varbintohexsubstring")) {
+
+                        command += wheres[i] + "=" + condicional[i];
+
+                    } else if(wheres[i].contains("LIKE")) {
+
+                        command += wheres[i] + " LIKE '" + condicional[i].replaceAll("LIKE ", "") + "'";
+
+                    } else {
+
+                        command += wheres[i] + "='" + condicional[i] + "'";
+
+                    }
+                    if(wheres.length-1 != i){
+                        command += " AND";
+                    }
+                    command += " ";
+                }
+            }
+            command += ";";
+            stm = con.createStatement();
+            System.out.println(command);
+            if(stm.execute(command)){
+                arrayReturn.add("OK");
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+            throw new SQLException();
+        }
+        return arrayReturn;
+    }
+
+    public JTable listaUsers(String command, javax.swing.JTable jTable1) throws SQLException {
+        ((DefaultTableModel) jTable1.getModel()).setRowCount(0); // Defini a tabela com quantidades de linhas igual a zero
+        try {
+            stm = con.createStatement();
+            System.out.println(command);
+            rs = stm.executeQuery(command);
+            while (rs.next()) {
+                int id = rs.getInt("ID_USER");
+                String login = rs.getString("LOGIN");
+                String nome = rs.getString("NOME");
+                String sobrenome = rs.getString("SOBRENOME");
+                String cargo = rs.getString("CARGO");
+                String telefone = rs.getString("TELEFONE");
+                String celular = rs.getString("CELULAR");
+                String cpf = rs.getString("CPF");
+                SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+                System.out.println(rs.getDate("DATA_CADASTRO"));
+                String data = formatter.format(rs.getDate("DATA_CADASTRO"));
+                System.out.println("DATA : " + data);
+                int s = rs.getInt("STATUS");
+                String t = rs.getString("TIPO");
+                JComboBox status = new JComboBox();
+                status.addActionListener((ActionEvent e) -> {
+                    if(status.hasFocus()){
+                        jTable1.setRowSelectionInterval(jTable1.getSelectedRow(), jTable1.getSelectedRow());
+                    }
+                });
+                if (s == 1) {
+                    status.addItem("Ativo");
+                    status.addItem("Inativo");
+                    status.setSelectedItem("Ativo");
+                } else {
+                    status.addItem("Inativo");
+                    status.addItem("Ativo");
+                    status.setSelectedItem("Inativo");
+                }
+                String tipo = null;
+                if (t.equals("A")) {
+                    tipo = "Administrador";
+                } else {
+                    tipo = "Usuário";
+                }
+                
+                DefaultTableCellRenderer hRenderer = new DefaultTableCellRenderer();
+                hRenderer.setBackground(new Color(84, 127, 206));
+                hRenderer.setForeground(new Color(255, 255, 255));
+                
+                String linha[] = {String.valueOf(id), login, nome, sobrenome, cargo, telefone, celular, cpf, data, status.getSelectedItem().toString(), tipo};
+                ((DefaultTableModel) jTable1.getModel()).addRow(linha);
+                
+                TableColumn comboBoxStatus = jTable1.getColumnModel().getColumn(7);
+                comboBoxStatus.setCellEditor(new DefaultCellEditor(status));
+                DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
+                comboBoxStatus.setCellRenderer(renderer);
+                
+                for (int i = 0; i < jTable1.getModel().getColumnCount(); i++) {
+                    jTable1.getColumnModel().getColumn(i).setHeaderRenderer(hRenderer);
+                }
+            }
+        } catch (SQLException ex) {
+            throw new SQLException(ex.getMessage());
+        }
+        return jTable1;
     }
 
     public void selectLoginCommandSQL(String username, String password) throws SQLException {
@@ -200,8 +361,11 @@ public class DataBase {
         StringTokenizer tok = new StringTokenizer(username, " ");
         String fname = tok.nextToken();
         String lname = tok.nextToken();
+        System.out.println("_" + fname + "_ ");
+        System.out.println("_" + lname + "_");
         String command = "SELECT LOGIN FROM colaboradores WHERE NOME='" + fname + "' AND SOBRENOME='" + lname + "'";
         String userName = "";
+        System.out.println(command);
         try {
             stm = con.createStatement();
             System.out.println(command);
@@ -335,70 +499,6 @@ public class DataBase {
         return jTable1;
     }
 
-    public JTable listaUsers(String command, javax.swing.JTable jTable1) throws SQLException {
-        ((DefaultTableModel) jTable1.getModel()).setRowCount(0); // Defini a tabela com quantidades de linhas igual a zero
-        try {
-            stm = con.createStatement();
-            System.out.println(command);
-            rs = stm.executeQuery(command);
-            while (rs.next()) {
-                int id = rs.getInt("ID_USER");
-                String login = rs.getString("LOGIN");
-                String nome = rs.getString("NOME");
-                String sobrenome = rs.getString("SOBRENOME");
-                String cargo = rs.getString("CARGO");
-                String telefone = rs.getString("TELEFONE");
-                String celular = rs.getString("CELULAR");
-                String cpf = rs.getString("CPF");
-                SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
-                String data = formatter.format(rs.getDate("DATA_CADASTRO"));
-                System.out.println("DATA : " + data);
-                int s = rs.getInt("STATUS");
-                String t = rs.getString("TIPO");
-                JComboBox status = new JComboBox();
-                status.addActionListener((ActionEvent e) -> {
-                    if(status.hasFocus()){
-                        jTable1.setRowSelectionInterval(jTable1.getSelectedRow(), jTable1.getSelectedRow());
-                    }
-                });
-                if (s == 1) {
-                    status.addItem("Ativo");
-                    status.addItem("Inativo");
-                    status.setSelectedItem("Ativo");
-                } else {
-                    status.addItem("Inativo");
-                    status.addItem("Ativo");
-                    status.setSelectedItem("Inativo");
-                }
-                String tipo = null;
-                if (t.equals("A")) {
-                    tipo = "Administrador";
-                } else {
-                    tipo = "Usuário";
-                }
-                
-                DefaultTableCellRenderer hRenderer = new DefaultTableCellRenderer();
-                hRenderer.setBackground(new Color(84, 127, 206));
-                hRenderer.setForeground(new Color(255, 255, 255));
-                
-                String linha[] = {String.valueOf(id), login, nome, sobrenome, cargo, telefone, celular, cpf, data, status.getSelectedItem().toString(), tipo};
-                ((DefaultTableModel) jTable1.getModel()).addRow(linha);
-                
-                TableColumn comboBoxStatus = jTable1.getColumnModel().getColumn(9);
-                comboBoxStatus.setCellEditor(new DefaultCellEditor(status));
-                DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
-                comboBoxStatus.setCellRenderer(renderer);
-                
-                for (int i = 0; i < jTable1.getModel().getColumnCount(); i++) {
-                    jTable1.getColumnModel().getColumn(i).setHeaderRenderer(hRenderer);
-                }
-            }
-        } catch (SQLException ex) {
-            throw new SQLException(ex.getMessage());
-        }
-        return jTable1;
-    }
-
     public int acharIdNF(String command) throws SQLException {
         int id = -1;
         try {
@@ -451,6 +551,7 @@ public class DataBase {
                 return campos;
             }
         } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
             throw new SQLException();
         }
         return null;

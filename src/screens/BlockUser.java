@@ -1,57 +1,37 @@
 package screens;
 
-import dataBase.DataBase;
+import controller.ControllerUser;
 import java.awt.Image;
 import java.awt.Toolkit;
-import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.InputMismatchException;
-import java.util.StringTokenizer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import javax.swing.JOptionPane;
 
 public class BlockUser extends javax.swing.JFrame {
 
-    private final DataBase con = DataBase.getInstance(); // Declaração da variável interações com o banco de dados
-    private String logLogin, username;
-    private final ArrayList<Integer> update = new ArrayList<>();
+    private final String username;
+    private final ArrayList<Integer> update;
 
-    public BlockUser(String username, String opcao) { // Método para instanciar o frame blockUser
+    public BlockUser(String username, String action) { 
+        // Método para instanciar o frame blockUser
         initComponents(); // Inicia Componentes do frame de blockUser
-        buscarLogin(username); // Defini o nome do login
-        jLabel14.setText(opcao); // Defini o nome da função desenpenhada
-        listarUsers(); // Chamada do método responsável por listar os colaboradores do sistema
+        jLabel14.setText(action); // Defini o nome da função desempenhada
+        jTable1 = ControllerUser.listarUsers(jTable1, new String[] {}, this); // Chamada do método responsável por listar os colaboradores do sistema
 
         jTable1.getSelectionModel().addListSelectionListener((e) -> {
             if (!e.getValueIsAdjusting()) {
                 arrayUpdade();
             }
         });
-        this.username = username;
+
+        this.username = ControllerUser.buscaLogin(username);
+        this.update = new ArrayList<>();
     }
 
     @Override
     public Image getIconImage() { // Método para alterar o icone da barra de tarefas
         return Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("pictures/iconLogoBar.png")); // Seta uma imagem como ícone
     } // Fim do método para alterar o icone da barra de tarefas
-
-    private void buscarLogin(String username) { // Método para buscar o login do usuário logado no sitema
-        try { // Tenta realizar a busca no banco
-            this.logLogin = con.buscaLogin(username); // Método para realizar a busca no banco
-        } catch (SQLException ex) { // Se ocorrer algum erro
-            JOptionPane.showMessageDialog(null, "Usuário não encontrado", "ERROR", JOptionPane.ERROR_MESSAGE); // Mostra a seguinte mensagem ao usuário
-        }
-    }
-
-    private void listarUsers() { // Método para listar os colaboradores do sistema
-        try { // Tentar realizar a listagem dos colaboradores
-            jTable1 = con.listaUsers("SELECT * FROM colaboradores", jTable1);
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Erro ao listar usuários!" + e, "ERRO", JOptionPane.ERROR_MESSAGE);
-            dispose();
-        }
-    }
 
     private void limpaCampos() { // Método para limpar campos do formulário
         jTextFieldId.setText(""); // Limpa campo id
@@ -65,75 +45,7 @@ public class BlockUser extends javax.swing.JFrame {
 
     private void arrayUpdade() {
         if (jTable1.getSelectedRow() > -1) {
-            System.out.println(jTable1.getSelectedRow());
             update.add(jTable1.getSelectedRow());
-        }
-    }
-
-    public String formatCPF(String cpf) {
-        StringTokenizer tok = new StringTokenizer(cpf, ".");
-        String frs = tok.nextToken();
-        String sec = tok.nextToken();
-        String thr = tok.nextToken();
-
-        StringTokenizer tok2 = new StringTokenizer(thr, "-");
-        String prim2 = tok2.nextToken();
-        String last = tok2.nextToken();
-        String iscpf = frs + sec + prim2 + last;
-        return iscpf;
-    }
-
-    public static boolean isCPF(String CPF) {
-        if (CPF.equals("00000000000")
-                || CPF.equals("11111111111")
-                || CPF.equals("22222222222") || CPF.equals("33333333333")
-                || CPF.equals("44444444444") || CPF.equals("55555555555")
-                || CPF.equals("66666666666") || CPF.equals("77777777777")
-                || CPF.equals("88888888888") || CPF.equals("99999999999")
-                || (CPF.length() != 11)) {
-            return (false);
-        }
-
-        char dig10, dig11;
-        int sm, i, r, num, peso;
-
-        try {
-            sm = 0;
-            peso = 10;
-            for (i = 0; i < 9; i++) {
-                num = (int) (CPF.charAt(i) - 48);
-                sm = sm + (num * peso);
-                peso = peso - 1;
-            }
-
-            r = 11 - (sm % 11);
-            if ((r == 10) || (r == 11)) {
-                dig10 = '0';
-            } else {
-                dig10 = (char) (r + 48);
-            }
-            sm = 0;
-            peso = 11;
-            for (i = 0; i < 10; i++) {
-                num = (int) (CPF.charAt(i) - 48);
-                sm = sm + (num * peso);
-                peso = peso - 1;
-            }
-
-            r = 11 - (sm % 11);
-            if ((r == 10) || (r == 11)) {
-                dig11 = '0';
-            } else {
-                dig11 = (char) (r + 48);
-            }
-
-            if ((dig10 == CPF.charAt(9)) && (dig11 == CPF.charAt(10))) {
-                return (true);
-            } else {
-                return (false);
-            }
-        } catch (InputMismatchException erro) {
-            return (false);
         }
     }
 
@@ -210,11 +122,11 @@ public class BlockUser extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Login", "Nome", "Sobrenome", "Cargo", "Telefone", "Celular", "CPF", "Data Cadastro", "Status", "Tipo"
+                "ID", "Login", "Nome", "Sobrenome", "Cargo", "Data Cadastro", "Status", "Tipo"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, true, false
+                false, false, false, false, false, false, true, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -236,30 +148,21 @@ public class BlockUser extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTable1);
         if (jTable1.getColumnModel().getColumnCount() > 0) {
             jTable1.getColumnModel().getColumn(0).setResizable(false);
-            jTable1.getColumnModel().getColumn(0).setPreferredWidth(40);
+            jTable1.getColumnModel().getColumn(0).setPreferredWidth(35);
             jTable1.getColumnModel().getColumn(1).setResizable(false);
             jTable1.getColumnModel().getColumn(1).setPreferredWidth(100);
             jTable1.getColumnModel().getColumn(2).setResizable(false);
-            jTable1.getColumnModel().getColumn(2).setPreferredWidth(150);
+            jTable1.getColumnModel().getColumn(2).setPreferredWidth(130);
             jTable1.getColumnModel().getColumn(3).setResizable(false);
-            jTable1.getColumnModel().getColumn(3).setPreferredWidth(150);
+            jTable1.getColumnModel().getColumn(3).setPreferredWidth(130);
             jTable1.getColumnModel().getColumn(4).setResizable(false);
             jTable1.getColumnModel().getColumn(4).setPreferredWidth(80);
-            jTable1.getColumnModel().getColumn(5).setMinWidth(0);
-            jTable1.getColumnModel().getColumn(5).setPreferredWidth(0);
-            jTable1.getColumnModel().getColumn(5).setMaxWidth(0);
-            jTable1.getColumnModel().getColumn(6).setMinWidth(0);
-            jTable1.getColumnModel().getColumn(6).setPreferredWidth(0);
-            jTable1.getColumnModel().getColumn(6).setMaxWidth(0);
+            jTable1.getColumnModel().getColumn(5).setResizable(false);
+            jTable1.getColumnModel().getColumn(5).setPreferredWidth(90);
+            jTable1.getColumnModel().getColumn(6).setResizable(false);
+            jTable1.getColumnModel().getColumn(6).setPreferredWidth(80);
             jTable1.getColumnModel().getColumn(7).setResizable(false);
-            jTable1.getColumnModel().getColumn(7).setPreferredWidth(150);
-            jTable1.getColumnModel().getColumn(8).setResizable(false);
-            jTable1.getColumnModel().getColumn(8).setPreferredWidth(130);
-            jTable1.getColumnModel().getColumn(9).setResizable(false);
-            jTable1.getColumnModel().getColumn(9).setPreferredWidth(100);
-            jTable1.getColumnModel().getColumn(10).setMinWidth(0);
-            jTable1.getColumnModel().getColumn(10).setPreferredWidth(0);
-            jTable1.getColumnModel().getColumn(10).setMaxWidth(0);
+            jTable1.getColumnModel().getColumn(7).setPreferredWidth(90);
         }
 
         jPanel4.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, 1060, 570));
@@ -419,65 +322,18 @@ public class BlockUser extends javax.swing.JFrame {
     private void cleanUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cleanUserMouseClicked
         // Método para limpar os campos de input
         limpaCampos(); // Chama o método para limpar os campos
-        listarUsers();
+        ControllerUser.listarUsers(jTable1, new String[] {}, this);
     }//GEN-LAST:event_cleanUserMouseClicked
 
     private void filterUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_filterUserMouseClicked
         // TODO add your handling code here:
-        String id = jTextFieldId.getText().equals("") ? "" : "ID_USER='" + jTextFieldId.getText() + "'";
-        String nome = jTextFieldNome.getText().equals("") ? "" : "NOME='" + jTextFieldNome.getText() + "'";
-        String sobrenome = jTextFieldSobreNome.getText().equals("") ? "" : "SOBRENOME='" + jTextFieldSobreNome.getText() + "'";
-        String cargo = jTextFieldCargo.getText().equals("") ? "" : "CARGO='" + jTextFieldCargo.getText() + "'";
-        String tipo = jComboBoxTipo.getSelectedItem().toString().equals("Selecione...") ? "" : jComboBoxTipo.getSelectedItem().toString().equals("Administrador") ? "TIPO='A'" : "TIPO='U'";
-        String status = jComboBoxStatus.getSelectedItem().toString().equals("Selecione...") ? "" : jComboBoxStatus.getSelectedItem().toString().equals("Ativo") ? "STATUS='1'" : "STATUS='0'";
-        String cpf = jTextFieldCPF.getText();
-
-        try {
-            if(!cpf.equals("")){
-                if(isCPF(formatCPF(jTextFieldCPF.getText()))){
-                    cpf = "CPF='" + formatCPF(jTextFieldCPF.getText()) + "'";
-                } else {
-                    throw new Exception("2");
-                }
-            } else {
-                cpf = "";
-            }
-            if (((id.equals("1")) && (status.equals("0"))) || (id.equals("1")) && (tipo.equals("U"))) {
-                throw new Exception("!");
-            }
-
-            con.listaUsers(con.queryBuilder("colaboradores", new String[] {id, nome, sobrenome, cargo, status, cpf, tipo}), jTable1);
-
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao efetuar a atualização" + ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
-        } catch (Exception ex) {
-            switch (ex.getMessage()) {
-                case "!":
-                    JOptionPane.showMessageDialog(null, "Operação impossivel!", "ERROR", JOptionPane.ERROR_MESSAGE);
-                    break;
-                case "2":
-                    JOptionPane.showMessageDialog(null, "CPF inváldo!", "ERROR", JOptionPane.ERROR_MESSAGE);
-                    break;
-                default:
-                    JOptionPane.showMessageDialog(null, "Dados incorretos!", "ERROR", JOptionPane.ERROR_MESSAGE);
-                    break;
-            }
-        }
+        jTable1 = ControllerUser.listarUsers(jTable1, new String[] {jTextFieldId.getText(),"",jTextFieldNome.getText(),jTextFieldSobreNome.getText(),jTextFieldCargo.getText(),"",jComboBoxTipo.getSelectedItem().toString(),jComboBoxStatus.getSelectedItem().toString()}, this);
     }//GEN-LAST:event_filterUserMouseClicked
 
     private void alterUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_alterUserMouseClicked
         // TODO add your handling code here:
-        try {
-            for (Integer row : update) {
-                int status = ("Inativo".equals(jTable1.getValueAt(row, 9).toString())) ? 0 : 1;
-                con.alterUser("UPDATE colaboradores SET STATUS=" + status + " WHERE ID_USER=" + jTable1.getValueAt(row, 0));
-            }
-            JOptionPane.showMessageDialog(null, "Usuário(s) alterado(s) com sucesso!", "SUCESSO", JOptionPane.INFORMATION_MESSAGE); // Mostra a mensagem de sucesso
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao efetuar a atualização" + ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
-        } finally {
-            listarUsers();
-        }
+       ControllerUser.update(jTable1, update);
+       ControllerUser.listarUsers(jTable1, new String[] {}, this);
     }//GEN-LAST:event_alterUserMouseClicked
 
     private void jTextFieldCPFKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldCPFKeyTyped

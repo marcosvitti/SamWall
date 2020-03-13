@@ -20,14 +20,18 @@ public class AddUser extends javax.swing.JFrame {
     public AddUser(String username, boolean opcao, Integer codigo) { // Método para instanciar o frame addUser
         initComponents(); // Inicia Componentes do frame de addUser
         buscarLogin(username); // Defini o nome do login
-        if(opcao && codigo !=-1){
+        if(opcao && codigo != -1){
             try{
+                System.out.println("SELECT * FROM colaboradores WHERE ID_USER='" + codigo + "'");
+                con.connection();
                 ArrayList<String> campos = con.selectUser("SELECT * FROM colaboradores WHERE ID_USER='" + codigo + "'"); // Verifica se há o usuário no banco de dados
                 System.out.println(campos);
                 jLabel14.setText("Edição do Usuário > " + campos.get(1));
                 carregarCampos(campos);
             } catch (SQLException ex) { // Caso falhe a interação com o banco
                 JOptionPane.showMessageDialog(null, "Erro na busca dos dados do usuário!", "ERROR", JOptionPane.ERROR_MESSAGE); // Mostra a mensagem de erro      
+            } finally {
+                con.connection();
             }
         }
     }
@@ -37,12 +41,8 @@ public class AddUser extends javax.swing.JFrame {
         return Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("pictures/iconLogoBar.png")); // Seta uma imagem como ícone
     } // Fim do método para alterar o icone da barra de tarefas
 
-    private void buscarLogin(String username) { // Método para buscar o login do usuário logado no sitema
-        try { // Tenta realizar a busca no banco
-            this.logLogin = con.buscaLogin(username); // Método para realizar a busca no banco
-        } catch (SQLException ex) { // Se ocorrer algum erro
-            JOptionPane.showMessageDialog(null, "Usuário não encontrado", "ERROR", JOptionPane.ERROR_MESSAGE); // Mostra a seguinte mensagem ao usuário
-        }
+    private void buscarLogin(String login) { // Método para buscar o login do usuário logado no sitema
+        this.logLogin = login; // Método para realizar a busca no banco
     }
     
     private void carregarCampos(ArrayList<String> campos) {
