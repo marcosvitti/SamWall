@@ -332,7 +332,7 @@ public class BlockUser extends javax.swing.JFrame {
 
     private void alterUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_alterUserMouseClicked
         // TODO add your handling code here:
-       ControllerUser.update(jTable1, update);
+       ControllerUser.updateUser(jTable1, update);
        ControllerUser.listarUsers(jTable1, new String[] {}, this);
     }//GEN-LAST:event_alterUserMouseClicked
 
@@ -356,10 +356,7 @@ public class BlockUser extends javax.swing.JFrame {
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         // TODO add your handling code here:
         if (evt.getClickCount() == 2) {
-            Integer codigo = Integer.parseInt(jTable1.getValueAt(jTable1.getSelectedRow(), 0).toString());
-            AddUser addUser = new AddUser(this.username, true, codigo); // Instância o novo frame
-            addUser.setLocationRelativeTo(null); // Defini a localização no meio da tela
-            addUser.setVisible(true); // Defini o frame como visivel
+            ControllerUser.main(username, null, Integer.parseInt(jTable1.getValueAt(jTable1.getSelectedRow(), 0).toString()));
             dispose();
         }
     }//GEN-LAST:event_jTable1MouseClicked

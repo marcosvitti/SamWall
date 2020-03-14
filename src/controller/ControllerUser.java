@@ -1,7 +1,5 @@
 package controller;
 
-import static controller.ControllerMain.connection;
-import static controller.ControllerMain.disconnection;
 import dataBase.DataBase;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -16,6 +14,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
+import screens.AddUser;
 import screens.BlockUser;
 
 public class ControllerUser {
@@ -116,7 +115,7 @@ public class ControllerUser {
         return jTable;
     }
 
-    public static synchronized void update(JTable jTable, ArrayList<Integer> update){
+    public static synchronized void updateUser(JTable jTable, ArrayList<Integer> update){
         ArrayList resp = new ArrayList();
         try {
             connection();
@@ -214,9 +213,15 @@ public class ControllerUser {
         }
     }
 
-    public static void main(String username, String action) {
-        BlockUser user = new BlockUser(username, action); // Instância o novo frame
-        user.setLocationRelativeTo(null); // Defini a localização no meio da tela
-        user.setVisible(true); // Defini o frame como visivel
+    public static void main(String username, String action, int codigo) {
+        if(action != null){
+            BlockUser user = new BlockUser(username, action); // Instância o novo frame
+            user.setLocationRelativeTo(null); // Defini a localização no meio da tela
+            user.setVisible(true); // Defini o frame como visivel
+        } else {
+            AddUser addUser = new AddUser(username, true, codigo); // Instância o novo frame
+            addUser.setLocationRelativeTo(null); // Defini a localização no meio da tela
+            addUser.setVisible(true); // Defini o frame como visivel
+        }
     }
 }
