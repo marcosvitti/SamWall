@@ -32,6 +32,7 @@ public class AddUser extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Erro na busca dos dados do usuário!", "ERROR", JOptionPane.ERROR_MESSAGE); // Mostra a mensagem de erro      
             } finally {
                 con.connection();
+                int i = 0;
             }
         }
     }
