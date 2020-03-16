@@ -12,8 +12,7 @@ public class BlockUser extends javax.swing.JFrame {
     private final String username;
     private final ArrayList<Integer> update;
 
-    public BlockUser(String username, String action) { 
-        // Método para instanciar o frame blockUser
+    public BlockUser(String username, String action) {
         initComponents(); // Inicia Componentes do frame de blockUser
         jLabel14.setText(action); // Defini o nome da função desempenhada
         jTable1 = ControllerUser.listarUsers(jTable1, new String[] {}, this); // Chamada do método responsável por listar os colaboradores do sistema
