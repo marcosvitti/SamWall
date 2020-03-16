@@ -33,7 +33,7 @@ public class ControllerMain {
     } // Fim do método para buscar o nome do colaborador
 
     public static synchronized void userAction(String username, String action){
-        ControllerUser.main(username, action, 0); // Instância o novo frame
+        ControllerUser.main(username, action, 0);
     }
 
     public static void main(String username) {

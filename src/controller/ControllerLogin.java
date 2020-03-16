@@ -41,7 +41,7 @@ public class ControllerLogin {
     } // Fim do método para validar se o usuário está cadastrado no banco
 
     public static void main(String args[]) {
-        try { // Tentar usar o LookAndFeel da API jtattoo
+        try { 
             UIManager.setLookAndFeel("com.jtattoo.plaf.graphite.GraphiteLookAndFeel"); // Escolha do tema a ser usado
             DecorationHelper.decorateWindows(false); // Desativa os botões de Minimizar, Maximizar e Redimensionar do frame
         } catch (ClassNotFoundException
