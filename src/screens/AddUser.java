@@ -213,6 +213,11 @@ public class AddUser extends javax.swing.JFrame {
         jPanelLogin.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 310, 40));
 
         jTextFieldSenha.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jTextFieldSenha.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextFieldSenhaKeyTyped(evt);
+            }
+        });
         jPanelLogin.add(jTextFieldSenha, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 310, 30));
 
         jLabel12.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
@@ -223,6 +228,11 @@ public class AddUser extends javax.swing.JFrame {
 
         jPasswordField1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jPasswordField1.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        jPasswordField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextFieldSenhaKeyTyped(evt);
+            }
+        });
         jPanelLogin.add(jPasswordField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, 310, 30));
 
         jPanel5.add(jPanelLogin);
@@ -469,6 +479,14 @@ public class AddUser extends javax.swing.JFrame {
         // TODO add your handling code here:
         checkChangePassword(this.userAlter);
     }//GEN-LAST:event_jCheckBoxChangePasswordItemStateChanged
+
+    private void jTextFieldSenhaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldSenhaKeyTyped
+        // Método usado para verificar a entrada do usuário para evitar SQLInjection
+        Matcher matcher = Pattern.compile("[^\\w]").matcher(Character.toString(evt.getKeyChar())); // Compara o caractere digitado com a expressão regular
+        if (matcher.find()) { // Se achar o caractere imprópio 
+            evt.consume();// Não deixa ele ser escrito
+        } // Fim da vetificação
+    }//GEN-LAST:event_jTextFieldSenhaKeyTyped
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel addUser;

@@ -173,6 +173,11 @@ public class BlockUser extends javax.swing.JFrame {
         jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 580, 40));
 
         jTextFieldNome.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jTextFieldNome.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextFieldsKeyTyped(evt);
+            }
+        });
         jPanel1.add(jTextFieldNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, 320, -1));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
@@ -188,6 +193,11 @@ public class BlockUser extends javax.swing.JFrame {
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 280, 320, 30));
 
         jTextFieldSobreNome.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jTextFieldSobreNome.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextFieldsKeyTyped(evt);
+            }
+        });
         jPanel1.add(jTextFieldSobreNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 310, 320, -1));
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
@@ -197,6 +207,11 @@ public class BlockUser extends javax.swing.JFrame {
         jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 420, 320, 30));
 
         jTextFieldCargo.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jTextFieldCargo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextFieldsKeyTyped(evt);
+            }
+        });
         jPanel1.add(jTextFieldCargo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 450, 320, -1));
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
@@ -236,6 +251,11 @@ public class BlockUser extends javax.swing.JFrame {
         jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 350, 320, 30));
 
         jTextFieldId.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jTextFieldId.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextFieldIdKeyTyped(evt);
+            }
+        });
         jPanel1.add(jTextFieldId, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 120, -1));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
@@ -304,6 +324,11 @@ public class BlockUser extends javax.swing.JFrame {
         jPanel1.add(alterUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 370, 200, 130));
 
         jTextFieldLogin.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jTextFieldLogin.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextFieldsKeyTyped(evt);
+            }
+        });
         jPanel1.add(jTextFieldLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 320, -1));
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
@@ -358,6 +383,22 @@ public class BlockUser extends javax.swing.JFrame {
             dispose();
         }
     }//GEN-LAST:event_jTable1MouseClicked
+
+    private void jTextFieldIdKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldIdKeyTyped
+        // Método usado para verificar a entrada do usuário para evitar SQLInjection
+        Matcher matcher = Pattern.compile("[^0-9]").matcher(Character.toString(evt.getKeyChar())); // Compara o caractere digitado com a expressão regular
+        if (matcher.find()) { // Se achar o caractere imprópio 
+            evt.consume();// Não deixa ele ser escrito
+        } // Fim da vetificação
+    }//GEN-LAST:event_jTextFieldIdKeyTyped
+
+    private void jTextFieldsKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldsKeyTyped
+        // Método usado para verificar a entrada do usuário para evitar SQLInjection
+        Matcher matcher = Pattern.compile("[^\\w]").matcher(Character.toString(evt.getKeyChar())); // Compara o caractere digitado com a expressão regular
+        if (matcher.find()) { // Se achar o caractere imprópio 
+            evt.consume();// Não deixa ele ser escrito
+        } // Fim da vetificação
+    }//GEN-LAST:event_jTextFieldsKeyTyped
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel alterUser;
