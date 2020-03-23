@@ -16,6 +16,7 @@ public class Login extends javax.swing.JFrame {
         initComponents(); // Inicia Componentes do frame de login
         password.setEchoChar(Character.forDigit(0, 0)); // Inicializa o campo password como caracteres visíveis
         this.setLocationRelativeTo(null); // Inicializa o frame centralizado na tela
+        jLabel1.requestFocus();
     } // Fim do método de instanciação
 
     @Override
@@ -89,7 +90,7 @@ public class Login extends javax.swing.JFrame {
         password.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         password.setText("Password");
         password.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, java.awt.Color.white, java.awt.Color.white, java.awt.Color.white, java.awt.Color.white));
-        password.setNextFocusableComponent(showPass);
+        password.setNextFocusableComponent(logon);
         password.setPreferredSize(new java.awt.Dimension(76, 28));
         password.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -137,7 +138,7 @@ public class Login extends javax.swing.JFrame {
         getContentPane().add(logon, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 300, 150, 40));
 
         iconInfo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pictures/iconsInfo.png"))); // NOI18N
-        iconInfo.setToolTipText("Desenvolvido por Marcos Menghini Vitti");
+        iconInfo.setToolTipText("");
         getContentPane().add(iconInfo, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 300, 30, 40));
 
         exit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pictures/iconsExit.png"))); // NOI18N
@@ -145,7 +146,6 @@ public class Login extends javax.swing.JFrame {
         exit.setBorderPainted(false);
         exit.setContentAreaFilled(false);
         exit.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        exit.setFocusPainted(false);
         exit.setNextFocusableComponent(username);
         exit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -155,6 +155,7 @@ public class Login extends javax.swing.JFrame {
         getContentPane().add(exit, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 10, -1, -1));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pictures/iconLogoSamuWall.png"))); // NOI18N
+        jLabel1.setNextFocusableComponent(username);
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 60, -1, 150));
 
         jTextField2.setBorder(null);
@@ -223,11 +224,15 @@ public class Login extends javax.swing.JFrame {
 
     private void logonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logonActionPerformed
         // Método para chamar a método logar, responsável por realizar o login ao sistema 
-        Object[] resp = ControllerLogin.logar(username.getText(), password.getText(), this); // Chama o método logar
-        username.setText(resp[0].toString());
-        password.setText(resp[1].toString());
-        password.setEchoChar(Character.forDigit(0, 0));
-        exit.requestFocus();
+        String[] resp = ControllerLogin.logar(username.getText(), password.getText());
+        if (resp != null) {
+            username.setText(resp[0]);
+            password.setText(resp[1]);
+            password.setEchoChar(Character.forDigit(0, 0));
+            username.requestFocus();
+        } else {
+            dispose();
+        }
     }//GEN-LAST:event_logonActionPerformed
 
     private void logonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logonMouseEntered
@@ -243,11 +248,15 @@ public class Login extends javax.swing.JFrame {
     private void passwordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passwordKeyPressed
         // Método para realizar o login quando a tecla 'ENTER' for pressinada e estiver no campo password
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) { // Verifica se a tecla 'ENTER' foi pressionada
-            Object[] resp = ControllerLogin.logar(username.getText(), password.getText(), this); // Chama o método logar
-            username.setText(resp[0].toString());
-            password.setText(resp[1].toString());
-            password.setEchoChar(Character.forDigit(0, 0));
-            exit.requestFocus();
+            String[] resp = ControllerLogin.logar(username.getText(), password.getText()); // Chama o método logar
+            if (resp != null) {
+                username.setText(resp[0]);
+                password.setText(resp[1]);
+                password.setEchoChar(Character.forDigit(0, 0));
+                exit.requestFocus();
+            } else {
+                dispose();
+            }
         } // Fim da verificação
     }//GEN-LAST:event_passwordKeyPressed
 

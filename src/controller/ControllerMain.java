@@ -8,7 +8,7 @@ import screens.Main;
 
 public class ControllerMain {
 
-    private static final DataBase con = DataBase.getInstance(); // Instanciação da variável interações com o banco de dados
+    private static final DataBase con = DataBase.getInstance();
 
     public static synchronized void connection(){
         con.connection();
@@ -18,29 +18,32 @@ public class ControllerMain {
         con.disconnection();
     }
 
-    public static synchronized Object[] buscaUserName(String username) { // Método para buscar o nome do colaborador pelo seu username 
+    public static synchronized String[] buscaUserName(String login) { // Método para buscar o nome do colaborador pelo seu username 
         ArrayList nome = new ArrayList();
-        try { // Tentar realizar a busca pelo usuário
+        try {
             connection();
-            //return con.selectUserNameCommandSQL(username); // Retorna o resposta da função, o nome completo do usuário
-            nome = con.select("COLABORADORES", new String[] {"LOGIN","NOME","SOBRENOME", "TIPO"}, new String[] {username}); // Retorna o resposta da função, o nome completo do usuário
-        } catch (SQLException ex) { // Caso a busca do usuário falhe é lançado uma exception
-            JOptionPane.showMessageDialog(null, "Usuário não encontrado", "ERROR", JOptionPane.ERROR_MESSAGE); // Mostra um aviso para o usuário
+            nome = con.select("COLABORADORES", new String[] {"LOGIN","NOME","SOBRENOME", "TIPO"}, new String[] {login});
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Usuário não encontrado", "ERROR", JOptionPane.ERROR_MESSAGE);
         } finally {
             disconnection();
         }
-        return  new Object[] {nome.get(1) + " " + nome.get(2), nome.get(3).equals("A")};
+        return  new String[] {nome.get(1) + " " + nome.get(2), Boolean.toString(nome.get(3).equals("A"))};
     } // Fim do método para buscar o nome do colaborador
 
-    public static synchronized void userAction(String username, String action){
-        ControllerUser.main(username, action, 0);
+    public static synchronized void userAction(String login, String action){
+        ControllerUser.main(login, action, 0);
     }
 
-    public static void main(String username) {
-        Main main = new Main(username);
-        //main.setExtendedState(JFrame.MAXIMIZED_BOTH); // Inicializa o frame main com full screen
-        main.setExtendedState(6); // Inicializa o frame main com full screen
-        main.setLocationRelativeTo(null); // Inicializa o frame main centralizado na tela
-        main.setVisible(true); // Muda a visibilidade do novo frame instânciado para visível
+    public static synchronized void logout(){
+        disconnection();
+        ControllerLogin.main(null);
+    }
+
+    public static void main(String login) {
+        Main main = new Main(login);
+        main.setExtendedState(6);
+        main.setLocationRelativeTo(null);
+        main.setVisible(true);
     }
 }
