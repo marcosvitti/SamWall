@@ -49,7 +49,10 @@ public class DataBase {
     }
 
     public static synchronized String SHA1(String s){
-        return "sys.fn_varbintohexsubstring(0, HASHBYTES('SHA1','" + s + "'), 1, 0)";
+        if(!s.equals("")){
+            return "sys.fn_varbintohexsubstring(0, HASHBYTES('SHA1','" + s + "'), 1, 0)";
+        }
+        return "";
     }
 
     public void connection() {
@@ -57,8 +60,7 @@ public class DataBase {
             System.setProperty("jdbc.Drivers", driver);
             con = DriverManager.getConnection(caminho, usuario, senha);
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro de conexão : \n "
-                    + ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Erro de conexão com o banco de dados!", "ERROR", JOptionPane.ERROR_MESSAGE);
             System.exit(0);
         }
     }
@@ -69,8 +71,7 @@ public class DataBase {
                 con.close();
             }
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro de disconexão : \n"
-                    + ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Erro de desconexão com o banco de dados!", "ERROR", JOptionPane.ERROR_MESSAGE);
         }
     }
     
@@ -146,7 +147,7 @@ public class DataBase {
     public ArrayList insert(String table, String[] campos, String[] values ) throws SQLException {
         ArrayList arrayReturn = new ArrayList<>();
         try {
-            String command = "INSERT INTO " + table + "(";
+            String command = "INSERT INTO " + table + " (";
             for (int i=0; i<campos.length; i++) {
                 if(!campos[i].equals("")){
                     command += campos[i];
@@ -159,7 +160,17 @@ public class DataBase {
             command += ") VALUES (";
             for (int i=0; i<values.length; i++) {
                 if(!values[i].equals("")){
-                    command += values[i];
+                    if(values[i].contains("GETDATE()")){
+
+                        command += values[i];
+
+                    } else if(values[i].contains("sys.fn_varbintohexsubstring")) {
+
+                        command += values[i];
+
+                    } else {
+                        command += "'"+ values[i] + "'";
+                    }
                     if(values.length-1 != i){
                         command += ",";
                     }
@@ -169,11 +180,8 @@ public class DataBase {
             command += ");";
             stm = con.createStatement();
             System.out.println(command);
-            rs = stm.executeQuery(command);
-            while (rs.next()) {
-                for(String campo : campos){
-                    arrayReturn.add(rs.getString(campo));
-                }
+            if(stm.execute(command)){
+                arrayReturn.add("OK");
             }
         } catch (SQLException ex) {
             throw new SQLException();
@@ -186,16 +194,34 @@ public class DataBase {
         try {
             String command = "UPDATE " + table + " SET ";
             for (int i=0; i<campos.length; i++) {
-                command += campos[i] + "='" + values[i] + "'";
-                if(values.length-1 != i){
-                    command += " AND";
+                if(!campos[i].equals("")) {
+                    if(values[i].contains("GETDATE()")){
+
+                           command +=  campos[i] + "=" + values[i];
+
+                        } else if(values[i].contains("sys.fn_varbintohexsubstring")) {
+
+                            command += campos[i] + "=" + values[i];
+
+                        } else {
+
+                            command += campos[i] + "='" + values[i] + "'";
+
+                    }
+                   if(values.length-1 != i){
+                       command += ",";
+                   }
+                   command += " ";
                 }
-                command += " ";
             }
             if(wheres.length > 0){
                 command += "WHERE ";
                 for (int i=0; i<wheres.length; i++) {
-                    if(wheres[i].contains("sys.fn_varbintohexsubstring")) {
+                    if(values[i].contains("GETDATE()")){
+
+                        command +=  wheres[i] + "=" + values[i];
+
+                    } else if(wheres[i].contains("sys.fn_varbintohexsubstring")) {
 
                         command += wheres[i] + "=" + condicional[i];
 
@@ -227,6 +253,18 @@ public class DataBase {
         return arrayReturn;
     }
 
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     public JTable listaUsers(String command, javax.swing.JTable jTable1) throws SQLException {
         ((DefaultTableModel) jTable1.getModel()).setRowCount(0); // Defini a tabela com quantidades de linhas igual a zero
         try {
@@ -624,7 +662,7 @@ public class DataBase {
         }
     }
 /*******************************************************************************/
-    
+   
     public void inserirDados(String command) throws SQLException {
         try {
             stm = con.createStatement();

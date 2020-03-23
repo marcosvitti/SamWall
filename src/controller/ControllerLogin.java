@@ -10,34 +10,32 @@ import screens.Login;
 
 public class ControllerLogin {
 
-    private static final DataBase con = DataBase.getInstance(); // Instanciação da variável interações com o banco de dados
+    private static final DataBase con = DataBase.getInstance();
 
-    public static synchronized void connection(){
+    public static synchronized void connection() {
         con.connection();
     }
 
-    public static synchronized void disconnection(){
+    public static synchronized void disconnection() {
         con.disconnection();
     }
 
-    public static synchronized Object[] logar(String username, String password, Login frame){ // Método para validar se o usuário está cadastrado no banco
-        ArrayList user = new ArrayList();
-        try { // Tentar realizar a validação do usuário
+    public static synchronized String[] logar(String login, String password) { // Método para validar se o usuário está cadastrado no banco
+        ArrayList user;
+        try {
             connection();
-            //con.selectLoginCommandSQL(username, password); // Função para realizar a validação do usuário
-            user = con.select( "COLABORADORES", new String[] {"LOGIN","SENHA"}, new String[] {username, DataBase.SHA1(password)}); // Função para realizar a validação do usuário
+            user = con.select( "COLABORADORES", new String[] {"LOGIN","SENHA"}, new String[] {login, DataBase.SHA1(password)});
             if(user.isEmpty()){
                 throw new SQLException();
             }
-        } catch (SQLException ex) { // Caso a validação do usuário falhe é lançado uma exception
-            JOptionPane.showMessageDialog(null, "Usuário/Senha estão incorretos", "ERRO", JOptionPane.ERROR_MESSAGE); // Cria uma tela de aviso ao usuário
-            return new Object[] {"Username","Password"};
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Usuário/Senha estão incorretos", "ERRO", JOptionPane.ERROR_MESSAGE);
+            return new String[] {"Username","Password"};
         } finally {
             disconnection();
         }
-        ControllerMain.main(username);
-        frame.dispose();
-        return new String[] {"Username","Password"};
+        ControllerMain.main(login);
+        return null;
     } // Fim do método para validar se o usuário está cadastrado no banco
 
     public static void main(String args[]) {
@@ -51,10 +49,10 @@ public class ControllerLogin {
             java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex); // Mostra o erro pertinente a exception 
         }
 
-        java.awt.EventQueue.invokeLater(() -> { // Método para instânciar o frame Login
-            Login frame = new Login(); // Instânciação do frame
-            frame.setVisible(true); // Mudando a visibilidade como visível
-            frame.requestFocus(); // Mudando o foco para o frame
-        }); // Fim do método de invocação
-    } // Fim do método Main
+        java.awt.EventQueue.invokeLater(() -> {
+            Login frame = new Login();
+            frame.setVisible(true);
+            frame.requestFocus();
+        });
+    }
 }

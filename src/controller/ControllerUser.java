@@ -37,6 +37,8 @@ public class ControllerUser {
             if(f.equals("") || f.equals("Selecione...")){
                 System.out.println(f);
                 filters[i] = "LIKE %";
+            } else {
+                filters[i] = "LIKE %" + f + "%";
             }
             if(f.equals("Usuário")){
                 filters[i] = "U";
@@ -52,8 +54,10 @@ public class ControllerUser {
         }
         try { // Tentar realizar a listagem dos colaboradores
             connection();
-            //jTable = con.listaUsers("SELECT * FROM colaboradores", jTable);
             resp = con.select("COLABORADORES", new String[] {"ID_USER", "LOGIN", "NOME", "SOBRENOME", "CARGO", "DATA_CADASTRO", "TIPO", "STATUS"}, filters); // Retorna o resposta da função, o nome completo do usuário
+            if (resp.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Nenhum usuário encontrado!", "ERRO", JOptionPane.ERROR_MESSAGE);
+            }
             System.out.println(resp);
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Erro ao listar usuários!" + e, "ERRO", JOptionPane.ERROR_MESSAGE);
@@ -100,7 +104,7 @@ public class ControllerUser {
             hRenderer.setBackground(new Color(84, 127, 206));
             hRenderer.setForeground(new Color(255, 255, 255));
 
-            String linha[] = {String.valueOf(id), login, nome, sobrenome, cargo, data, status.getSelectedItem().toString(), tipo};
+            String linha[] = {String.valueOf(id), login, nome, sobrenome, cargo, data.substring(0, 9), status.getSelectedItem().toString(), tipo};
             ((DefaultTableModel) jTable.getModel()).addRow(linha);
 
             TableColumn comboBoxStatus = jTable.getColumnModel().getColumn(6);
@@ -114,6 +118,92 @@ public class ControllerUser {
         }
         return jTable;
     }
+    
+    public static synchronized ArrayList getColaborador(String codigo) {
+        ArrayList colaborador = new ArrayList();
+        try {
+            connection();
+            colaborador = con.select("COLABORADORES", new String[] {"ID_USER", "LOGIN", "NOME", "SOBRENOME", "CPF", "TELEFONE", "CELULAR", "EMAIL", "CARGO", "STATUS", "TIPO"}, new String[] {codigo});
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro na busca dos dados do usuário!", "ERROR", JOptionPane.ERROR_MESSAGE);
+        } finally {
+            disconnection();
+        }
+        return colaborador;
+    }
+
+    public static synchronized boolean setColaborador(String[] dados, boolean opcao, int idUser) {
+        String nome = dados[0];
+        String sobrenome = dados[1];
+        String cpf = formatCPF(dados[2]);
+        String telefone = dados[3];
+        String celular = dados[4];
+        String email = dados[5];
+        
+        String cargo = dados[6];
+        String status = dados[7];
+        String tipo = dados[8];
+        
+        String resetPass = dados[9];
+        String login = dados[10];
+        String senha = dados[11];
+        String confSenha = dados[12];
+
+        status = status.equals("Ativo") ? "1" : "0";
+        tipo = tipo.equals("Administrador") ? "A" : "U";
+
+        boolean resp = false;
+        try { // Tentar realizar a inserção no banco
+            connection();
+
+            if(nome.equals("") || sobrenome.equals("") || cpf.equals("") || telefone.equals("") || celular.equals("") || email.equals("") || cargo.equals("") || status.equals("") || tipo.equals("") ) {
+                throw new Exception("Preencha os campos corretamente!");
+            }
+
+            if(Boolean.parseBoolean(resetPass)){
+                if (!login.equals("") && !senha.equals("") && !confSenha.equals("")) {
+                    if (!confSenha.equals(senha)) {
+                        throw new Exception("As senhas não são identicas!");
+                    }
+                } else {
+                    throw new Exception("Preencha os campos de login corretamente!");
+                }
+            } else {
+                login = "";
+                senha = "";
+            }
+
+            if(opcao && idUser != -1) {
+
+                con.update("COLABORADORES",
+                        new String[] {Boolean.parseBoolean(resetPass) ? "LOGIN" : "", Boolean.parseBoolean(resetPass) ? "SENHA" : "", "NOME", "SOBRENOME", "CARGO", "TELEFONE", "CELULAR", "CPF", "DATA_CADASTRO", "STATUS", "TIPO", "EMAIL"},
+                        new String[] {login, DataBase.SHA1(senha), nome, sobrenome, cargo, telefone, celular, cpf, "GETDATE()", status, tipo, email},
+                        new String[] {"ID_USER"},
+                        new String[] {String.valueOf(idUser)});
+                JOptionPane.showMessageDialog(null, "Usuários alterado com sucesso!", "SUCESSO", JOptionPane.INFORMATION_MESSAGE);
+                resp = true;
+            } else {
+
+                if(!con.select("COLABORADORES", new String[] {"LOGIN"}, new String[] {login}).isEmpty()) { // Se rowAffected for diferente de 0
+                    throw new Exception("Usuário já cadastrado no sistema!"); // Gera uma nova exceção
+                }
+
+                con.insert("COLABORADORES",
+                        new String[] {Boolean.parseBoolean(resetPass) ? "LOGIN" : "", Boolean.parseBoolean(resetPass) ? "SENHA" : "", "NOME", "SOBRENOME", "CARGO", "TELEFONE", "CELULAR", "CPF", "DATA_CADASTRO", "STATUS", "TIPO", "EMAIL"},
+                        new String[] {login, DataBase.SHA1(senha), nome, sobrenome, cargo, telefone, celular, cpf, "GETDATE()", status, tipo, email});
+                JOptionPane.showMessageDialog(null, "Usuário cadastrado com sucesso!", "SUCESSO", JOptionPane.INFORMATION_MESSAGE);
+                resp = true;
+            }
+
+        } catch (SQLException ex) { // Caso falhe a interação com o banco
+            JOptionPane.showMessageDialog(null, "Erro no cadastro do usuário! "+ ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE); // Mostra a mensagem de erro
+        } catch (Exception ex) { // Caso falhe as verificações de inputs
+                JOptionPane.showMessageDialog(null, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE); // Mostra a mensagem de erro
+        } finally {
+            disconnection();
+        }
+        return resp;
+    }
 
     public static synchronized void updateUser(JTable jTable, ArrayList<Integer> update){
         ArrayList resp = new ArrayList();
@@ -126,25 +216,11 @@ public class ControllerUser {
             }
             JOptionPane.showMessageDialog(null, "Usuário(s) alterado(s) com sucesso!", "SUCESSO", JOptionPane.INFORMATION_MESSAGE); // Mostra a mensagem de sucesso
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao efetuar a atualização => " + ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Erro ao efetuar a atualização : " + ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
         } finally {
             disconnection();
         }
     }
-
-    public static synchronized String buscaLogin(String username) { // Método para buscar o nome do colaborador pelo seu username 
-        ArrayList nome = new ArrayList();
-        try { // Tentar realizar a busca pelo usuário
-            connection();
-            //return con.selectUserNameCommandSQL(username); // Retorna o resposta da função, o nome completo do usuário
-            nome = con.select("COLABORADORES", new String[] {"NOME","LOGIN"}, new String[] {username.split(" ")[0]}); // Retorna o resposta da função, o nome completo do usuário
-        } catch (SQLException ex) { // Caso a busca do usuário falhe é lançado uma exception
-            JOptionPane.showMessageDialog(null, "Usuário não encontrado", "ERROR", JOptionPane.ERROR_MESSAGE); // Mostra um aviso para o usuário
-        } finally {
-            disconnection();
-        }
-        return nome.get(0).toString();
-    } // Fim do método para buscar o nome do colaborador
 
     public static synchronized String formatCPF(String cpf) {
         StringTokenizer tok = new StringTokenizer(cpf, ".");
@@ -212,14 +288,27 @@ public class ControllerUser {
             return (false);
         }
     }
+    
+    public static synchronized String formatContato(String contato) {
+        StringTokenizer tok = new StringTokenizer(contato, " ");
+        String ddd = tok.nextToken().substring(1, 3);
+        String t = tok.nextToken();
 
-    public static void main(String username, String action, int codigo) {
-        if(action != null){
-            BlockUser user = new BlockUser(username, action); // Instância o novo frame
+        StringTokenizer tok2 = new StringTokenizer(t, "-");
+        String t1 = tok2.nextToken();
+        String t2 = tok2.nextToken();
+
+        String tel = ddd + t1 + t2;
+        return tel;
+    }
+
+    public static synchronized void main(String login, String action, Integer codigo) {
+        if(codigo == -2) {
+            BlockUser user = new BlockUser(login, action); // Instância o novo frame
             user.setLocationRelativeTo(null); // Defini a localização no meio da tela
             user.setVisible(true); // Defini o frame como visivel
         } else {
-            AddUser addUser = new AddUser(username, true, codigo); // Instância o novo frame
+            AddUser addUser = new AddUser(login, true, codigo); // Instância o novo frame
             addUser.setLocationRelativeTo(null); // Defini a localização no meio da tela
             addUser.setVisible(true); // Defini o frame como visivel
         }
