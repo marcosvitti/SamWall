@@ -29,6 +29,7 @@ public class AddUser extends javax.swing.JFrame {
             this.userAlter =  colaborador.get(1);
             jLabel14.setText("Edição do Usuário > " + this.userAlter);
             carregarCampos(colaborador);
+            jComboBoxStatus.setEnabled(true);
             jCheckBoxChangePassword.setVisible(true);
             jCheckBoxChangePassword.setEnabled(true);
             jCheckBoxChangePassword.setSelected(false);
@@ -53,8 +54,9 @@ public class AddUser extends javax.swing.JFrame {
         jTextFieldCelular.setText(campos.get(6));
         jTextFieldEmail.setText(campos.get(7));
         jTextFieldCargo.setText(campos.get(8));
-        jComboBoxStatus.setSelectedItem(campos.get(9));
-        jComboBoxTipo.setSelectedItem(campos.get(10));     
+        jComboBoxStatus.setSelectedIndex(Integer.parseInt(campos.get(9)));
+        jComboBoxTipo.setSelectedItem(campos.get(10));
+        System.out.println(campos.get(9));
     }
 
     private void limpaCampos() { // Método para limpar campos do formulário
@@ -352,7 +354,8 @@ public class AddUser extends javax.swing.JFrame {
         jPanel7.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 310, 40));
 
         jComboBoxStatus.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jComboBoxStatus.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Ativo", "Inativo" }));
+        jComboBoxStatus.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Inativo", "Ativo" }));
+        jComboBoxStatus.setSelectedIndex(1);
         jComboBoxStatus.setBorder(null);
         jComboBoxStatus.setEnabled(false);
         jPanel7.add(jComboBoxStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, 310, 30));
