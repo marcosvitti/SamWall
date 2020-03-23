@@ -104,6 +104,9 @@ public class Login extends javax.swing.JFrame {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 passwordKeyPressed(evt);
             }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                passwordKeyTyped(evt);
+            }
         });
         getContentPane().add(password, new org.netbeans.lib.awtextra.AbsoluteConstraints(45, 260, 160, 35));
 
@@ -272,6 +275,15 @@ public class Login extends javax.swing.JFrame {
             evt.consume();// Não deixa ele ser escrito
         } // Fim da vetificação
     }//GEN-LAST:event_usernameKeyTyped
+
+    private void passwordKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passwordKeyTyped
+        // Método usado para verificar a entrada do usuário para evitar SQLInjection
+        Matcher matcher = Pattern.compile("[^\\w]").matcher(Character.toString(evt.getKeyChar())); // Compara o caractere digitado com a expressão regular
+        if (matcher.find()) { // Se achar o caractere imprópio 
+            evt.consume();// Não deixa ele ser escrito
+        } // Fim da vetificação
+    }//GEN-LAST:event_passwordKeyTyped
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel background;
     private javax.swing.JButton exit;
