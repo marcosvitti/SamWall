@@ -104,7 +104,7 @@ public class ControllerUser {
             hRenderer.setBackground(new Color(84, 127, 206));
             hRenderer.setForeground(new Color(255, 255, 255));
 
-            String linha[] = {String.valueOf(id), login, nome, sobrenome, cargo, data.substring(0, 9), status.getSelectedItem().toString(), tipo};
+            String linha[] = {String.valueOf(id), login, nome, sobrenome, cargo, data.substring(8,10) + "/" + data.substring(5, 7) + "/" + data.substring(0, 4), status.getSelectedItem().toString(), tipo};
             ((DefaultTableModel) jTable.getModel()).addRow(linha);
 
             TableColumn comboBoxStatus = jTable.getColumnModel().getColumn(6);
@@ -196,7 +196,7 @@ public class ControllerUser {
             }
 
         } catch (SQLException ex) { // Caso falhe a interação com o banco
-            JOptionPane.showMessageDialog(null, "Erro no cadastro do usuário! "+ ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE); // Mostra a mensagem de erro
+            JOptionPane.showMessageDialog(null, "Erro no cadastro do usuário! ", "ERROR", JOptionPane.ERROR_MESSAGE); // Mostra a mensagem de erro
         } catch (Exception ex) { // Caso falhe as verificações de inputs
                 JOptionPane.showMessageDialog(null, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE); // Mostra a mensagem de erro
         } finally {
