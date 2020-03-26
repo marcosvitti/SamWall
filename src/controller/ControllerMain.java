@@ -3,6 +3,8 @@ package controller;
 import dataBase.DataBase;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import screens.Main;
 
@@ -22,21 +24,28 @@ public class ControllerMain {
         ArrayList nome = new ArrayList();
         try {
             connection();
-            nome = con.select("COLABORADORES", new String[] {"LOGIN","NOME","SOBRENOME", "TIPO"}, new String[] {login});
+            nome = con.select("COLABORADORES", new String[] {"LOGIN","NOME","SOBRENOME", "TIPO", "ID_USER"}, new String[] {login});
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Usuário não encontrado", "ERROR", JOptionPane.ERROR_MESSAGE);
         } finally {
             disconnection();
         }
-        return  new String[] {nome.get(1) + " " + nome.get(2), Boolean.toString(nome.get(3).equals("A"))};
+        return  new String[] {nome.get(1) + " " + nome.get(2), Boolean.toString(nome.get(3).equals("A")), nome.get(4).toString()};
     } // Fim do método para buscar o nome do colaborador
 
     public static synchronized void userAction(String login, String action){
         ControllerUser.main(login, action, 0);
     }
 
-    public static synchronized void logout(){
-        disconnection();
+    public static synchronized void logout(String idUser){
+        try {
+            connection();
+            con.update("COLABORADORES", new String[]{"LOGADO"}, new String[]{"0"}, new String[]{"ID_USER"}, new String[]{idUser});
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Algo deu errado, mas você será desconectado!", "ERROR", JOptionPane.ERROR_MESSAGE);
+        } finally {
+            disconnection();
+        }
         ControllerLogin.main(null);
     }
 

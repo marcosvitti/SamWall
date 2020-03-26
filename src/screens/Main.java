@@ -13,6 +13,7 @@ import java.awt.Image;
 public class Main extends javax.swing.JFrame {
 
     String login;
+    String idUser;
 
     public Main(String login) { // Método para instanciar o frame main
         initComponents();
@@ -24,6 +25,7 @@ public class Main extends javax.swing.JFrame {
     private void inicializar(String[] resp) {
         completNameUser.setText(resp[0]);
         btnUsuarios.setVisible(Boolean.parseBoolean(resp[1]));
+        this.idUser = resp[2] ;
         side_pane.setPreferredSize(new Dimension(170, Toolkit.getDefaultToolkit().getScreenSize().height));
         resetPanels(new JPanel[]{jPanelPerfil, jPanelGerenciamentoUser, jPanelGerenciamentoNotasFiscais, jPanelGerenciamentoPedidoCompra});
         resetColor(new JPanel[]{btnPerfil,btnHome,btnPC,btnUsuarios,btnNotasFiscais}, new JPanel[]{ind_6,ind_1,ind_4,ind_3,ind_2});
@@ -74,30 +76,6 @@ public class Main extends javax.swing.JFrame {
         btnUsuarios = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
         ind_3 = new javax.swing.JPanel();
-        jPanelGerenciamentoUser = new javax.swing.JPanel();
-        actionAddUser = new javax.swing.JPanel();
-        jLabel7 = new javax.swing.JLabel();
-        jSeparator2 = new javax.swing.JSeparator();
-        jLabel14 = new javax.swing.JLabel();
-        actionsUser = new javax.swing.JPanel();
-        jLabel25 = new javax.swing.JLabel();
-        jSeparator5 = new javax.swing.JSeparator();
-        jLabel26 = new javax.swing.JLabel();
-        tittleGerenciamentoUser = new javax.swing.JPanel();
-        jLabel27 = new javax.swing.JLabel();
-        jSeparator6 = new javax.swing.JSeparator();
-        jPanelGerenciamentoPedidoCompra = new javax.swing.JPanel();
-        addNF1 = new javax.swing.JPanel();
-        jLabel13 = new javax.swing.JLabel();
-        jSeparator15 = new javax.swing.JSeparator();
-        jLabel36 = new javax.swing.JLabel();
-        listNF1 = new javax.swing.JPanel();
-        jLabel39 = new javax.swing.JLabel();
-        jSeparator17 = new javax.swing.JSeparator();
-        jLabel40 = new javax.swing.JLabel();
-        tittleGerenciamentoUser2 = new javax.swing.JPanel();
-        jLabel43 = new javax.swing.JLabel();
-        jSeparator19 = new javax.swing.JSeparator();
         jPanelGerenciamentoNotasFiscais = new javax.swing.JPanel();
         editNF = new javax.swing.JPanel();
         jLabel29 = new javax.swing.JLabel();
@@ -110,6 +88,30 @@ public class Main extends javax.swing.JFrame {
         tittleGerenciamentoUser1 = new javax.swing.JPanel();
         jLabel35 = new javax.swing.JLabel();
         jSeparator14 = new javax.swing.JSeparator();
+        jPanelGerenciamentoPedidoCompra = new javax.swing.JPanel();
+        addNF1 = new javax.swing.JPanel();
+        jLabel13 = new javax.swing.JLabel();
+        jSeparator15 = new javax.swing.JSeparator();
+        jLabel36 = new javax.swing.JLabel();
+        listNF1 = new javax.swing.JPanel();
+        jLabel39 = new javax.swing.JLabel();
+        jSeparator17 = new javax.swing.JSeparator();
+        jLabel40 = new javax.swing.JLabel();
+        tittleGerenciamentoUser2 = new javax.swing.JPanel();
+        jLabel43 = new javax.swing.JLabel();
+        jSeparator19 = new javax.swing.JSeparator();
+        jPanelGerenciamentoUser = new javax.swing.JPanel();
+        actionAddUser = new javax.swing.JPanel();
+        jLabel7 = new javax.swing.JLabel();
+        jSeparator2 = new javax.swing.JSeparator();
+        jLabel14 = new javax.swing.JLabel();
+        actionsUser = new javax.swing.JPanel();
+        jLabel25 = new javax.swing.JLabel();
+        jSeparator5 = new javax.swing.JSeparator();
+        jLabel26 = new javax.swing.JLabel();
+        tittleGerenciamentoUser = new javax.swing.JPanel();
+        jLabel27 = new javax.swing.JLabel();
+        jSeparator6 = new javax.swing.JSeparator();
         jPanelPerfil = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         btn_exit = new javax.swing.JLabel();
@@ -378,79 +380,74 @@ public class Main extends javax.swing.JFrame {
 
         getContentPane().add(side_pane, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
-        jPanelGerenciamentoUser.setBackground(new java.awt.Color(71, 120, 197));
-        jPanelGerenciamentoUser.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jPanelGerenciamentoNotasFiscais.setBackground(new java.awt.Color(71, 120, 197));
+        jPanelGerenciamentoNotasFiscais.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        actionAddUser.setBackground(new java.awt.Color(84, 127, 206));
-        actionAddUser.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        actionAddUser.addMouseListener(new java.awt.event.MouseAdapter() {
+        editNF.setBackground(new java.awt.Color(84, 127, 206));
+        editNF.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        editNF.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel29.setIcon(new javax.swing.ImageIcon(getClass().getResource("/novosIcones/iconsEngrenagem.png"))); // NOI18N
+        editNF.add(jLabel29, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 13, 25, 25));
+        editNF.add(jSeparator11, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 45, 176, 10));
+
+        jLabel30.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        jLabel30.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel30.setText("Editar NF");
+        editNF.add(jLabel30, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 62, 190, 70));
+
+        jPanelGerenciamentoNotasFiscais.add(editNF, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 200, 140));
+
+        listNF.setBackground(new java.awt.Color(84, 127, 206));
+        listNF.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        listNF.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                actionAddUserMouseClicked(evt);
+                listNFMouseClicked(evt);
             }
         });
-        actionAddUser.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        listNF.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/swing/images/icons8_Contacts_25px.png"))); // NOI18N
-        actionAddUser.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 13, -1, -1));
-        actionAddUser.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 45, 180, -1));
+        jLabel31.setIcon(new javax.swing.ImageIcon(getClass().getResource("/novosIcones/iconsLista.png"))); // NOI18N
+        listNF.add(jLabel31, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 13, 25, 25));
+        listNF.add(jSeparator12, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 46, 176, 10));
 
-        jLabel14.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        jLabel14.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel14.setText("Novo Usuário");
-        actionAddUser.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 62, 450, 85));
+        jLabel32.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        jLabel32.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel32.setText("Listar NF's");
+        listNF.add(jLabel32, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 69, 190, 60));
 
-        jPanelGerenciamentoUser.add(actionAddUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 200, 140));
+        jPanelGerenciamentoNotasFiscais.add(listNF, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 90, 200, 140));
 
-        actionsUser.setBackground(new java.awt.Color(84, 127, 206));
-        actionsUser.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        actionsUser.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                actionsUserMouseClicked(evt);
-            }
-        });
-        actionsUser.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        tittleGerenciamentoUser1.setBackground(new java.awt.Color(71, 120, 197));
 
-        jLabel25.setIcon(new javax.swing.ImageIcon(getClass().getResource("/novosIcones/iconsEngrenagem.png"))); // NOI18N
-        actionsUser.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 13, -1, -1));
-        actionsUser.add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 45, 180, 10));
+        jLabel35.setBackground(new java.awt.Color(80, 120, 206));
+        jLabel35.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
+        jLabel35.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel35.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel35.setText("Gerenciar Notas Fiscais");
 
-        jLabel26.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        jLabel26.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel26.setText("Editar Usuário");
-        actionsUser.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 62, 450, 85));
-
-        jPanelGerenciamentoUser.add(actionsUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 90, 200, 140));
-
-        tittleGerenciamentoUser.setBackground(new java.awt.Color(71, 120, 197));
-
-        jLabel27.setBackground(new java.awt.Color(80, 120, 206));
-        jLabel27.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
-        jLabel27.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel27.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel27.setText("Gerenciar Usuários");
-
-        javax.swing.GroupLayout tittleGerenciamentoUserLayout = new javax.swing.GroupLayout(tittleGerenciamentoUser);
-        tittleGerenciamentoUser.setLayout(tittleGerenciamentoUserLayout);
-        tittleGerenciamentoUserLayout.setHorizontalGroup(
-            tittleGerenciamentoUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tittleGerenciamentoUserLayout.createSequentialGroup()
+        javax.swing.GroupLayout tittleGerenciamentoUser1Layout = new javax.swing.GroupLayout(tittleGerenciamentoUser1);
+        tittleGerenciamentoUser1.setLayout(tittleGerenciamentoUser1Layout);
+        tittleGerenciamentoUser1Layout.setHorizontalGroup(
+            tittleGerenciamentoUser1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel35, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tittleGerenciamentoUser1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jSeparator6, javax.swing.GroupLayout.DEFAULT_SIZE, 436, Short.MAX_VALUE)
+                .addComponent(jSeparator14, javax.swing.GroupLayout.DEFAULT_SIZE, 436, Short.MAX_VALUE)
                 .addContainerGap())
-            .addComponent(jLabel27, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
-        tittleGerenciamentoUserLayout.setVerticalGroup(
-            tittleGerenciamentoUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tittleGerenciamentoUserLayout.createSequentialGroup()
-                .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+        tittleGerenciamentoUser1Layout.setVerticalGroup(
+            tittleGerenciamentoUser1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tittleGerenciamentoUser1Layout.createSequentialGroup()
+                .addComponent(jLabel35, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jSeparator14, javax.swing.GroupLayout.PREFERRED_SIZE, 7, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanelGerenciamentoUser.add(tittleGerenciamentoUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 460, 60));
+        jPanelGerenciamentoNotasFiscais.add(tittleGerenciamentoUser1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 460, 60));
 
-        getContentPane().add(jPanelGerenciamentoUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 390, 460, 250));
+        getContentPane().add(jPanelGerenciamentoNotasFiscais, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 270, 460, 250));
 
         jPanelGerenciamentoPedidoCompra.setBackground(new java.awt.Color(71, 120, 197));
         jPanelGerenciamentoPedidoCompra.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -526,74 +523,79 @@ public class Main extends javax.swing.JFrame {
 
         getContentPane().add(jPanelGerenciamentoPedidoCompra, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 210, 460, 250));
 
-        jPanelGerenciamentoNotasFiscais.setBackground(new java.awt.Color(71, 120, 197));
-        jPanelGerenciamentoNotasFiscais.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jPanelGerenciamentoUser.setBackground(new java.awt.Color(71, 120, 197));
+        jPanelGerenciamentoUser.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        editNF.setBackground(new java.awt.Color(84, 127, 206));
-        editNF.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        editNF.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel29.setIcon(new javax.swing.ImageIcon(getClass().getResource("/novosIcones/iconsEngrenagem.png"))); // NOI18N
-        editNF.add(jLabel29, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 13, 25, 25));
-        editNF.add(jSeparator11, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 45, 176, 10));
-
-        jLabel30.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        jLabel30.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel30.setText("Editar NF");
-        editNF.add(jLabel30, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 62, 210, 85));
-
-        jPanelGerenciamentoNotasFiscais.add(editNF, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 200, 140));
-
-        listNF.setBackground(new java.awt.Color(84, 127, 206));
-        listNF.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        listNF.addMouseListener(new java.awt.event.MouseAdapter() {
+        actionAddUser.setBackground(new java.awt.Color(84, 127, 206));
+        actionAddUser.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        actionAddUser.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                listNFMouseClicked(evt);
+                actionAddUserMouseClicked(evt);
             }
         });
-        listNF.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        actionAddUser.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel31.setIcon(new javax.swing.ImageIcon(getClass().getResource("/novosIcones/iconsLista.png"))); // NOI18N
-        listNF.add(jLabel31, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 13, 25, 25));
-        listNF.add(jSeparator12, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 46, 176, 10));
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/swing/images/icons8_Contacts_25px.png"))); // NOI18N
+        actionAddUser.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 13, -1, -1));
+        actionAddUser.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 45, 180, -1));
 
-        jLabel32.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        jLabel32.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel32.setText("Listar NF's");
-        listNF.add(jLabel32, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 69, 210, 78));
+        jLabel14.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        jLabel14.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel14.setText("Novo Usuário");
+        actionAddUser.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 62, 190, 70));
 
-        jPanelGerenciamentoNotasFiscais.add(listNF, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 90, 200, 140));
+        jPanelGerenciamentoUser.add(actionAddUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 200, 140));
 
-        tittleGerenciamentoUser1.setBackground(new java.awt.Color(71, 120, 197));
+        actionsUser.setBackground(new java.awt.Color(84, 127, 206));
+        actionsUser.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        actionsUser.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                actionsUserMouseClicked(evt);
+            }
+        });
+        actionsUser.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel35.setBackground(new java.awt.Color(80, 120, 206));
-        jLabel35.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
-        jLabel35.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel35.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel35.setText("Gerenciar Notas Fiscais");
+        jLabel25.setIcon(new javax.swing.ImageIcon(getClass().getResource("/novosIcones/iconsEngrenagem.png"))); // NOI18N
+        actionsUser.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 13, -1, -1));
+        actionsUser.add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 45, 180, 10));
 
-        javax.swing.GroupLayout tittleGerenciamentoUser1Layout = new javax.swing.GroupLayout(tittleGerenciamentoUser1);
-        tittleGerenciamentoUser1.setLayout(tittleGerenciamentoUser1Layout);
-        tittleGerenciamentoUser1Layout.setHorizontalGroup(
-            tittleGerenciamentoUser1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel35, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tittleGerenciamentoUser1Layout.createSequentialGroup()
+        jLabel26.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        jLabel26.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel26.setText("Editar Usuário");
+        actionsUser.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 62, 190, 70));
+
+        jPanelGerenciamentoUser.add(actionsUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 90, 200, 140));
+
+        tittleGerenciamentoUser.setBackground(new java.awt.Color(71, 120, 197));
+
+        jLabel27.setBackground(new java.awt.Color(80, 120, 206));
+        jLabel27.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
+        jLabel27.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel27.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel27.setText("Gerenciar Usuários");
+
+        javax.swing.GroupLayout tittleGerenciamentoUserLayout = new javax.swing.GroupLayout(tittleGerenciamentoUser);
+        tittleGerenciamentoUser.setLayout(tittleGerenciamentoUserLayout);
+        tittleGerenciamentoUserLayout.setHorizontalGroup(
+            tittleGerenciamentoUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tittleGerenciamentoUserLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jSeparator14, javax.swing.GroupLayout.DEFAULT_SIZE, 436, Short.MAX_VALUE)
+                .addComponent(jSeparator6, javax.swing.GroupLayout.DEFAULT_SIZE, 436, Short.MAX_VALUE)
                 .addContainerGap())
+            .addComponent(jLabel27, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
-        tittleGerenciamentoUser1Layout.setVerticalGroup(
-            tittleGerenciamentoUser1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tittleGerenciamentoUser1Layout.createSequentialGroup()
-                .addComponent(jLabel35, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+        tittleGerenciamentoUserLayout.setVerticalGroup(
+            tittleGerenciamentoUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tittleGerenciamentoUserLayout.createSequentialGroup()
+                .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator14, javax.swing.GroupLayout.PREFERRED_SIZE, 7, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanelGerenciamentoNotasFiscais.add(tittleGerenciamentoUser1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 460, 60));
+        jPanelGerenciamentoUser.add(tittleGerenciamentoUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 460, 60));
 
-        getContentPane().add(jPanelGerenciamentoNotasFiscais, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 270, 460, 250));
+        getContentPane().add(jPanelGerenciamentoUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 390, 460, 250));
 
         jPanelPerfil.setBackground(new java.awt.Color(71, 120, 197));
         jPanelPerfil.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -687,7 +689,7 @@ public class Main extends javax.swing.JFrame {
 
     private void btn_exitMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_exitMousePressed
         // Método para fechar deslogar do sistema
-        ControllerMain.logout();
+        ControllerMain.logout(this.idUser);
         dispose();
     }//GEN-LAST:event_btn_exitMousePressed
 
@@ -778,7 +780,7 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_btnNotasFiscaisMouseClicked
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        ControllerMain.logout();
+        ControllerMain.logout(this.idUser);
         dispose();
     }//GEN-LAST:event_formWindowClosing
 
