@@ -231,12 +231,12 @@ public class Login extends javax.swing.JFrame {
         String[] resp = ControllerLogin.logar(username.getText(), password.getText());
         if (resp[0].equals("OK")) {
             this.dispose();
-            System.out.println("fechando LOGIN! CLIQUE");
+        } else {
+                username.setText(resp[0]);
+                password.setText(resp[1]);
+                password.setEchoChar(Character.forDigit(0, 0));
+                exit.requestFocus();
         }
-        username.setText(resp[0]);
-        password.setText(resp[1]);
-        password.setEchoChar(Character.forDigit(0, 0));
-        username.requestFocus();
     }//GEN-LAST:event_logonActionPerformed
 
     private void logonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logonMouseEntered
@@ -255,12 +255,12 @@ public class Login extends javax.swing.JFrame {
             String[] resp = ControllerLogin.logar(username.getText(), password.getText()); // Chama o método logar
              if (resp[0].equals("OK")) {
                 this.dispose();
-                System.out.println("fechando LOGIN! ENTER");
+            } else {
+                username.setText(resp[0]);
+                password.setText(resp[1]);
+                password.setEchoChar(Character.forDigit(0, 0));
+                exit.requestFocus();
             }
-            username.setText(resp[0]);
-            password.setText(resp[1]);
-            password.setEchoChar(Character.forDigit(0, 0));
-            exit.requestFocus();
         } // Fim da verificação
     }//GEN-LAST:event_passwordKeyPressed
 
