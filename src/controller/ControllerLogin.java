@@ -6,6 +6,8 @@ import javax.swing.UIManager;
 import java.sql.SQLException;
 import dataBase.DataBase;
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import screens.Login;
 
 public class ControllerLogin {
@@ -22,21 +24,41 @@ public class ControllerLogin {
 
     public static synchronized String[] logar(String login, String password) { // Método para validar se o usuário está cadastrado no banco
         ArrayList user;
-        try {
-            connection();
-            user = con.select( "COLABORADORES", new String[] {"LOGIN","SENHA"}, new String[] {login, DataBase.SHA1(password)});
-            if(user.isEmpty()){
-                throw new SQLException();
+        if (sanitize(new String[]{login, password})) {
+
+            try {
+                connection();
+                user = con.select( "COLABORADORES", new String[] {"LOGIN","SENHA","ID_USER","LOGADO"}, new String[] {login, DataBase.SHA1(password)});
+                if (user.isEmpty() || user.get(3).equals("1")) {
+                    throw new SQLException(user.isEmpty() ? "0" : user.get(3).toString());
+                }
+                con.update("COLABORADORES", new String[]{"LOGADO"}, new String[]{"1"}, new String[]{"ID_USER"}, new String[]{user.get(2).toString()});
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, ex.getMessage().equals("0") ? "Usuário/Senha estão incorretos" : "Usuário já logado no sistema!" , "ERRO", JOptionPane.ERROR_MESSAGE);
+                return new String[] {"Username","Password"};
+            } finally {
+                disconnection();
             }
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Usuário/Senha estão incorretos", "ERRO", JOptionPane.ERROR_MESSAGE);
-            return new String[] {"Username","Password"};
-        } finally {
-            disconnection();
+            ControllerMain.main(login);
+            return new String[] {"OK"};
         }
-        ControllerMain.main(login);
-        return null;
+        JOptionPane.showMessageDialog(null, "Caracteres inválidos detectados!\n\tTente novamente...", "AVISO", JOptionPane.ERROR_MESSAGE);
+        return new String[] {"Username","Password"};
     } // Fim do método para validar se o usuário está cadastrado no banco
+
+    private static boolean sanitize(String[] args) {
+
+        for (String arg : args) {
+
+            Matcher matcher = Pattern.compile("[^\\w]").matcher(arg); // Compara o caractere digitado com a expressão regular
+            if (matcher.find()) {
+                return false;
+            }
+        }
+        return true;
+    }
+    // '),1,0) OR 1=1 -- 
+    // ' OR 1=1 -- 
 
     public static void main(String args[]) {
         try { 

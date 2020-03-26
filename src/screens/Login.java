@@ -8,6 +8,7 @@ import java.awt.event.KeyEvent;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import controller.ControllerLogin;
+import javax.swing.JOptionPane;
 //==================================> Fim das importações
 
 public class Login extends javax.swing.JFrame {
@@ -228,14 +229,14 @@ public class Login extends javax.swing.JFrame {
     private void logonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logonActionPerformed
         // Método para chamar a método logar, responsável por realizar o login ao sistema 
         String[] resp = ControllerLogin.logar(username.getText(), password.getText());
-        if (resp != null) {
-            username.setText(resp[0]);
-            password.setText(resp[1]);
-            password.setEchoChar(Character.forDigit(0, 0));
-            username.requestFocus();
-        } else {
-            dispose();
+        if (resp[0].equals("OK")) {
+            this.dispose();
+            System.out.println("fechando LOGIN! CLIQUE");
         }
+        username.setText(resp[0]);
+        password.setText(resp[1]);
+        password.setEchoChar(Character.forDigit(0, 0));
+        username.requestFocus();
     }//GEN-LAST:event_logonActionPerformed
 
     private void logonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logonMouseEntered
@@ -252,14 +253,14 @@ public class Login extends javax.swing.JFrame {
         // Método para realizar o login quando a tecla 'ENTER' for pressinada e estiver no campo password
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) { // Verifica se a tecla 'ENTER' foi pressionada
             String[] resp = ControllerLogin.logar(username.getText(), password.getText()); // Chama o método logar
-            if (resp != null) {
-                username.setText(resp[0]);
-                password.setText(resp[1]);
-                password.setEchoChar(Character.forDigit(0, 0));
-                exit.requestFocus();
-            } else {
-                dispose();
+             if (resp[0].equals("OK")) {
+                this.dispose();
+                System.out.println("fechando LOGIN! ENTER");
             }
+            username.setText(resp[0]);
+            password.setText(resp[1]);
+            password.setEchoChar(Character.forDigit(0, 0));
+            exit.requestFocus();
         } // Fim da verificação
     }//GEN-LAST:event_passwordKeyPressed
 
