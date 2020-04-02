@@ -3,8 +3,6 @@ package controller;
 import dataBase.DataBase;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import screens.Main;
 
@@ -33,8 +31,8 @@ public class ControllerMain {
         return  new String[] {nome.get(1) + " " + nome.get(2), Boolean.toString(nome.get(3).equals("A")), nome.get(4).toString()};
     } // Fim do método para buscar o nome do colaborador
 
-    public static synchronized void userAction(String login, String action){
-        ControllerUser.main(login, action, 0);
+    public static synchronized void userAction(String login, String action, int codigo){
+        ControllerUser.main(login, action, codigo);
     }
 
     public static synchronized void logout(String idUser){

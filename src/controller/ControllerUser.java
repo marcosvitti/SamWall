@@ -48,7 +48,7 @@ public class ControllerUser {
             if(f.equals("Ativo")){
                 filters[i] = "1";
             } else if(f.equals("Inativo")){
-                filters[i] = "2";
+                filters[i] = "0";
             }
             i++;
         }
@@ -60,7 +60,7 @@ public class ControllerUser {
             }
             System.out.println(resp);
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Erro ao listar usuários!" + e, "ERRO", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Erro ao listar usuários!", "ERRO", JOptionPane.ERROR_MESSAGE);
             user.dispose();
         } finally {
             disconnection();

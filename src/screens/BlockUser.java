@@ -36,7 +36,6 @@ public class BlockUser extends javax.swing.JFrame {
         jTextFieldId.setText(""); // Limpa campo id
         jTextFieldNome.setText(""); // Limpa campo nome
         jTextFieldSobreNome.setText(""); // Limpa campo sobrenome
-        jTextFieldCPF.setText(""); // Limpa campo cpf
         jTextFieldCargo.setText(""); // Limpa campo cargo
         jComboBoxStatus.setSelectedItem(0); // Limpa campo status
         jComboBoxTipo.setSelectedItem(0); // Limpa campo tipo
@@ -68,14 +67,6 @@ public class BlockUser extends javax.swing.JFrame {
         jComboBoxStatus = new javax.swing.JComboBox();
         jLabel3 = new javax.swing.JLabel();
         jComboBoxTipo = new javax.swing.JComboBox<>();
-        jTextFieldCPF = new javax.swing.JTextField();
-        /*try{
-            javax.swing.text.MaskFormatter cpf= new javax.swing.text.MaskFormatter("###.###.###-##");
-            jTextFieldCPF = new javax.swing.JFormattedTextField(cpf);
-        }
-        catch (Exception e){
-        }*/
-        jLabel9 = new javax.swing.JLabel();
         jTextFieldId = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         filterUser = new javax.swing.JPanel();
@@ -159,9 +150,9 @@ public class BlockUser extends javax.swing.JFrame {
             jTable1.getColumnModel().getColumn(7).setPreferredWidth(90);
         }
 
-        jPanel4.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, 1060, 570));
+        jPanel4.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, 1060, 610));
 
-        getContentPane().add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 0, 1120, 710));
+        getContentPane().add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 0, 1120, 710));
 
         jPanel1.setBackground(new java.awt.Color(84, 127, 206));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -170,7 +161,7 @@ public class BlockUser extends javax.swing.JFrame {
         jLabel15.setForeground(new java.awt.Color(255, 255, 255));
         jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel15.setText("Filtros");
-        jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 580, 40));
+        jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 550, 40));
 
         jTextFieldNome.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jTextFieldNome.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -178,19 +169,19 @@ public class BlockUser extends javax.swing.JFrame {
                 jTextFieldsKeyTyped(evt);
             }
         });
-        jPanel1.add(jTextFieldNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, 320, -1));
+        jPanel1.add(jTextFieldNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, 290, -1));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel4.setText("Nome :  ");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 210, 320, 30));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 210, 290, 30));
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel5.setText("Sobrenome :  ");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 280, 320, 30));
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 280, 290, 30));
 
         jTextFieldSobreNome.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jTextFieldSobreNome.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -198,13 +189,13 @@ public class BlockUser extends javax.swing.JFrame {
                 jTextFieldsKeyTyped(evt);
             }
         });
-        jPanel1.add(jTextFieldSobreNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 310, 320, -1));
+        jPanel1.add(jTextFieldSobreNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 310, 290, -1));
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel6.setText("Cargo :  ");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 420, 320, 30));
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 350, 290, 30));
 
         jTextFieldCargo.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jTextFieldCargo.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -212,43 +203,29 @@ public class BlockUser extends javax.swing.JFrame {
                 jTextFieldsKeyTyped(evt);
             }
         });
-        jPanel1.add(jTextFieldCargo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 450, 320, -1));
+        jPanel1.add(jTextFieldCargo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 380, 290, -1));
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel7.setText("Status :  ");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 560, 320, 30));
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 490, 290, 30));
 
         jComboBoxStatus.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jComboBoxStatus.setForeground(new java.awt.Color(51, 51, 51));
         jComboBoxStatus.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione...", "Ativo", "Inativo" }));
-        jPanel1.add(jComboBoxStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 590, 320, -1));
+        jPanel1.add(jComboBoxStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 520, 290, -1));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel3.setText("Tipo :  ");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 490, 320, 30));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 420, 290, 30));
 
         jComboBoxTipo.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jComboBoxTipo.setForeground(new java.awt.Color(51, 51, 51));
         jComboBoxTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione...", "Administrador", "Usuário" }));
-        jPanel1.add(jComboBoxTipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 520, 320, -1));
-
-        jTextFieldCPF.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jTextFieldCPF.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                jTextFieldCPFKeyTyped(evt);
-            }
-        });
-        jPanel1.add(jTextFieldCPF, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 380, 320, -1));
-
-        jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel9.setText("CPF :  ");
-        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 350, 320, 30));
+        jPanel1.add(jComboBoxTipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 450, 290, -1));
 
         jTextFieldId.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jTextFieldId.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -256,12 +233,12 @@ public class BlockUser extends javax.swing.JFrame {
                 jTextFieldIdKeyTyped(evt);
             }
         });
-        jPanel1.add(jTextFieldId, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 120, -1));
+        jPanel1.add(jTextFieldId, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 90, -1));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("ID :");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 320, 30));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 290, 30));
 
         filterUser.setBackground(new java.awt.Color(71, 120, 197));
         filterUser.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -281,7 +258,7 @@ public class BlockUser extends javax.swing.JFrame {
         jLabel18.setText("Filtrar Usuários");
         filterUser.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 69, 190, 48));
 
-        jPanel1.add(filterUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 70, 200, 130));
+        jPanel1.add(filterUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 70, 200, 130));
 
         cleanUser.setBackground(new java.awt.Color(71, 120, 197));
         cleanUser.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -301,7 +278,7 @@ public class BlockUser extends javax.swing.JFrame {
         jLabel16.setText("Limpar Filtros");
         cleanUser.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 69, 190, 48));
 
-        jPanel1.add(cleanUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 220, 200, 130));
+        jPanel1.add(cleanUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 220, 200, 130));
 
         alterUser.setBackground(new java.awt.Color(71, 120, 197));
         alterUser.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -321,7 +298,7 @@ public class BlockUser extends javax.swing.JFrame {
         jLabel20.setText("Salvar");
         alterUser.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 69, 190, 48));
 
-        jPanel1.add(alterUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 370, 200, 130));
+        jPanel1.add(alterUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 370, 200, 130));
 
         jTextFieldLogin.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jTextFieldLogin.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -329,15 +306,15 @@ public class BlockUser extends javax.swing.JFrame {
                 jTextFieldsKeyTyped(evt);
             }
         });
-        jPanel1.add(jTextFieldLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 320, -1));
+        jPanel1.add(jTextFieldLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 290, -1));
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel8.setText("Login :  ");
-        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, 320, 30));
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, 290, 30));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 580, 710));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 550, 710));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -350,7 +327,7 @@ public class BlockUser extends javax.swing.JFrame {
 
     private void filterUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_filterUserMouseClicked
         // TODO add your handling code here:
-        jTable1 = ControllerUser.listarUsers(jTable1, new String[] {jTextFieldId.getText(),jTextFieldLogin.getText(),jTextFieldNome.getText(),jTextFieldSobreNome.getText(),jTextFieldCargo.getText(),jComboBoxTipo.getSelectedItem().toString(),jComboBoxStatus.getSelectedItem().toString()}, this);
+        jTable1 = ControllerUser.listarUsers(jTable1, new String[] {jTextFieldId.getText(),jTextFieldLogin.getText(),jTextFieldNome.getText(),jTextFieldSobreNome.getText(),jTextFieldCargo.getText(),"",jComboBoxTipo.getSelectedItem().toString(),jComboBoxStatus.getSelectedItem().toString()}, this);
     }//GEN-LAST:event_filterUserMouseClicked
 
     private void alterUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_alterUserMouseClicked
@@ -358,23 +335,6 @@ public class BlockUser extends javax.swing.JFrame {
        ControllerUser.updateUser(jTable1, update);
        ControllerUser.listarUsers(jTable1, new String[] {}, this);
     }//GEN-LAST:event_alterUserMouseClicked
-
-    private void jTextFieldCPFKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldCPFKeyTyped
-        // Método usado para verificar a entrada do usuário para evitar SQLInjection
-        if (jTextFieldCPF.getText().length() > 13) {
-            evt.consume();
-        } else {
-            Matcher matcher = Pattern.compile("[a-zA-Z]|[\\W]").matcher(Character.toString(evt.getKeyChar())); // Compra o caractere digitado com a expressão regular
-            if (matcher.find()) { // Se achar o caractere imprópio 
-                evt.consume();// Não deixa ele ser escrito
-            } else {
-                matcher = Pattern.compile("([\\d]{3}){3}(\\d{1})").matcher(jTextFieldCPF.getText());
-               if (matcher.find()) { // Se o pattern for igual a string do textfieldCPF
-                   jTextFieldCPF.setText(jTextFieldCPF.getText().replaceAll("(\\d{3})(\\d{3})(\\d{3})(\\d{1})", "$1.$2.$3-$4"));
-               }
-            }
-        }
-    }//GEN-LAST:event_jTextFieldCPFKeyTyped
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         // TODO add your handling code here:
@@ -421,7 +381,6 @@ public class BlockUser extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
@@ -429,7 +388,6 @@ public class BlockUser extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextFieldCPF;
     private javax.swing.JTextField jTextFieldCargo;
     private javax.swing.JTextField jTextFieldId;
     private javax.swing.JTextField jTextFieldLogin;

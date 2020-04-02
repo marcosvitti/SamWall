@@ -2,7 +2,6 @@ package screens;
 
 //==================================> Importações pertinentes á execução do frame
 import controller.ControllerMain;
-import controller.ControllerUser;
 import java.awt.Dimension;
 import javax.swing.JPanel;
 import java.awt.Toolkit;
@@ -710,7 +709,7 @@ public class Main extends javax.swing.JFrame {
 
     private void actionAddUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_actionAddUserMouseClicked
         // Método abrir o frame para adicionar um usuário
-        ControllerUser.main(this.login, "Novo Usuário", -1);
+        ControllerMain.userAction(this.login, "Novo Usuário", -1);
         resetPanels(new JPanel[]{jPanelGerenciamentoUser}); // Método para mudar a visibilidade do menu
     }//GEN-LAST:event_actionAddUserMouseClicked
 
@@ -720,7 +719,7 @@ public class Main extends javax.swing.JFrame {
 
     private void actionsUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_actionsUserMouseClicked
         // Método abrir o frame para adicionar um usuário
-        ControllerUser.main(this.login, "Edição de Usuários", -2);
+        ControllerMain.userAction(this.login, "Edição de Usuários", -2);
         resetPanels(new JPanel[]{jPanelGerenciamentoUser}); // Método para mudar a visibilidade do menu
     }//GEN-LAST:event_actionsUserMouseClicked
 

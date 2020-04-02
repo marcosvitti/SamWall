@@ -55,8 +55,7 @@ public class AddUser extends javax.swing.JFrame {
         jTextFieldEmail.setText(campos.get(7));
         jTextFieldCargo.setText(campos.get(8));
         jComboBoxStatus.setSelectedIndex(Integer.parseInt(campos.get(9)));
-        jComboBoxTipo.setSelectedItem(campos.get(10));
-        System.out.println(campos.get(9));
+        jComboBoxTipo.setSelectedIndex(campos.get(10).equals("U") ? 1 : 0);
     }
 
     private void limpaCampos() { // Método para limpar campos do formulário
