@@ -152,6 +152,11 @@ public class ControllerUser {
         status = status.equals("Ativo") ? "1" : "0";
         tipo = tipo.equals("Administrador") ? "A" : "U";
 
+        if (login.length() > 8) {
+            JOptionPane.showMessageDialog(null, "Login deve conter no máximo 8 caracteres", "ERROR", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
         boolean resp = false;
         try { // Tentar realizar a inserção no banco
             connection();
