@@ -27,7 +27,7 @@ public class AddUser extends javax.swing.JFrame {
         if(opcao && codigo != -1) {
             ArrayList<String> colaborador = ControllerUser.getColaborador(codigo.toString());
             this.userAlter =  colaborador.get(1);
-            jLabel14.setText("Edição do Usuário > " + this.userAlter);
+            jLabel14.setText("Edição do Usuário : " + this.userAlter);
             carregarCampos(colaborador);
             jComboBoxStatus.setEnabled(true);
             jCheckBoxChangePassword.setVisible(true);
