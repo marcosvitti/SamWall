@@ -28,13 +28,16 @@ public class ControllerLogin {
 
             try {
                 connection();
-                user = con.select( "COLABORADORES", new String[] {"LOGIN","SENHA","ID_USER","LOGADO"}, new String[] {login, DataBase.SHA1(password)});
-                if (user.isEmpty() || user.get(3).equals("1")) {
-                    throw new SQLException(user.isEmpty() ? "0" : user.get(3).toString());
+                user = con.select( "COLABORADORES", new String[] {"LOGIN","SENHA","ID_USER","LOGADO", "STATUS"}, new String[] {login, DataBase.SHA1(password)});
+                if (user.isEmpty() || user.get(3).equals("1") || user.get(4).equals("0")) {
+                    throw new SQLException(user.isEmpty() ? "0" : user.get(3).toString().equals("1") ? "1" : "2");
                 }
                 con.update("COLABORADORES", new String[]{"LOGADO"}, new String[]{"1"}, new String[]{"ID_USER"}, new String[]{user.get(2).toString()});
             } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null, ex.getMessage().equals("0") ? "Usuário/Senha estão incorretos" : "Usuário já logado no sistema!" , "ERRO", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, 
+                        ex.getMessage().equals("0") ? 
+                                "Usuário/Senha estão incorretos" : 
+                                ex.getMessage().equals("1") ? "Usuário já logado no sistema!" : "Usuário inativado no sistema!" , "ERRO", JOptionPane.ERROR_MESSAGE);
                 return new String[] {"Username","Password"};
             } finally {
                 disconnection();
