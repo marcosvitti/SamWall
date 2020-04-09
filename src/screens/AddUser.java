@@ -432,7 +432,7 @@ public class AddUser extends javax.swing.JFrame {
         {
             ControllerUser.main(login, "Edição de Usuários", -2);
             dispose();
-        }        
+        }
     }//GEN-LAST:event_addUserMouseClicked
 
     private void cleanUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cleanUserMouseClicked
@@ -441,7 +441,7 @@ public class AddUser extends javax.swing.JFrame {
     }//GEN-LAST:event_cleanUserMouseClicked
 
     private void jTextFieldSobreNomeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldSobreNomeKeyTyped
-        sanitaze(Pattern.compile("[a-zA-Z]|[\\W]").matcher(Character.toString(evt.getKeyChar())), evt);
+        sanitaze(Pattern.compile("[a-zA-Z]").matcher(Character.toString(evt.getKeyChar())), evt);
     }//GEN-LAST:event_jTextFieldSobreNomeKeyTyped
 
     private void jTextFieldCPFKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldCPFKeyTyped
@@ -461,7 +461,7 @@ public class AddUser extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldEmailKeyTyped
 
     private void jTextFieldNomeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldNomeKeyTyped
-        sanitaze(Pattern.compile("[a-zA-Z]|[\\W]").matcher(Character.toString(evt.getKeyChar())), evt);
+        sanitaze(Pattern.compile("[a-zA-Z]").matcher(Character.toString(evt.getKeyChar())), evt);
     }//GEN-LAST:event_jTextFieldNomeKeyTyped
 
     private void jTextFieldCargoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldCargoKeyTyped
