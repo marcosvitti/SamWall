@@ -35,6 +35,10 @@ public class ControllerMain {
         ControllerUser.main(login, action, codigo);
     }
 
+    public static synchronized void nfAction(String login, String action, int codigo){
+        ControllerNF.main(login, action, codigo);
+    }
+
     public static synchronized void logout(String idUser){
         try {
             connection();

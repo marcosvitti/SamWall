@@ -384,6 +384,11 @@ public class Main extends javax.swing.JFrame {
 
         editNF.setBackground(new java.awt.Color(84, 127, 206));
         editNF.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        editNF.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                editNFMouseClicked(evt);
+            }
+        });
         editNF.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel29.setIcon(new javax.swing.ImageIcon(getClass().getResource("/novosIcones/iconsEngrenagem.png"))); // NOI18N
@@ -392,7 +397,7 @@ public class Main extends javax.swing.JFrame {
 
         jLabel30.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         jLabel30.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel30.setText("Editar NF");
+        jLabel30.setText("Nova Nota Fiscal");
         editNF.add(jLabel30, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 62, 190, 70));
 
         jPanelGerenciamentoNotasFiscais.add(editNF, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 200, 140));
@@ -406,13 +411,13 @@ public class Main extends javax.swing.JFrame {
         });
         listNF.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel31.setIcon(new javax.swing.ImageIcon(getClass().getResource("/novosIcones/iconsLista.png"))); // NOI18N
+        jLabel31.setIcon(new javax.swing.ImageIcon(getClass().getResource("/novosIcones/iconsEngrenagem.png"))); // NOI18N
         listNF.add(jLabel31, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 13, 25, 25));
         listNF.add(jSeparator12, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 46, 176, 10));
 
         jLabel32.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         jLabel32.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel32.setText("Listar NF's");
+        jLabel32.setText("Editar Nota Fiscal");
         listNF.add(jLabel32, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 69, 190, 60));
 
         jPanelGerenciamentoNotasFiscais.add(listNF, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 90, 200, 140));
@@ -782,6 +787,11 @@ public class Main extends javax.swing.JFrame {
         ControllerMain.logout(this.idUser);
         dispose();
     }//GEN-LAST:event_formWindowClosing
+
+    private void editNFMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editNFMouseClicked
+        // TODO add your handling code here:
+        ControllerMain.nfAction(this.login, "Criar Nota Fiscal", -1);
+    }//GEN-LAST:event_editNFMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel actionAddUser;
