@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.StringTokenizer;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.DefaultCellEditor;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
@@ -119,13 +121,28 @@ public class ControllerUser {
         return jTable;
     }
     
-    public static synchronized ArrayList getColaborador(String codigo) {
+    public static synchronized ArrayList getColaborador(String codigo, String login) {
         ArrayList colaborador = new ArrayList();
+        ArrayList permissao = new ArrayList();
         try {
             connection();
-            colaborador = con.select("COLABORADORES", new String[] {"ID_USER", "LOGIN", "NOME", "SOBRENOME", "CPF", "TELEFONE", "CELULAR", "EMAIL", "CARGO", "STATUS", "TIPO"}, new String[] {codigo});
+            permissao = con.select("COLABORADORES", new String[] {"LOGIN", "TIPO", "ID_USER"}, new String[] {login});
+
+            if (permissao.get(1).equals("A")) {
+                colaborador = con.select("COLABORADORES", new String[] {"ID_USER", "LOGIN", "NOME", "SOBRENOME", "CPF", "TELEFONE", "CELULAR", "EMAIL", "CARGO", "STATUS", "TIPO"}, new String[] {codigo});
+
+                if (colaborador.get(10).equals("A") && !permissao.get(2).equals("3")) {
+                    if (!colaborador.get(1).equals(login)) {
+                        colaborador = new ArrayList();
+                        throw new SQLException("Você não tem permissão para editar um usuário administrador!");
+                    }
+                }
+
+            } else {
+                throw new SQLException("Você não tem permissão para editar um usuário!");
+            }
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro na busca dos dados do usuário!", "ERROR", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, !ex.getMessage().equals("") ? ex.getMessage() : "Erro na busca dos dados do usuário!", "ERROR", JOptionPane.ERROR_MESSAGE);
         } finally {
             disconnection();
         }
@@ -136,8 +153,8 @@ public class ControllerUser {
         String nome = dados[0];
         String sobrenome = dados[1];
         String cpf = formatCPF(dados[2]);
-        String telefone = dados[3];
-        String celular = dados[4];
+        String telefone = formatContato(dados[3]);
+        String celular = formatContato(dados[4]);
         String email = dados[5];
         
         String cargo = dados[6];
@@ -151,6 +168,11 @@ public class ControllerUser {
 
         status = status.equals("Ativo") ? "1" : "0";
         tipo = tipo.equals("Administrador") ? "A" : "U";
+
+        if (!sanitize(new String[] {nome, sobrenome, cpf, telefone, celular, cargo, status, tipo, login, senha, confSenha})) {
+            JOptionPane.showMessageDialog(null, "Caracteres inválidos detectados!\n\tTente novamente...", "AVISO", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
 
         if (login.length() > 8) {
             JOptionPane.showMessageDialog(null, "Login deve conter no máximo 8 caracteres", "ERROR", JOptionPane.ERROR_MESSAGE);
@@ -305,6 +327,18 @@ public class ControllerUser {
 
         String tel = ddd + t1 + t2;
         return tel;
+    }
+
+    private static boolean sanitize(String[] args) {
+
+        for (String arg : args) {
+
+            Matcher matcher = Pattern.compile("[^\\w]").matcher(arg);
+            if (matcher.find()) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public static synchronized void main(String login, String action, Integer codigo) {

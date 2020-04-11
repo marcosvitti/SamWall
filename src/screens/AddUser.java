@@ -25,18 +25,21 @@ public class AddUser extends javax.swing.JFrame {
         jPanelLogin.setLocation(0,0);
 
         if(opcao && codigo != -1) {
-            ArrayList<String> colaborador = ControllerUser.getColaborador(codigo.toString());
-            this.userAlter =  colaborador.get(1);
-            jLabel14.setText("Edição do Usuário : " + this.userAlter);
-            carregarCampos(colaborador);
-            jComboBoxStatus.setEnabled(true);
-            jCheckBoxChangePassword.setVisible(true);
-            jCheckBoxChangePassword.setEnabled(true);
-            jCheckBoxChangePassword.setSelected(false);
-            jPanelLogin.setAlignmentY(40);
-            cleanUser.setVisible(false);
-            jLabel15.setText("Alterar Usuário");
-            checkChangePassword(this.userAlter);
+            ArrayList<String> colaborador = ControllerUser.getColaborador(codigo.toString(), login);
+
+            if (!colaborador.isEmpty()) {
+                this.userAlter =  colaborador.get(1);
+                jLabel14.setText("Edição do Usuário : " + this.userAlter);
+                carregarCampos(colaborador);
+                jComboBoxStatus.setEnabled(true);
+                jCheckBoxChangePassword.setVisible(true);
+                jCheckBoxChangePassword.setEnabled(true);
+                jCheckBoxChangePassword.setSelected(false);
+                jPanelLogin.setAlignmentY(40);
+                cleanUser.setVisible(false);
+                jLabel15.setText("Alterar Usuário");
+                checkChangePassword(this.userAlter);
+            }
         }
     }
 
