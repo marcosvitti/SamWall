@@ -2,11 +2,15 @@ package screens;
 
 //==================================> Importações pertinentes á execução do frame
 import controller.ControllerMain;
+import controller.ControllerPC;
 import java.awt.Dimension;
 import javax.swing.JPanel;
 import java.awt.Toolkit;
 import java.awt.Color;
 import java.awt.Image;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 //==================================> Fim das importações
 
 public class Main extends javax.swing.JFrame {
@@ -88,11 +92,11 @@ public class Main extends javax.swing.JFrame {
         jLabel35 = new javax.swing.JLabel();
         jSeparator14 = new javax.swing.JSeparator();
         jPanelGerenciamentoPedidoCompra = new javax.swing.JPanel();
-        addNF1 = new javax.swing.JPanel();
+        addPC = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
         jSeparator15 = new javax.swing.JSeparator();
         jLabel36 = new javax.swing.JLabel();
-        listNF1 = new javax.swing.JPanel();
+        listPC = new javax.swing.JPanel();
         jLabel39 = new javax.swing.JLabel();
         jSeparator17 = new javax.swing.JSeparator();
         jLabel40 = new javax.swing.JLabel();
@@ -456,45 +460,45 @@ public class Main extends javax.swing.JFrame {
         jPanelGerenciamentoPedidoCompra.setBackground(new java.awt.Color(71, 120, 197));
         jPanelGerenciamentoPedidoCompra.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        addNF1.setBackground(new java.awt.Color(84, 127, 206));
-        addNF1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        addNF1.addMouseListener(new java.awt.event.MouseAdapter() {
+        addPC.setBackground(new java.awt.Color(84, 127, 206));
+        addPC.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        addPC.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                addNF1MouseClicked(evt);
+                addPCMouseClicked(evt);
             }
         });
-        addNF1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        addPC.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/swing/images/icons8_Contacts_25px.png"))); // NOI18N
-        addNF1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 13, 25, 25));
-        addNF1.add(jSeparator15, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 45, 176, 10));
+        addPC.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 13, 25, 25));
+        addPC.add(jSeparator15, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 45, 176, 10));
 
         jLabel36.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         jLabel36.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel36.setText("Nova NF");
-        addNF1.add(jLabel36, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 188, 70));
+        jLabel36.setText("Novo Pedido");
+        addPC.add(jLabel36, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 188, 70));
 
-        jPanelGerenciamentoPedidoCompra.add(addNF1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 200, 140));
+        jPanelGerenciamentoPedidoCompra.add(addPC, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 200, 140));
 
-        listNF1.setBackground(new java.awt.Color(84, 127, 206));
-        listNF1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        listNF1.addMouseListener(new java.awt.event.MouseAdapter() {
+        listPC.setBackground(new java.awt.Color(84, 127, 206));
+        listPC.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        listPC.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                listNF1MouseClicked(evt);
+                listPCMouseClicked(evt);
             }
         });
-        listNF1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        listPC.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel39.setIcon(new javax.swing.ImageIcon(getClass().getResource("/novosIcones/iconsLista.png"))); // NOI18N
-        listNF1.add(jLabel39, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 13, 25, 25));
-        listNF1.add(jSeparator17, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 45, 176, 10));
+        listPC.add(jLabel39, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 13, 25, 25));
+        listPC.add(jSeparator17, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 45, 176, 10));
 
         jLabel40.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         jLabel40.setForeground(new java.awt.Color(255, 255, 255));
         jLabel40.setText("Listar NF's");
-        listNF1.add(jLabel40, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 188, 70));
+        listPC.add(jLabel40, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 188, 70));
 
-        jPanelGerenciamentoPedidoCompra.add(listNF1, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 90, 200, 140));
+        jPanelGerenciamentoPedidoCompra.add(listPC, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 90, 200, 140));
 
         tittleGerenciamentoUser2.setBackground(new java.awt.Color(71, 120, 197));
 
@@ -728,13 +732,26 @@ public class Main extends javax.swing.JFrame {
         resetPanels(new JPanel[]{jPanelGerenciamentoUser}); // Método para mudar a visibilidade do menu
     }//GEN-LAST:event_actionsUserMouseClicked
 
-    private void addNF1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addNF1MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_addNF1MouseClicked
+    private void addPCMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addPCMouseClicked
+        try {
+            //                Método para mudar a cor do botão quando o mouse passa por cima, dando um efeito de hover
+//        setColor(btnPC);
+//        ind_4.setOpaque(true);
+//
+//        jPanelGerenciamentoPedidoCompra.setVisible(!jPanelGerenciamentoPedidoCompra.isVisible());
+//        resetPanels(new JPanel[]{jPanelGerenciamentoUser, jPanelPerfil,jPanelGerenciamentoNotasFiscais});
+//
+//        resetColor(new JPanel[]{btnHome,btnPerfil,btnNotasFiscais,btnUsuarios}, new JPanel[]{ind_1,ind_6,ind_2,ind_3});
+// TODO add your handling code here:
+ControllerPC.main(this.login, "Criar Pedido de ", -1);
+        } catch (SQLException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_addPCMouseClicked
 
-    private void listNF1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listNF1MouseClicked
+    private void listPCMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listPCMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_listNF1MouseClicked
+    }//GEN-LAST:event_listPCMouseClicked
 
     private void btnPCMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPCMouseClicked
         // Método para mudar a cor do botão quando o mouse passa por cima, dando um efeito de hover
@@ -796,7 +813,7 @@ public class Main extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel actionAddUser;
     private javax.swing.JPanel actionsUser;
-    private javax.swing.JPanel addNF1;
+    private javax.swing.JPanel addPC;
     private javax.swing.JPanel btnHome;
     private javax.swing.JPanel btnNotasFiscais;
     private javax.swing.JPanel btnPC;
@@ -857,7 +874,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator8;
     private javax.swing.JSeparator jSeparator9;
     private javax.swing.JPanel listNF;
-    private javax.swing.JPanel listNF1;
+    private javax.swing.JPanel listPC;
     private javax.swing.JPanel side_pane;
     private javax.swing.JPanel tittleGerenciamentoUser;
     private javax.swing.JPanel tittleGerenciamentoUser1;
