@@ -2,6 +2,7 @@ package screens;
 
 //==================================> Importações pertinentes á execução do frame
 import controller.ControllerMain;
+import controller.ControllerNF;
 import controller.ControllerPC;
 import java.awt.Dimension;
 import javax.swing.JPanel;
@@ -421,7 +422,7 @@ public class Main extends javax.swing.JFrame {
 
         jLabel32.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         jLabel32.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel32.setText("Editar Nota Fiscal");
+        jLabel32.setText("Listar Notas Fiscais");
         listNF.add(jLabel32, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 69, 190, 60));
 
         jPanelGerenciamentoNotasFiscais.add(listNF, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 90, 200, 140));
@@ -723,7 +724,9 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_actionAddUserMouseClicked
 
     private void listNFMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listNFMouseClicked
-        
+        // Método abrir frame para listagem das Notas Fiscais
+        ControllerMain.nfAction(this.login, "Listagem de Notas Fiscais", -2);
+        resetPanels(new JPanel[]{jPanelGerenciamentoNotasFiscais});
     }//GEN-LAST:event_listNFMouseClicked
 
     private void actionsUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_actionsUserMouseClicked
