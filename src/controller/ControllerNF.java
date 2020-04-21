@@ -27,12 +27,11 @@ public class ControllerNF {
     public static boolean criarNF(String[] campos) {
         // Método para adicionar um novo usuário no sistema
         String NumeroNF = campos[0];
-        String qtdParcela = campos[1];
-        String valor = campos[2];
-        String observacao = campos[3];
-        String pedido = campos[4];
-        String colaborador = campos[5];
-        String fornecedor = campos[6];
+        String valor = campos[1];
+        String observacao = campos[2];
+        String pedido = campos[3];
+        String colaborador = campos[4];
+        String fornecedor = campos[5];
 
         for (int i = 0; i < campos.length; i++) {
             if (campos[i].equals("")) {
@@ -50,8 +49,8 @@ public class ControllerNF {
             ArrayList colab = con.select("COLABORADORES", new String[]{"NOME", "ID_USER"}, new String[]{colaborador});
             ArrayList npedido = con.select("PEDIDO_COMPRA", new String[]{"ID_PEDIDO"}, new String[]{pedido});
             con.insert("nf_a",
-                    new String[]{"ID_FORNECEDOR_FK", "VALOR_NF", "NUM_NF", "QTD_PARCELA", "ID_COLAB_FK", "OBSERVACOES", "ID_PEDIDO_FK"},
-                    new String[]{forn.get(1).toString(), valor, NumeroNF, qtdParcela, colab.get(1).toString(), observacao, npedido.get(0).toString()});
+                    new String[]{"ID_FORNECEDOR_FK", "VALOR_NF", "NUM_NF", "ID_COLAB_FK", "OBSERVACOES", "ID_PEDIDO_FK"},
+                    new String[]{forn.get(1).toString(), valor, NumeroNF, colab.get(1).toString(), observacao, npedido.get(0).toString()});
             JOptionPane.showMessageDialog(null, "Nota Fiscal cadastrado com sucesso!", "SUCESSO", JOptionPane.INFORMATION_MESSAGE);
         } catch (SQLException ex) { // Caso a validação do usuário falhe é lançado uma exception
             JOptionPane.showMessageDialog(null, "Nota fiscal esta incorreto", "ERRO", JOptionPane.ERROR_MESSAGE); // Cria uma tela de aviso ao usuário
@@ -63,13 +62,13 @@ public class ControllerNF {
 
     public static void main(String login, String action, int codigo) {
         // Instância o novo frame
-        if (codigo == -1) {
-            AddNF nf = new AddNF(login, action);
-            nf.setLocationRelativeTo(null); // Defini a localização no meio da tela
-            nf.setVisible(true);
-        } else if (codigo == -2) {
+        if (codigo == -2) {
             ListViewNF nf = new ListViewNF(login, action);
             nf.setLocationRelativeTo(null);
+            nf.setVisible(true);
+        } else {
+            AddNF nf = new AddNF(login, action, codigo);
+            nf.setLocationRelativeTo(null);// Defini a localização no meio da tela
             nf.setVisible(true);
         }
         // Defini o frame como visivel
@@ -96,7 +95,6 @@ public class ControllerNF {
         try {
             connection();
             ArrayList dados = con.select(table, new String[]{campos}, new String[]{});
-            comboBox.addItem("Selecione...");
             dados.forEach((dado) -> {
                 comboBox.addItem(dado.toString());
             });
@@ -108,9 +106,9 @@ public class ControllerNF {
     }
 
     public static synchronized JTable listarNF(JTable jTable, String[] filters, ListViewNF listNF) {
-        System.out.println("ERO");
-
         ArrayList resp = new ArrayList();
+        ArrayList IdFornecedor = new ArrayList();
+        ArrayList IdColaborador = new ArrayList();
         ArrayList fornecedor = new ArrayList();
         ArrayList colaborador = new ArrayList();
 
@@ -128,7 +126,6 @@ public class ControllerNF {
 
         try { // Tentar realizar a listagem dos colaboradores
             connection();
-
             resp = con.select("NF_A", new String[]{"ID_NF_A", "NUM_NF", "ID_COLAB_FK", "ID_FORNECEDOR_FK", "VALOR_NF", "STATUS_NF", "DATA_ENTRADA"}, filters); // Retorna o resposta da função, o nome completo do usuário
             if (resp.isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Nenhuma Nota Registrada!", "ERRO", JOptionPane.ERROR_MESSAGE);
@@ -147,8 +144,8 @@ public class ControllerNF {
         for (i = 0; i < resp.size(); i += 7) {
             try {
                 connection();
-                fornecedor = con.select("FORNECEDOR", new String[]{"ID_FORNECEDOR", "NOME_RESPONSAVEL"}, new String[]{resp.get(i+3).toString()});
-                colaborador = con.select("COLABORADORES", new String[]{"ID_USER", "LOGIN"}, new String[]{resp.get(i+2).toString()});
+                fornecedor = con.select("FORNECEDOR", new String[]{"ID_FORNECEDOR", "RAZAO_SOCIAL"}, new String[]{resp.get(i + 3).toString()});
+                colaborador = con.select("COLABORADORES", new String[]{"ID_USER", "NOME"}, new String[]{resp.get(i + 2).toString()});
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(null, "Erro as notas fiscais!", "ERRO", JOptionPane.ERROR_MESSAGE);
                 listNF.dispose();
@@ -168,7 +165,7 @@ public class ControllerNF {
                 nfcolaborador = colaborador.get(1).toString();
             }
             System.out.println(fornecedor);
-            
+
             if (nffornecedor.equals(fornecedor.get(0).toString())) {
                 nffornecedor = fornecedor.get(1).toString();
             }
@@ -192,8 +189,55 @@ public class ControllerNF {
                 jTable.getColumnModel().getColumn(j).setHeaderRenderer(hRenderer);
             }
         }
-
         return jTable;
+    }
+
+    public static ArrayList<String> GetPedidoCompra(String pedido, String login) {
+        ArrayList camposPedido = new ArrayList();
+        ArrayList camposFornecedor = new ArrayList();
+        ArrayList campoUser = new ArrayList();
+        try {
+            connection();
+            camposPedido = con.select("PEDIDO_COMPRA", new String[]{"ID_PEDIDO", "ID_FORNECEDOR_FK"}, new String[]{pedido});
+            camposFornecedor = con.select("FORNECEDOR", new String[]{"ID_FORNECEDOR", "RAZAO_SOCIAL"}, new String[]{camposPedido.get(1).toString()});
+            campoUser = con.select("COLABORADORES", new String[]{"LOGIN", "NOME"}, new String[]{login});
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Erro as notas fiscais!", "ERRO", JOptionPane.ERROR_MESSAGE);
+        } finally {
+            disconnection();
+        }
+
+        ArrayList<String> camposNF = new ArrayList<>();
+        camposNF.add(camposFornecedor.get(1).toString());
+        camposNF.add(campoUser.get(1).toString());
+        return camposNF;
+    }
+
+    public static ArrayList GetNomesByIds(String[] campos) {
+        ArrayList ids = new ArrayList();
+        ArrayList colab = new ArrayList();
+        ArrayList forn = new ArrayList();
+        try {
+            connection();
+            if (!campos[0].equals("Selecione...")) {
+                colab = con.select("COLABORADORES", new String[]{"NOME", "ID_USER"}, new String[]{campos[0]});
+                ids.add(colab.get(1).toString());
+            } else{
+                ids.add("");
+            }
+            if (!campos[1].equals("Selecione...")) {
+                forn = con.select("FORNECEDOR", new String[]{"RAZAO_SOCIAL", "ID_FORNECEDOR"}, new String[]{campos[1]});
+                ids.add(forn.get(1).toString());
+            } else {
+                ids.add("");
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Erro ao filtrar ComboBox!", "ERRO", JOptionPane.ERROR_MESSAGE);
+        } finally {
+            disconnection();
+        }
+        System.out.println("OIIIIIIIIIIIIIIIIIIIIIII");
+        return ids;
     }
 
 }

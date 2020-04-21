@@ -148,9 +148,9 @@ public class ListViewNF extends javax.swing.JFrame {
             jTable1.getColumnModel().getColumn(6).setPreferredWidth(80);
         }
 
-        jPanel4.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, 1060, 610));
+        jPanel4.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, 960, 460));
 
-        getContentPane().add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 0, 1120, 710));
+        getContentPane().add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 0, 1040, 550));
 
         jPanel1.setBackground(new java.awt.Color(84, 127, 206));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -189,7 +189,7 @@ public class ListViewNF extends javax.swing.JFrame {
 
         jComboBoxColaborador.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jComboBoxColaborador.setForeground(new java.awt.Color(51, 51, 51));
-        jComboBoxColaborador.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione...", "Administrador", "Usuário" }));
+        jComboBoxColaborador.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione..." }));
         jPanel1.add(jComboBoxColaborador, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, 290, -1));
 
         jTextFieldId.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -223,7 +223,7 @@ public class ListViewNF extends javax.swing.JFrame {
         jLabel18.setText("Filtrar Notas");
         filterUser.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 69, 190, 48));
 
-        jPanel1.add(filterUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 70, 200, 130));
+        jPanel1.add(filterUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 90, 200, 130));
 
         cleanUser.setBackground(new java.awt.Color(71, 120, 197));
         cleanUser.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -243,7 +243,7 @@ public class ListViewNF extends javax.swing.JFrame {
         jLabel16.setText("Limpar Filtros");
         cleanUser.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 69, 190, 48));
 
-        jPanel1.add(cleanUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 220, 200, 130));
+        jPanel1.add(cleanUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 240, 200, 130));
 
         alterUser.setBackground(new java.awt.Color(71, 120, 197));
         alterUser.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -263,7 +263,7 @@ public class ListViewNF extends javax.swing.JFrame {
         jLabel20.setText("Salvar");
         alterUser.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 69, 190, 48));
 
-        jPanel1.add(alterUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 370, 200, 130));
+        jPanel1.add(alterUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 390, 200, 130));
 
         jTextFieldNF.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jTextFieldNF.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -281,10 +281,10 @@ public class ListViewNF extends javax.swing.JFrame {
 
         jComboBoxFornecedor.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jComboBoxFornecedor.setForeground(new java.awt.Color(51, 51, 51));
-        jComboBoxFornecedor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione...", "Administrador", "Usuário" }));
+        jComboBoxFornecedor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione..." }));
         jPanel1.add(jComboBoxFornecedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 310, 290, -1));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 550, 710));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 550, 550));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -292,12 +292,13 @@ public class ListViewNF extends javax.swing.JFrame {
     private void cleanUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cleanUserMouseClicked
         // Método para limpar os campos de input
         limpaCampos(); // Chama o método para limpar os campos
-        //ControllerUser.listarUsers(jTable1, new String[] {}, this);
+        jTable1 = ControllerNF.listarNF(jTable1, new String[] {} , this);
     }//GEN-LAST:event_cleanUserMouseClicked
 
     private void filterUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_filterUserMouseClicked
         // TODO add your handling code here:
-        jTable1 = ControllerNF.listarNF(jTable1, new String[] {jTextFieldId.getText(), jTextFieldNF.getText(), jComboBoxColaborador.getSelectedItem().toString(), jComboBoxFornecedor.getSelectedItem().toString(), jTextFieldStatus.getText()} , this);
+        ArrayList ids = ControllerNF.GetNomesByIds(new String[] {jComboBoxColaborador.getSelectedItem().toString(), jComboBoxFornecedor.getSelectedItem().toString()});
+        jTable1 = ControllerNF.listarNF(jTable1, new String[] {jTextFieldId.getText(), jTextFieldNF.getText(), ids.get(0).toString(), ids.get(1).toString(), jTextFieldStatus.getText()} , this);
     }//GEN-LAST:event_filterUserMouseClicked
 
     private void alterUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_alterUserMouseClicked
@@ -309,7 +310,8 @@ public class ListViewNF extends javax.swing.JFrame {
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         // TODO add your handling code here:
         if (evt.getClickCount() == 2) {
-            ControllerUser.main(login, null, Integer.parseInt(jTable1.getValueAt(jTable1.getSelectedRow(), 0).toString()));
+            //ControllerUser.main(login, null, Integer.parseInt(jTable1.getValueAt(jTable1.getSelectedRow(), 0).toString()));
+            ControllerNF.main(login, null, Integer.parseInt(jTable1.getValueAt(jTable1.getSelectedRow(), 0).toString()));
             dispose();
         }
     }//GEN-LAST:event_jTable1MouseClicked
