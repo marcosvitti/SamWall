@@ -92,6 +92,25 @@ public class DataBase {
         return "SELECT * FROM " + table + query;
     }
     
+    public int selectIdPc() throws SQLException{
+       int idPc;
+        try {
+            String command = "SELECT MAX(ID_PEDIDO) AS ID_PEDIDO FROM PEDIDO_COMPRA";
+            stm = con.createStatement();
+            System.out.println(command);
+            rs = stm.executeQuery(command);
+            if (rs.next()) {
+               idPc= rs.getInt("ID_PEDIDO");
+            } else {
+                throw new SQLException();
+            }
+        } catch (SQLException ex) {
+            throw ex;
+        }
+       return idPc;
+    }
+
+    
 
     public ArrayList select(String table, String[] campos, String[] wheres ) throws SQLException {
         ArrayList arrayReturn = new ArrayList<>();
@@ -139,11 +158,11 @@ public class DataBase {
                 }
             }
         } catch (SQLException ex) {
-            throw new SQLException();
+            throw new SQLException();// Conversar com o marcos sobre essa nova excessão
         }
         return arrayReturn;
     }
-
+    
     public ArrayList insert(String table, String[] campos, String[] values ) throws SQLException {
         ArrayList arrayReturn = new ArrayList<>();
         try {
@@ -253,17 +272,6 @@ public class DataBase {
         return arrayReturn;
     }
 
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
     public JTable listaUsers(String command, javax.swing.JTable jTable1) throws SQLException {
         ((DefaultTableModel) jTable1.getModel()).setRowCount(0); // Defini a tabela com quantidades de linhas igual a zero
@@ -467,6 +475,23 @@ public class DataBase {
         } catch (SQLException ex) {
             throw new SQLException();
         }
+    }
+    public ArrayList newIdPC() throws SQLException {
+    String command = "SELECT MAX (ID_PEDIDO) FROM PEDIDO_COMPRA";    
+    ArrayList dados = new ArrayList<>();
+        try {
+            stm = con.createStatement();
+            System.out.println(command);
+            rs = stm.executeQuery(command);
+            if (rs.next()) {
+                dados.add(rs.getString("ID_PEDIDO"));
+            } else {
+                throw new SQLException();
+            }
+        } catch (SQLException ex) {
+            throw new SQLException();
+        }
+        return dados;
     }
 
     public ArrayList pesquisa(String command) throws SQLException {
@@ -693,5 +718,9 @@ public class DataBase {
             throw new SQLException();
         }
         return campos;
+    }
+
+    public int select(String pedido_compra, String max_id_pedido) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
