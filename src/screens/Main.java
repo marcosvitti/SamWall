@@ -743,7 +743,7 @@ public class Main extends javax.swing.JFrame {
 //
 //        resetColor(new JPanel[]{btnHome,btnPerfil,btnNotasFiscais,btnUsuarios}, new JPanel[]{ind_1,ind_6,ind_2,ind_3});
 // TODO add your handling code here:
-ControllerPC.main(this.login, "Criar Pedido de ", -1);
+ControllerPC.main(this.login, "Criar Pedido de ", -1, -1);
         } catch (SQLException ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }

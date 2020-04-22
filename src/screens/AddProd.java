@@ -3,7 +3,10 @@ package screens;
 import controller.ControllerPC;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -15,20 +18,21 @@ public class AddProd extends javax.swing.JFrame {
     public AddProd(String login, String action, int idPC) {
         initComponents(); // Inicia Componentes do frame de addProd
         jLabel14.setText(action); // Defini o nome da função desempenhada
-        
-        jTable1 = ControllerPC.listarPd(jTable1, idPC); // Chamada do método responsável por listar os colaboradores do sistema
+       // jTable1.getColumnModel().getColumn(5).getMinWidth();
+       // jTable1 = ControllerPC.listarPd(jTable1, idPC); // Chamada do método responsável por listar os colaboradores do sistema
         gIdPC = idPC;
+        ControllerPC.listarPd(jTable1, gIdPC);
         jTable1.getSelectionModel().addListSelectionListener((e) -> {
             if (!e.getValueIsAdjusting()) {
                 arrayUpdade();
             }
         });
-
+        EditPd.setVisible(false);
         this.login = login;
         this.update = new ArrayList<>();
     }
-
-
+    
+ 
     @Override
     public Image getIconImage() { // Método para alterar o icone da barra de tarefas
         return Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("pictures/iconLogoBar.png")); // Seta uma imagem como ícone
@@ -39,7 +43,7 @@ public class AddProd extends javax.swing.JFrame {
         jTextFieldQtd.setText(""); // Limpa campo Quantidade
         jTextFieldPcUnit.setText(""); // Limpa campo Preço unitário
         jTextFieldPT.setText(""); // Limpa campo Preço Total
-        
+        jlabelId.setText("");// campo para ccarregar o 
     }
 
     private void arrayUpdade() {
@@ -52,33 +56,70 @@ public class AddProd extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        EditPd = new javax.swing.JPanel();
+        jLabel23 = new javax.swing.JLabel();
+        jSeparator7 = new javax.swing.JSeparator();
+        jLabel24 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jLabel14 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
-        jLabel15 = new javax.swing.JLabel();
         jTextFieldQtd = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jTextFieldPcUnit = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jTextFieldPT = new javax.swing.JTextField();
+        Exit = new javax.swing.JPanel();
+        jLabel15 = new javax.swing.JLabel();
+        jSeparator4 = new javax.swing.JSeparator();
+        jLabel17 = new javax.swing.JLabel();
         cleanUser = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
         jSeparator3 = new javax.swing.JSeparator();
         jLabel16 = new javax.swing.JLabel();
-        AddPd = new javax.swing.JPanel();
+        DelPD = new javax.swing.JPanel();
         jLabel19 = new javax.swing.JLabel();
         jSeparator5 = new javax.swing.JSeparator();
         jLabel20 = new javax.swing.JLabel();
         jTextFieldProd = new javax.swing.JTextField();
-        jLabel8 = new javax.swing.JLabel();
+        jlabelId = new javax.swing.JLabel();
+        AddPd = new javax.swing.JPanel();
+        jLabel21 = new javax.swing.JLabel();
+        jSeparator6 = new javax.swing.JSeparator();
+        jLabel22 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setIconImage(getIconImage());
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        EditPd.setBackground(new java.awt.Color(71, 120, 197));
+        EditPd.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        EditPd.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                EditPdMouseClicked(evt);
+            }
+        });
+        EditPd.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel23.setIcon(new javax.swing.ImageIcon(getClass().getResource("/novosIcones/icons8_save_26px.png"))); // NOI18N
+        EditPd.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 13, 25, 25));
+        EditPd.add(jSeparator7, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 52, 180, 10));
+
+        jLabel24.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        jLabel24.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel24.setText("Gravar Alteração");
+        EditPd.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 69, 190, 48));
+
+        getContentPane().add(EditPd, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 60, 200, 130));
 
         jPanel4.setBackground(new java.awt.Color(71, 120, 197));
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -98,11 +139,11 @@ public class AddProd extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Produto", "Quantidade", "Preço unitário", "Preço Total"
+                "Produto", "Quantidade", "Preço unitário", "Preço Total", ""
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -131,6 +172,9 @@ public class AddProd extends javax.swing.JFrame {
             jTable1.getColumnModel().getColumn(2).setPreferredWidth(130);
             jTable1.getColumnModel().getColumn(3).setResizable(false);
             jTable1.getColumnModel().getColumn(3).setPreferredWidth(80);
+            jTable1.getColumnModel().getColumn(4).setMinWidth(0);
+            jTable1.getColumnModel().getColumn(4).setPreferredWidth(0);
+            jTable1.getColumnModel().getColumn(4).setMaxWidth(0);
         }
 
         jPanel4.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, 1060, 610));
@@ -139,11 +183,6 @@ public class AddProd extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(84, 127, 206));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel15.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
-        jLabel15.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 550, 40));
 
         jTextFieldQtd.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jTextFieldQtd.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -156,19 +195,19 @@ public class AddProd extends javax.swing.JFrame {
                 jTextFieldsKeyTyped(evt);
             }
         });
-        jPanel1.add(jTextFieldQtd, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, 290, -1));
+        jPanel1.add(jTextFieldQtd, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, 90, -1));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel4.setText("Quantidade");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 210, 290, 30));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, 290, 30));
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel5.setText("Preço Unitário :  ");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 280, 290, 30));
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, 290, 30));
 
         jTextFieldPcUnit.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jTextFieldPcUnit.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -181,13 +220,13 @@ public class AddProd extends javax.swing.JFrame {
                 jTextFieldsKeyTyped(evt);
             }
         });
-        jPanel1.add(jTextFieldPcUnit, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 310, 290, -1));
+        jPanel1.add(jTextFieldPcUnit, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 230, 150, -1));
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel6.setText("Preço Total");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 350, 290, 30));
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 270, 290, 30));
 
         jTextFieldPT.setEditable(false);
         jTextFieldPT.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -196,7 +235,27 @@ public class AddProd extends javax.swing.JFrame {
                 jTextFieldsKeyTyped(evt);
             }
         });
-        jPanel1.add(jTextFieldPT, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 380, 290, -1));
+        jPanel1.add(jTextFieldPT, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 300, 150, -1));
+
+        Exit.setBackground(new java.awt.Color(71, 120, 197));
+        Exit.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        Exit.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ExitMouseClicked(evt);
+            }
+        });
+        Exit.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/novosIcones/icon_close.png"))); // NOI18N
+        Exit.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 30, 25));
+        Exit.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 52, 180, 10));
+
+        jLabel17.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        jLabel17.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel17.setText("Sair");
+        Exit.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 69, 190, 48));
+
+        jPanel1.add(Exit, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 510, 200, 130));
 
         cleanUser.setBackground(new java.awt.Color(71, 120, 197));
         cleanUser.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -216,7 +275,35 @@ public class AddProd extends javax.swing.JFrame {
         jLabel16.setText("Limpar Campos");
         cleanUser.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 69, 190, 48));
 
-        jPanel1.add(cleanUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 310, 200, 130));
+        jPanel1.add(cleanUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 360, 200, 130));
+
+        DelPD.setBackground(new java.awt.Color(71, 120, 197));
+        DelPD.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        DelPD.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                DelPDMouseClicked(evt);
+            }
+        });
+        DelPD.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+    
+        DelPD.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 13, 25, 25));
+        DelPD.add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 52, 180, 10));
+
+        jLabel20.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        jLabel20.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel20.setText("Remover Item");
+        DelPD.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 69, 190, 48));
+
+        jPanel1.add(DelPD, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 210, 200, 130));
+
+        jTextFieldProd.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jPanel1.add(jTextFieldProd, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 290, -1));
+
+        jlabelId.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jlabelId.setForeground(new java.awt.Color(255, 255, 255));
+        jlabelId.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jPanel1.add(jlabelId, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 290, 30));
 
         AddPd.setBackground(new java.awt.Color(71, 120, 197));
         AddPd.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -227,25 +314,22 @@ public class AddProd extends javax.swing.JFrame {
         });
         AddPd.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel19.setIcon(new javax.swing.ImageIcon(getClass().getResource("/novosIcones/icons8_save_26px.png"))); // NOI18N
-        AddPd.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 13, 25, 25));
-        AddPd.add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 52, 180, 10));
+        jLabel21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/novosIcones/icons8_save_26px.png"))); // NOI18N
+        AddPd.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 13, 25, 25));
+        AddPd.add(jSeparator6, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 52, 180, 10));
 
-        jLabel20.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        jLabel20.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel20.setText("Incluir Item");
-        AddPd.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 69, 190, 48));
+        jLabel22.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        jLabel22.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel22.setText("Incluir Item");
+        AddPd.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 69, 190, 48));
 
-        jPanel1.add(AddPd, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 150, 200, 130));
+        jPanel1.add(AddPd, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 60, 200, 130));
 
-        jTextFieldProd.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jPanel1.add(jTextFieldProd, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 290, -1));
-
-        jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel8.setText("Produto:");
-        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, 290, 30));
+        jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel9.setText("Produto:");
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 290, 30));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 550, 710));
 
@@ -258,18 +342,29 @@ public class AddProd extends javax.swing.JFrame {
         ControllerPC.listarPd(jTable1, gIdPC);
     }//GEN-LAST:event_cleanUserMouseClicked
 
-    private void AddPdMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AddPdMouseClicked
-
-      ControllerPC.criarPD(new String[] {jTextFieldProd.getText(),jTextFieldQtd.getText(), jTextFieldPcUnit.getText()},gIdPC); 
+    private void DelPDMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DelPDMouseClicked
+      ControllerPC.delPD( new String[] {jlabelId.getText()}); 
+      limpaCampos(); // Chama o método para limpar os campos
       ControllerPC.listarPd(jTable1, gIdPC);
-    }//GEN-LAST:event_AddPdMouseClicked
+    }//GEN-LAST:event_DelPDMouseClicked
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
-//        // TODO add your handling code here:
-//        if (evt.getClickCount() == 2) {
-//            ControllerPC.main(login, null, Integer.parseInt(jTable1.getValueAt(jTable1.getSelectedRow(), 0).toString()));
-//            dispose();
-//        }
+        // TODO add your handling code here:
+        if (evt.getClickCount() == 2) {
+           int totalRows = jTable1.getRowCount();
+
+            for (int i = 0; i < totalRows; i++) {
+            jTextFieldProd.setText((String) jTable1.getModel().getValueAt(i, 0));
+            jTextFieldQtd.setText((String) jTable1.getModel().getValueAt(i, 1));
+            jTextFieldPcUnit.setText((String) jTable1.getModel().getValueAt(i, 2));
+            jTextFieldPT.setText((String) jTable1.getModel().getValueAt(i, 3));
+            jlabelId.setText((String) jTable1.getModel().getValueAt(i,4));
+            
+            AddPd.setVisible(false);
+            EditPd.setVisible(true);
+            }
+        }
+        
     }//GEN-LAST:event_jTable1MouseClicked
 
     private void jTextFieldsKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldsKeyTyped
@@ -284,41 +379,81 @@ public class AddProd extends javax.swing.JFrame {
         String valor=jTextFieldPcUnit.getText();
         String qtd = jTextFieldQtd.getText();
         Double total= Double.parseDouble(valor) * Double.parseDouble(qtd);
-        
-        jTextFieldPT.setText(Double.toString(total));
+        String totalG = Double.toString(total);
+        jTextFieldPT.setText(totalG);
     }//GEN-LAST:event_jTextFieldQtdFocusLost
 
     private void jTextFieldPcUnitFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldPcUnitFocusLost
         String valor=jTextFieldPcUnit.getText();
         String qtd = jTextFieldQtd.getText();
-        Double total= Double.parseDouble(valor)* Double.parseDouble(qtd);
-        
-        jTextFieldPT.setText(Double.toString(total));
+        Double total= Double.parseDouble(valor) * Double.parseDouble(qtd);
+        String totalG = Double.toString(total);
+        jTextFieldPT.setText(totalG);
     }//GEN-LAST:event_jTextFieldPcUnitFocusLost
+
+    private void AddPdMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AddPdMouseClicked
+      ControllerPC.criarPD(new String[] {jTextFieldProd.getText(),jTextFieldQtd.getText(), jTextFieldPcUnit.getText()},gIdPC); 
+      limpaCampos(); // Chama o método para limpar os campos
+      ControllerPC.listarPd(jTable1, gIdPC);
+    }//GEN-LAST:event_AddPdMouseClicked
+
+    private void EditPdMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EditPdMouseClicked
+       ControllerPC.updPD(new String[] {jTextFieldProd.getText(),jTextFieldQtd.getText(), jTextFieldPcUnit.getText(),jlabelId.getText()}); 
+      limpaCampos(); // Chama o método para limpar os campos
+      ControllerPC.listarPd(jTable1, gIdPC);
+      AddPd.setVisible(true);
+      EditPd.setVisible(false);
+    }//GEN-LAST:event_EditPdMouseClicked
+
+    private void ExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ExitMouseClicked
+       try {
+        ControllerPC.totalPC(gIdPC);
+        ControllerPC.main(login, "Editar Pedido de Compra", -1,gIdPC);     } catch (SQLException ex) {
+        Logger.getLogger(AddProd.class.getName()).log(Level.SEVERE, null, ex);
+    }finally{
+        this.dispose();
+    }
+    }//GEN-LAST:event_ExitMouseClicked
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+    
+    }//GEN-LAST:event_formWindowClosed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel AddPd;
+    private javax.swing.JPanel DelPD;
+    private javax.swing.JPanel EditPd;
+    private javax.swing.JPanel Exit;
     private javax.swing.JPanel cleanUser;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
+    private javax.swing.JSeparator jSeparator6;
+    private javax.swing.JSeparator jSeparator7;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextFieldPT;
     private javax.swing.JTextField jTextFieldPcUnit;
     private javax.swing.JTextField jTextFieldProd;
     private javax.swing.JTextField jTextFieldQtd;
+    private javax.swing.JLabel jlabelId;
     // End of variables declaration//GEN-END:variables
 
 }

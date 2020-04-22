@@ -158,7 +158,7 @@ public class DataBase {
                 }
             }
         } catch (SQLException ex) {
-            throw new SQLException();// Conversar com o marcos sobre essa nova excessão
+           
         }
         return arrayReturn;
     }
@@ -207,7 +207,7 @@ public class DataBase {
         }
         return arrayReturn;
     }
-
+    
     public ArrayList update(String table, String[] campos, String[] values, String[] wheres, String[] condicional ) throws SQLException {
         ArrayList arrayReturn = new ArrayList<>();
         try {
@@ -272,6 +272,36 @@ public class DataBase {
         return arrayReturn;
     }
 
+    public ArrayList delete(String table, String[] campos, String[] values ) throws SQLException {
+        ArrayList arrayReturn = new ArrayList<>();
+        try {
+            String command = "DELETE FROM " + table + " WHERE ";
+           
+           for (int i=0; i<values.length; i++) {
+                if(!values[i].equals("")){
+                    if(values[i].contains("sys.fn_varbintohexsubstring")) {
+
+                        command += values[i];
+
+                    } else {
+                        command += campos[i]+ " = " + values[i] ;
+                    }
+                    
+                }
+            }
+            command += ";";
+        
+            stm = con.createStatement();
+            System.out.println(command);
+            if(stm.execute(command)){
+                arrayReturn.add("OK");
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+            throw new SQLException();
+        }
+        return arrayReturn;
+    }
     
     public JTable listaUsers(String command, javax.swing.JTable jTable1) throws SQLException {
         ((DefaultTableModel) jTable1.getModel()).setRowCount(0); // Defini a tabela com quantidades de linhas igual a zero
@@ -368,10 +398,12 @@ public class DataBase {
                 throw new SQLException();
             }
         } catch (SQLException ex) {
-            throw new SQLException();
+          throw new SQLException();
         }
     }
 
+
+    
     public void selectNFCommandSQL(String command) throws SQLException {
         try {
             stm = con.createStatement();

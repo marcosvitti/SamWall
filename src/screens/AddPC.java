@@ -1,6 +1,7 @@
 package screens;
 
 import controller.ControllerPC;
+import static controller.ControllerPC.carregarCamposPC;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
@@ -10,21 +11,35 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import javax.sound.midi.Soundbank;
 import javax.swing.JOptionPane;
 
 public class AddPC extends javax.swing.JFrame {
 
     public String login; // Declaração da variável logLogin, usada para relatórios de inserção de usuários
     public int idPC;
-    public AddPC(String login, String action) throws SQLException { // Método para instanciar o frame addUser
+    public AddPC(String login, String action, int id) throws SQLException { // Método para instanciar o frame addUser
         initComponents(); // Inicia Componentes do frame de addUser
         
         this.login = login;
+        if (id != -1)
+        {
+           idPC = id; 
+        }
         
         jTextFieldColab.setText(ControllerPC.nomeColab(login));
         jTextFieldContato.setText(" ");
-        ControllerPC.carregarComboBox(jComboBoxFornecedor, "FORNECEDOR");
+        if (idPC>0){
+            ArrayList campos = ControllerPC.carregarCamposPC(idPC,jComboBoxFornecedor);
+          // ID_PEDIDO", "ID_FORNECEDOR_FK","CONTATO","OBS,VALOR_TOTAL"
+          
+          jTextFieldContato.setText(campos.get(2).toString());
+          jTextFieldObservacao.setText(campos.get(3).toString());
+          jTextFieldValor1.setText(campos.get(4).toString());
+          lId.setText(campos.get(0).toString());
+        }
+        else{
+            ControllerPC.carregarComboBox(jComboBoxFornecedor, "FORNECEDOR");
+        }
         
         jLabel14.setText(action); 
         addItens.setVisible(false);
@@ -182,7 +197,7 @@ public class AddPC extends javax.swing.JFrame {
 
         jLabel17.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel17.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel17.setText("Inserir Itens");
+        jLabel17.setText("Editar Itens");
         addItens.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 69, 170, 48));
 
         jPanel6.add(addItens, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 210, 190, 130));
@@ -257,26 +272,52 @@ public class AddPC extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void addPCMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addPCMouseClicked
-        if(jComboBoxFornecedor.getSelectedItem().toString().equals("Selecione...")){
-            JOptionPane.showMessageDialog(null,"Selecione um fornecedor");
-        }
-            if (ControllerPC.criarPC(new String[] {
-            jComboBoxFornecedor.getSelectedItem().toString(),
-            jTextFieldContato.getText(),
-            login, 
-            jTextFieldObservacao.getText(), 
-            })){ 
-        String newIdPC;
-            try {
-                newIdPC = Integer.toString(ControllerPC.idPC());
-                lId.setText(newIdPC);
-                idPC=Integer.parseInt(newIdPC);
-                
-            } catch (SQLException ex) {
+        try {
+            boolean v = ControllerPC.verifPC(lId.getText());
+            System.out.println(v);
+            if (v==false)
+            {
+                if(jComboBoxFornecedor.getSelectedItem().toString().equals("Selecione...")){
+                    JOptionPane.showMessageDialog(null,"Selecione um fornecedor");
+                }
+                    if (ControllerPC.criarPC(new String[] {
+                    jComboBoxFornecedor.getSelectedItem().toString(),
+                    jTextFieldContato.getText(),
+                    login, 
+                    jTextFieldObservacao.getText(), 
+                    })){ 
+                String newIdPC;
+                    try {
+                        newIdPC = Integer.toString(ControllerPC.idPC());
+                        lId.setText(newIdPC);
+                        idPC=Integer.parseInt(newIdPC);
+
+                    } catch (SQLException ex) {
+                    }
+                }
+            this.dispose();
+            ControllerPC.inserirItens(this.login, "Editar produtos", this.idPC);
+             
             }
+            else
+            {
+                ControllerPC.updPC(new String[] {
+                jComboBoxFornecedor.getSelectedItem().toString(),
+                jTextFieldContato.getText(),
+                this.login,
+                jTextFieldObservacao.getText(),
+                lId.getText()
+                });
+                this.dispose();
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(AddPC.class.getName()).log(Level.SEVERE, null, ex);
         }
-           
+                 
+            
            addItens.setVisible(true);
+            
     }//GEN-LAST:event_addPCMouseClicked
 
     private void cleanUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cleanUserMouseClicked
