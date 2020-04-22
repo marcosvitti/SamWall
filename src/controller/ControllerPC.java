@@ -2,15 +2,19 @@ package controller;
 
 import dataBase.DataBase;
 import java.awt.Color;
+import java.awt.event.ActionEvent;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import javax.swing.DefaultCellEditor;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
 import screens.AddPC;
 import screens.AddProd;
+import screens.ListViewPC;
 
 public class ControllerPC {
     
@@ -155,7 +159,133 @@ public class ControllerPC {
         return dados;
         
     }
+    public static synchronized JTable listarPC(JTable jTable, String[] filters, ListViewPC listPC) {
+        ArrayList resp = new ArrayList();
+        ArrayList fornecedor = new ArrayList();
+        ArrayList colaborador = new ArrayList();
+
+        ((DefaultTableModel) jTable.getModel()).setRowCount(0);
+        int i = 0;
+        for (String f : filters) {
+            if (f.equals("") || f.equals("Selecione...")) {
+                System.out.println(f);
+                filters[i] = "LIKE %";
+                System.out.println("f: "+f);
+            }else if(f.contains("BETWEEN") || f.contains("CONVERT")){
+                filters[i]= filters[i];
+            } 
+            else {
+                
+                System.out.println("filters[i]"+filters[i]);
+                filters[i] = "LIKE %" + f + "%";
+                
+            }
+            if(f.equals("Ativo")){
+                filters[i] = "1";
+            } else if(f.equals("Inativo")){
+                filters[i] = "0";
+            }
+            i++;
+        }
+
+        try { // Tentar realizar a listagem dos colaboradores
+            connection();
+            resp = con.select("PEDIDO_COMPRA", new String[]{"ID_PEDIDO","DATA_COMPRA", "CONTATO", "ID_FORNECEDOR_FK", 
+                "ID_USER_FK","VALOR_TOTAL"}, filters); // Retorna o resposta da função, o nome completo do usuário
+            if (resp.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Nenhuma Nota Registrada!", "ERRO", JOptionPane.ERROR_MESSAGE);
+            }
+
+            System.out.println(resp);
+            System.out.println(fornecedor);
+            System.out.println(colaborador);
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Erro as notas fiscais!", "ERRO", JOptionPane.ERROR_MESSAGE);
+            listPC.dispose();
+        } finally {
+            disconnection();
+        }
+
+        for (i = 0; i < resp.size(); i += 6) {
+            try {
+                connection();
+                fornecedor = con.select("FORNECEDOR", new String[]{"ID_FORNECEDOR", "RAZAO_SOCIAL"}, new String[]{resp.get(i + 3).toString()});
+                colaborador = con.select("COLABORADORES", new String[]{"ID_USER", "NOME"}, new String[]{resp.get(i + 4).toString()});
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, "Erro as notas fiscais!", "ERRO", JOptionPane.ERROR_MESSAGE);
+                listPC.dispose();
+            } finally {
+                disconnection();
+            }
+            
+            int idPC = Integer.parseInt(resp.get(i).toString());
+            String data = resp.get(i + 1).toString();
+            String contato= resp.get(i + 2 ).toString();
+            String pcfornecedor= resp.get(i + 3).toString();
+            String user = resp.get(i + 4).toString();
+            Double vTotal= Double.parseDouble(resp.get(i + 5).toString());
+           
+            System.out.println(fornecedor);
+
+            if (pcfornecedor.equals(fornecedor.get(0).toString())) {
+                pcfornecedor = fornecedor.get(1).toString();
+            }
+            if (user.equals(colaborador.get(0).toString())) {
+                user = colaborador.get(1).toString();
+            }
+            JComboBox status = new JComboBox();
+
+            status.addActionListener((ActionEvent e) -> {
+                if (status.hasFocus()) {
+                    jTable.setRowSelectionInterval(jTable.getSelectedRow(), jTable.getSelectedRow());
+                }
+            });
+
+            DefaultTableCellRenderer hRenderer = new DefaultTableCellRenderer();
+            hRenderer.setBackground(new Color(84, 127, 206));
+            hRenderer.setForeground(new Color(255, 255, 255));
+             
+            String[] linha = new String[]{String.valueOf(idPC),data.substring(8, 10) + "/" + data.substring(5, 7) + "/" + data.substring(0, 4), 
+                contato, pcfornecedor, user, Double.toString(vTotal)};
+            ((DefaultTableModel) jTable.getModel()).addRow(linha);
+
+            TableColumn comboBoxStatus = jTable.getColumnModel().getColumn(4);
+            comboBoxStatus.setCellEditor(new DefaultCellEditor(status));
+            DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
+            comboBoxStatus.setCellRenderer(renderer);
+
+            for (int j = 0; j < jTable.getModel().getColumnCount(); j++) {
+                jTable.getColumnModel().getColumn(j).setHeaderRenderer(hRenderer);
+            }
+        }
+        return jTable;
+    }
     
+   public static ArrayList GetNomesByIds(String[] campos) {
+        ArrayList ids = new ArrayList();
+        ArrayList colab = new ArrayList();
+        ArrayList forn = new ArrayList();
+        try {
+            connection();
+            if (!campos[0].equals("Selecione...")) {
+                colab = con.select("COLABORADORES", new String[]{"NOME", "ID_USER"}, new String[]{campos[0]});
+                ids.add(colab.get(1).toString());
+            } else {
+                ids.add("");
+            }
+            if (!campos[1].equals("Selecione...")) {
+                forn = con.select("FORNECEDOR", new String[]{"RAZAO_SOCIAL", "ID_FORNECEDOR"}, new String[]{campos[1]});
+                ids.add(forn.get(1).toString());
+            } else {
+                ids.add("");
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Erro ao filtrar ComboBox!", "ERRO", JOptionPane.ERROR_MESSAGE);
+        } finally {
+            disconnection();
+        }
+        return ids;
+    }
      public static synchronized JTable listarPd(JTable jTable, int idPC) { // Método para listar os colaboradores do sistema
         ArrayList resp = new ArrayList();
         int i = 0;
@@ -203,6 +333,12 @@ public class ControllerPC {
         AddProd prod = new AddProd(login, action, idPc);
         prod.setLocationRelativeTo(null);
         prod.setVisible(true);
+    }
+    
+    public static synchronized void listPc(String login, String action){
+        ListViewPC listpc = new ListViewPC(login, action);
+        listpc.setLocationRelativeTo(null);
+        listpc.setVisible(true);
     }
     
     public static boolean verifPC(String id) throws SQLException{

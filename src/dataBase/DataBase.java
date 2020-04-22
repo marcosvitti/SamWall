@@ -137,7 +137,10 @@ public class DataBase {
 
                         command += campos[i] + " LIKE '" + wheres[i].replaceAll("LIKE ", "") + "'";
 
-                    } else {
+                    } else if(wheres[i].contains("BETWEEN") || wheres[i].contains("CONVERT")){
+                        command += campos[i] +  wheres[i];
+                    }
+                    else {
 
                         command += campos[i] + "='" + wheres[i] + "'";
 

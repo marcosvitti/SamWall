@@ -496,7 +496,7 @@ public class Main extends javax.swing.JFrame {
 
         jLabel40.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         jLabel40.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel40.setText("Listar NF's");
+        jLabel40.setText("Listar Pedidos");
         listPC.add(jLabel40, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 188, 70));
 
         jPanelGerenciamentoPedidoCompra.add(listPC, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 90, 200, 140));
@@ -746,14 +746,15 @@ public class Main extends javax.swing.JFrame {
 //
 //        resetColor(new JPanel[]{btnHome,btnPerfil,btnNotasFiscais,btnUsuarios}, new JPanel[]{ind_1,ind_6,ind_2,ind_3});
 // TODO add your handling code here:
-ControllerPC.main(this.login, "Criar Pedido de ", -1, -1);
+ControllerPC.main(this.login, "Criar Pedido de Compras", -1, -1);
         } catch (SQLException ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_addPCMouseClicked
 
     private void listPCMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listPCMouseClicked
-        // TODO add your handling code here:
+        ControllerPC.listPc(this.login, "Listar Pedidos de Compras");
+    
     }//GEN-LAST:event_listPCMouseClicked
 
     private void btnPCMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPCMouseClicked

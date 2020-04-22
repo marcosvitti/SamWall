@@ -24,6 +24,9 @@ public class AddPC extends javax.swing.JFrame {
         if (id != -1)
         {
            idPC = id; 
+           addItens.setVisible(true);
+        }else{
+            addItens.setVisible(false);
         }
         
         jTextFieldColab.setText(ControllerPC.nomeColab(login));
@@ -42,7 +45,7 @@ public class AddPC extends javax.swing.JFrame {
         }
         
         jLabel14.setText(action); 
-        addItens.setVisible(false);
+        
     }
 
     @Override
