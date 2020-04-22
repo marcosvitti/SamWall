@@ -18,10 +18,6 @@ public class AddNF extends javax.swing.JFrame {
         ControllerNF.carregarComboBox(jComboBoxPedidoCompra, "PEDIDO");
         jLabel14.setText(action);
         
-        if(codigo > 0) {
-            //ArrayList<String> nf = ControllerNF.getNF();
-        }
-        
     }
 
     @Override
@@ -32,6 +28,7 @@ public class AddNF extends javax.swing.JFrame {
     private void carregarCampos(ArrayList<String> campos) {
         jTextFieldFornecedor.setText(campos.get(0));
         jTextFieldColaborador.setText(campos.get(1));
+        jTextFieldValor.setText(campos.get(2));
     }
 
     private void limpaCampos() { // Método para limpar campos do formulário
@@ -121,6 +118,7 @@ public class AddNF extends javax.swing.JFrame {
         jLabel9.setText("Colaborador :  ");
         jPanel6.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 230, 310, 40));
 
+        jTextFieldValor.setEditable(false);
         jTextFieldValor.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jTextFieldValor.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         jTextFieldValor.addKeyListener(new java.awt.event.KeyAdapter() {

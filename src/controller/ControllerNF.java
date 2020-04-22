@@ -224,7 +224,7 @@ public class ControllerNF {
         ArrayList campoUser = new ArrayList();
         try {
             connection();
-            camposPedido = con.select("PEDIDO_COMPRA", new String[]{"ID_PEDIDO", "ID_FORNECEDOR_FK"}, new String[]{pedido});
+            camposPedido = con.select("PEDIDO_COMPRA", new String[]{"ID_PEDIDO", "ID_FORNECEDOR_FK", "VALOR_TOTAL"}, new String[]{pedido});
             camposFornecedor = con.select("FORNECEDOR", new String[]{"ID_FORNECEDOR", "RAZAO_SOCIAL"}, new String[]{camposPedido.get(1).toString()});
             campoUser = con.select("COLABORADORES", new String[]{"LOGIN", "NOME"}, new String[]{login});
         } catch (SQLException e) {
@@ -236,6 +236,7 @@ public class ControllerNF {
         ArrayList<String> camposNF = new ArrayList<>();
         camposNF.add(camposFornecedor.get(1).toString());
         camposNF.add(campoUser.get(1).toString());
+        camposNF.add(camposPedido.get(2).toString());
         return camposNF;
     }
 
