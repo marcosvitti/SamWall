@@ -16,6 +16,7 @@ public class AddProd extends javax.swing.JFrame {
     private final ArrayList<Integer> update;
     public int gIdPC;
     public AddProd(String login, String action, int idPC) {
+        
         initComponents(); // Inicia Componentes do frame de addProd
         jLabel14.setText(action); // Defini o nome da função desempenhada
        // jTable1.getColumnModel().getColumn(5).getMinWidth();
@@ -30,6 +31,7 @@ public class AddProd extends javax.swing.JFrame {
         EditPd.setVisible(false);
         this.login = login;
         this.update = new ArrayList<>();
+        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE); 
     }
     
  

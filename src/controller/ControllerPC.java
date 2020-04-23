@@ -12,6 +12,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
+import static jdk.nashorn.internal.runtime.Debug.id;
 import screens.AddPC;
 import screens.AddProd;
 import screens.ListViewPC;
@@ -100,7 +101,7 @@ public class ControllerPC {
     public static void carregarComboBox(JComboBox comboBox, String comboName) {
         String campos = null;
         String table = null;
-
+        ArrayList dados;
         switch(comboName) {
             case "FORNECEDOR":
                 table = "FORNECEDOR";
@@ -113,11 +114,12 @@ public class ControllerPC {
         }
         try {
             connection();
-            ArrayList dados = con.select(table, new String[] {campos}, new String[] {});
+            
+            dados= con.select(table, new String[] {campos}, new String[] {});
             comboBox.addItem("Selecione...");
             dados.forEach((dado) -> {
                 comboBox.addItem(dado.toString());
-            });
+            });           
         } catch (SQLException ex) { // Caso a validação do usuário falhe é lançado uma exception
             JOptionPane.showMessageDialog(null, "Erro ao listar os campos de seleções!", "ERRO", JOptionPane.ERROR_MESSAGE); // Cria uma tela de aviso ao usuário
         } finally {

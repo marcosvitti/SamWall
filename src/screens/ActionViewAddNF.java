@@ -94,7 +94,7 @@ public class ActionViewAddNF extends javax.swing.JFrame {
         jTextFieldColaborador.setEditable(false);
         jTextFieldColaborador.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jTextFieldColaborador.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        jPanel6.add(jTextFieldColaborador, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 270, 680, 30));
+        jPanel6.add(jTextFieldColaborador, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 270, 260, 30));
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
@@ -111,7 +111,7 @@ public class ActionViewAddNF extends javax.swing.JFrame {
         jTextFieldValor.setEditable(false);
         jTextFieldValor.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jTextFieldValor.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        jPanel6.add(jTextFieldValor, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 340, 310, 30));
+        jPanel6.add(jTextFieldValor, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 340, 190, 30));
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
@@ -139,7 +139,7 @@ public class ActionViewAddNF extends javax.swing.JFrame {
         jTextFieldPedidoCompra.setEditable(false);
         jTextFieldPedidoCompra.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jTextFieldPedidoCompra.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        jPanel6.add(jTextFieldPedidoCompra, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, 680, 30));
+        jPanel6.add(jTextFieldPedidoCompra, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, 260, 30));
 
         jTextFieldFornecedor.setEditable(false);
         jTextFieldFornecedor.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -181,7 +181,7 @@ public class ActionViewAddNF extends javax.swing.JFrame {
     private void addUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addUserMouseClicked
         //Botão para Inativar Nota Fiscal
         if (ControllerNF.verificarStatusNF(this, Id_nf)) {
-            ControllerNF.inativarNota(Id_nf, this);
+            ControllerNF.inativarNota(Id_nf);
         }
     }//GEN-LAST:event_addUserMouseClicked
 

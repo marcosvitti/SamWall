@@ -4,7 +4,10 @@ import controller.ControllerNF;
 import controller.ControllerUser;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -105,11 +108,11 @@ public class ListViewNF extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "N° da Nota Fiscal", "Colaborador", "Fornecedor", "Status", "Valor", "Data Cadastro"
+                "ID", "N° da Nota Fiscal", "Colaborador", "Fornecedor", "Status", "Valor", "Data Cadastro", "Pagamento"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -144,6 +147,7 @@ public class ListViewNF extends javax.swing.JFrame {
             jTable1.getColumnModel().getColumn(5).setPreferredWidth(90);
             jTable1.getColumnModel().getColumn(6).setResizable(false);
             jTable1.getColumnModel().getColumn(6).setPreferredWidth(80);
+            jTable1.getColumnModel().getColumn(7).setResizable(false);
         }
 
         jPanel4.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 60, 960, 460));
@@ -279,7 +283,11 @@ public class ListViewNF extends javax.swing.JFrame {
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         // TODO add your handling code here:
         if (evt.getClickCount() == 2) {
-            ControllerNF.main(login, "Nota Fiscal", Integer.parseInt(jTable1.getValueAt(jTable1.getSelectedRow(), 0).toString()));
+            try {
+                ControllerNF.main(login, "Nota Fiscal",-1,Integer.parseInt(jTable1.getValueAt(jTable1.getSelectedRow(), 0).toString())); 
+            } catch (SQLException ex) {
+                Logger.getLogger(ListViewNF.class.getName()).log(Level.SEVERE, null, ex);
+            }
             dispose();
         }
     }//GEN-LAST:event_jTable1MouseClicked

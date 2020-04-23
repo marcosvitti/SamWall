@@ -109,6 +109,24 @@ public class DataBase {
         }
        return idPc;
     }
+    
+    public int selectIdNF() throws SQLException{
+       int idPc;
+        try {
+            String command = "SELECT MAX(ID_NF_A) AS ID_NF_A FROM NF_A";
+            stm = con.createStatement();
+            System.out.println(command);
+            rs = stm.executeQuery(command);
+            if (rs.next()) {
+               idPc= rs.getInt("ID_NF_A");
+            } else {
+                throw new SQLException();
+            }
+        } catch (SQLException ex) {
+            throw ex;
+        }
+       return idPc;
+    }
 
     
 

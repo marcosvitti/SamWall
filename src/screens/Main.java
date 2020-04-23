@@ -724,8 +724,7 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_actionAddUserMouseClicked
 
     private void listNFMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listNFMouseClicked
-        // Método abrir frame para listagem das Notas Fiscais
-        ControllerMain.nfAction(this.login, "Listagem de Notas Fiscais", -2);
+        ControllerNF.listNF(this.login, "Listar Notas Fiscais");
         resetPanels(new JPanel[]{jPanelGerenciamentoNotasFiscais});
     }//GEN-LAST:event_listNFMouseClicked
 
@@ -754,7 +753,7 @@ ControllerPC.main(this.login, "Criar Pedido de Compras", -1, -1);
 
     private void listPCMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listPCMouseClicked
         ControllerPC.listPc(this.login, "Listar Pedidos de Compras");
-    
+        resetPanels(new JPanel[]{jPanelGerenciamentoPedidoCompra});
     }//GEN-LAST:event_listPCMouseClicked
 
     private void btnPCMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPCMouseClicked
@@ -765,7 +764,7 @@ ControllerPC.main(this.login, "Criar Pedido de Compras", -1, -1);
         jPanelGerenciamentoPedidoCompra.setVisible(!jPanelGerenciamentoPedidoCompra.isVisible());
 
         resetPanels(new JPanel[]{jPanelGerenciamentoUser, jPanelGerenciamentoNotasFiscais, jPanelPerfil}); // Método para mudar a visibilidade dos outros menus 
-
+        
         resetColor(new JPanel[]{btnHome,btnPerfil,btnUsuarios,btnNotasFiscais}, new JPanel[]{ind_1,ind_6,ind_3,ind_2});
     }//GEN-LAST:event_btnPCMouseClicked
 
@@ -810,8 +809,12 @@ ControllerPC.main(this.login, "Criar Pedido de Compras", -1, -1);
     }//GEN-LAST:event_formWindowClosing
 
     private void editNFMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editNFMouseClicked
-        // TODO add your handling code here:
-        ControllerMain.nfAction(this.login, "Criar Nota Fiscal", -1);
+        try {
+            // TODO add your handling code here:
+            ControllerNF.main(this.login, "Criar Nota Fiscal", -1, -1);
+        } catch (SQLException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_editNFMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

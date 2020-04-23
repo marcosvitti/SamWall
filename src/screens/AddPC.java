@@ -39,6 +39,7 @@ public class AddPC extends javax.swing.JFrame {
           jTextFieldObservacao.setText(campos.get(3).toString());
           jTextFieldValor1.setText(campos.get(4).toString());
           lId.setText(campos.get(0).toString());
+          
         }
         else{
             ControllerPC.carregarComboBox(jComboBoxFornecedor, "FORNECEDOR");

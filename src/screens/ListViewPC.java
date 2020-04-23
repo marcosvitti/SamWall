@@ -5,6 +5,7 @@ import controller.ControllerPC;
 import controller.ControllerUser;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -247,13 +248,13 @@ public class ListViewPC extends javax.swing.JFrame {
         });
         alterNF.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel19.setIcon(new javax.swing.ImageIcon(getClass().getResource("/novosIcones/icons8_save_26px.png"))); // NOI18N
+        jLabel19.setIcon(new javax.swing.ImageIcon(getClass().getResource("/novosIcones/icon_close.png"))); // NOI18N
         alterNF.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 13, 25, 25));
         alterNF.add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 52, 180, 10));
 
         jLabel20.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         jLabel20.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel20.setText("Salvar");
+        jLabel20.setText("Sair");
         alterNF.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 69, 190, 48));
 
         jPanel1.add(alterNF, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 390, 200, 130));
@@ -338,9 +339,7 @@ public class ListViewPC extends javax.swing.JFrame {
     }//GEN-LAST:event_filterNFMouseClicked
 
     private void alterNFMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_alterNFMouseClicked
-        // TODO add your handling code here:
-       ControllerUser.updateUser(jTable1, update);
-       //ControllerUser.listarUsers(jTable1, new String[] {}, this);
+       this.dispose();
     }//GEN-LAST:event_alterNFMouseClicked
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
@@ -368,11 +367,35 @@ public class ListViewPC extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldContatojTextFieldsKeyTyped
 
     private void jTextFieldDataFinaljTextFieldsKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldDataFinaljTextFieldsKeyTyped
-        // TODO add your handling code here:
+        int k = evt.getKeyChar();
+        if((k > 47 && k < 58)) {
+            if(jTextFieldDataFinal.getText().length() == 2){ //quando tiver 8 digitos vai mudar o foco
+                jTextFieldDataFinal.setText(jTextFieldDataFinal.getText()+"/");
+            }else if(jTextFieldDataFinal.getText().length() == 5){ //quando tiver 8 digitos vai mudar o foco
+                 jTextFieldDataFinal.setText(jTextFieldDataFinal.getText()+"/");
+            }  
+            else if(jTextFieldDataFinal.getText().length() == 9){ //quando tiver 8 digitos vai mudar o foco
+                jTextFieldContato.requestFocus();
+            }
+        } else {
+            evt.setKeyChar((char)KeyEvent.VK_CLEAR);
+        }
     }//GEN-LAST:event_jTextFieldDataFinaljTextFieldsKeyTyped
 
     private void jTextFieldDataInicialjTextFieldsKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldDataInicialjTextFieldsKeyTyped
-        // TODO add your handling code here:
+        int k = evt.getKeyChar();
+        if((k > 47 && k < 58)) {
+            if(jTextFieldDataInicial.getText().length() == 2){ //quando tiver 8 digitos vai mudar o foco
+                jTextFieldDataInicial.setText(jTextFieldDataInicial.getText()+"/");
+            }else if(jTextFieldDataInicial.getText().length() == 5){ //quando tiver 8 digitos vai mudar o foco
+                 jTextFieldDataInicial.setText(jTextFieldDataInicial.getText()+"/");
+            }       
+            else if(jTextFieldDataInicial.getText().length() == 9){ //quando tiver 8 digitos vai mudar o foco
+                jTextFieldDataFinal.requestFocus();
+            }
+        } else {
+            evt.setKeyChar((char)KeyEvent.VK_CLEAR);
+        }
     }//GEN-LAST:event_jTextFieldDataInicialjTextFieldsKeyTyped
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

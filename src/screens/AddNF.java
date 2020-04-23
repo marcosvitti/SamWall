@@ -4,19 +4,64 @@ import controller.ControllerNF;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class AddNF extends javax.swing.JFrame {
-
+    public int gidNF;
     public String login; // Declaração da variável logLogin, usada para relatórios de inserção de usuários
-
-    public AddNF(String login, String action, int codigo) { // Método para instanciar o frame addUser
+    boolean pago;
+    boolean inativo;
+    public AddNF(String login, String action, int codigo, int id) throws SQLException { // Método para instanciar o frame addUser
         initComponents(); // Inicia Componentes do frame de addUser
         this.login = login;
+        
         ControllerNF.carregarComboBox(jComboBoxPedidoCompra, "PEDIDO");
         jLabel14.setText(action);
+        
+        if(id>0){
+        addUser.setVisible(false);
+        addGravar.setVisible(true);
+        gidNF=id;
+        ArrayList campos = ControllerNF.carregarCamposNF(gidNF, jComboBoxPedidoCompra);
+        //ID_NF_A","ID_FORNECEDOR_FK", "VALOR_NF", "NUM_NF", "ID_COLAB_FK", "OBSERVACOES", "ID_PEDIDO_FK
+        jTextFieldFornecedor.setText(campos.get(1).toString());
+        jTextFieldValor.setText(campos.get(2).toString());
+        jTextFieldNumeroNF.setText(campos.get(3).toString());
+        jTextFieldColaborador.setText(campos.get(4).toString());
+        jTextFieldObservacao.setText(campos.get(5).toString());
+        
+            pago =ControllerNF.verifPago(gidNF);
+            if(pago==true){
+                pagar.setVisible(false);
+                CancelaPag.setVisible(true);
+            }else {
+                pagar.setVisible(true);
+                CancelaPag.setVisible(false);
+            }
+                
+             inativo =ControllerNF.verifInativo(gidNF);
+            if(inativo==true){
+                ativarNF.setVisible(true);
+                inativarNF.setVisible(false);
+            }else {
+                inativarNF.setVisible(true);
+                ativarNF.setVisible(false);
+            }
+        }else{
+            ativarNF.setVisible(false);
+            pagar.setVisible(false);
+            CancelaPag.setVisible(false);
+            inativarNF.setVisible(false);
+            
+            //botões incluir e gravar
+            addUser.setVisible(true);
+            addGravar.setVisible(false);
+        }
         
     }
 
@@ -48,6 +93,10 @@ public class AddNF extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        ativarNF = new javax.swing.JPanel();
+        jLabel20 = new javax.swing.JLabel();
+        jSeparator6 = new javax.swing.JSeparator();
+        pagarUpd2 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jLabel14 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
@@ -63,19 +112,55 @@ public class AddNF extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jTextFieldNumeroNF = new javax.swing.JTextField();
         jTextFieldFornecedor = new javax.swing.JTextField();
+        pagar = new javax.swing.JPanel();
+        jLabel19 = new javax.swing.JLabel();
+        jSeparator5 = new javax.swing.JSeparator();
+        pagarUpd1 = new javax.swing.JLabel();
+        CancelaPag = new javax.swing.JPanel();
+        jLabel21 = new javax.swing.JLabel();
+        jSeparator7 = new javax.swing.JSeparator();
+        pagarUpd3 = new javax.swing.JLabel();
         addUser = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
         jLabel15 = new javax.swing.JLabel();
+        addGravar = new javax.swing.JPanel();
+        jLabel11 = new javax.swing.JLabel();
+        jSeparator8 = new javax.swing.JSeparator();
+        jLabel22 = new javax.swing.JLabel();
         cleanUser = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
         jSeparator3 = new javax.swing.JSeparator();
         jLabel16 = new javax.swing.JLabel();
+        inativarNF = new javax.swing.JPanel();
+        jLabel17 = new javax.swing.JLabel();
+        jSeparator4 = new javax.swing.JSeparator();
+        pagarUpd = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setIconImage(getIconImage());
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        ativarNF.setBackground(new java.awt.Color(84, 127, 206));
+        ativarNF.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        ativarNF.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ativarNFMouseClicked(evt);
+            }
+        });
+        ativarNF.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel20.setIcon(new javax.swing.ImageIcon(getClass().getResource("/novosIcones/iconsClean.png"))); // NOI18N
+        ativarNF.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 13, -1, -1));
+        ativarNF.add(jSeparator6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 210, 10));
+
+        pagarUpd2.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        pagarUpd2.setForeground(new java.awt.Color(255, 255, 255));
+        pagarUpd2.setText("Ativar");
+        ativarNF.add(pagarUpd2, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 69, 190, 48));
+
+        getContentPane().add(ativarNF, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 650, 230, 130));
 
         jPanel4.setBackground(new java.awt.Color(71, 120, 197));
         jPanel4.setPreferredSize(new java.awt.Dimension(780, 840));
@@ -84,7 +169,7 @@ public class AddNF extends javax.swing.JFrame {
         jLabel14.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         jLabel14.setForeground(new java.awt.Color(255, 255, 255));
         jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel14.setText("Novo Usuário");
+        jLabel14.setText("Novo Nota Fiscal");
         jPanel4.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 780, 40));
 
         jPanel6.setBackground(new java.awt.Color(84, 127, 206));
@@ -104,7 +189,7 @@ public class AddNF extends javax.swing.JFrame {
                 jTextFieldColaboradorKeyTyped(evt);
             }
         });
-        jPanel6.add(jTextFieldColaborador, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 270, 680, 30));
+        jPanel6.add(jTextFieldColaborador, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 270, 240, 30));
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
@@ -126,7 +211,7 @@ public class AddNF extends javax.swing.JFrame {
                 jTextFieldValorKeyTyped(evt);
             }
         });
-        jPanel6.add(jTextFieldValor, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 340, 310, 30));
+        jPanel6.add(jTextFieldValor, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 340, 240, 30));
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
@@ -149,7 +234,7 @@ public class AddNF extends javax.swing.JFrame {
                 jComboBoxPedidoCompraItemStateChanged(evt);
             }
         });
-        jPanel6.add(jComboBoxPedidoCompra, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, 680, 30));
+        jPanel6.add(jComboBoxPedidoCompra, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, 240, 30));
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
@@ -174,7 +259,47 @@ public class AddNF extends javax.swing.JFrame {
                 jTextFieldFornecedorKeyTyped(evt);
             }
         });
-        jPanel6.add(jTextFieldFornecedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, 680, 30));
+        jPanel6.add(jTextFieldFornecedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, 500, 30));
+
+        pagar.setBackground(new java.awt.Color(71, 120, 197));
+        pagar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        pagar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                pagarMouseClicked(evt);
+            }
+        });
+        pagar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel19.setIcon(new javax.swing.ImageIcon(getClass().getResource("/novosIcones/iconsClean.png"))); // NOI18N
+        pagar.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 13, -1, -1));
+        pagar.add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 52, 210, -1));
+
+        pagarUpd1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        pagarUpd1.setForeground(new java.awt.Color(255, 255, 255));
+        pagarUpd1.setText("Pagar");
+        pagar.add(pagarUpd1, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 69, 190, 48));
+
+        jPanel6.add(pagar, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 270, 230, 130));
+
+        CancelaPag.setBackground(new java.awt.Color(71, 120, 197));
+        CancelaPag.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        CancelaPag.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                CancelaPagMouseClicked(evt);
+            }
+        });
+        CancelaPag.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/novosIcones/iconsClean.png"))); // NOI18N
+        CancelaPag.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 13, -1, -1));
+        CancelaPag.add(jSeparator7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 230, 10));
+
+        pagarUpd3.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        pagarUpd3.setForeground(new java.awt.Color(255, 255, 255));
+        pagarUpd3.setText("Cancelar Pagamento");
+        CancelaPag.add(pagarUpd3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 240, 48));
+
+        jPanel6.add(CancelaPag, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 270, 250, 130));
 
         jPanel4.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, 720, 570));
 
@@ -189,14 +314,34 @@ public class AddNF extends javax.swing.JFrame {
 
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/novosIcones/iconsAddUser.png"))); // NOI18N
         addUser.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 13, -1, -1));
-        addUser.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 52, 326, -1));
+        addUser.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 190, 10));
 
         jLabel15.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel15.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel15.setText("Inserir Usuário");
-        addUser.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 69, 326, 48));
+        jLabel15.setText("Inserir Nota");
+        addUser.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 69, 150, 48));
 
-        jPanel4.add(addUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 650, 350, 130));
+        jPanel4.add(addUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 650, 210, 130));
+
+        addGravar.setBackground(new java.awt.Color(84, 127, 206));
+        addGravar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        addGravar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                addGravarMouseClicked(evt);
+            }
+        });
+        addGravar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/novosIcones/iconsAddUser.png"))); // NOI18N
+        addGravar.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 13, -1, -1));
+        addGravar.add(jSeparator8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 190, 10));
+
+        jLabel22.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel22.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel22.setText("Gravar Nota");
+        addGravar.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 69, 150, 48));
+
+        jPanel4.add(addGravar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 650, 210, 130));
 
         cleanUser.setBackground(new java.awt.Color(84, 127, 206));
         cleanUser.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -209,14 +354,34 @@ public class AddNF extends javax.swing.JFrame {
 
         jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/novosIcones/iconsClean.png"))); // NOI18N
         cleanUser.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 13, -1, -1));
-        cleanUser.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 52, 326, -1));
+        cleanUser.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 190, 10));
 
         jLabel16.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel16.setForeground(new java.awt.Color(255, 255, 255));
         jLabel16.setText("Limpar Campos");
         cleanUser.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 69, 326, 48));
 
-        jPanel4.add(cleanUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 650, 350, 130));
+        jPanel4.add(cleanUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 650, 220, 130));
+
+        inativarNF.setBackground(new java.awt.Color(84, 127, 206));
+        inativarNF.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        inativarNF.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                inativarNFMouseClicked(evt);
+            }
+        });
+        inativarNF.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/novosIcones/iconsClean.png"))); // NOI18N
+        inativarNF.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 13, -1, -1));
+        inativarNF.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 210, 10));
+
+        pagarUpd.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        pagarUpd.setForeground(new java.awt.Color(255, 255, 255));
+        pagarUpd.setText("Inativar NF");
+        inativarNF.add(pagarUpd, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 69, 190, 48));
+
+        jPanel4.add(inativarNF, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 650, 230, 130));
 
         getContentPane().add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 780, 810));
 
@@ -230,10 +395,19 @@ public class AddNF extends javax.swing.JFrame {
             jTextFieldObservacao.getText(), 
             jComboBoxPedidoCompra.getSelectedItem().toString(), 
             jTextFieldColaborador.getText(),
-            jTextFieldFornecedor.getText()})) {
-            limpaCampos(); // Método para limpar os campos de inputs
-            this.dispose();
+            jTextFieldFornecedor.getText()})) {            
         }
+        String newIdPC;
+        try {
+            gidNF = ControllerNF.idNF();
+            inativarNF.setVisible(true);
+            pagar.setVisible(true);
+            addGravar.setVisible(true);
+            addUser.setVisible(false);
+        } catch (SQLException ex) {
+            
+        }
+         
     }//GEN-LAST:event_addUserMouseClicked
 
     private void cleanUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cleanUserMouseClicked
@@ -265,16 +439,69 @@ public class AddNF extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldFornecedorKeyTyped
 
+    private void inativarNFMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_inativarNFMouseClicked
+      ControllerNF.AtivaNota(gidNF);
+      ativarNF.setVisible(true);
+      inativarNF.setVisible(false);
+    }//GEN-LAST:event_inativarNFMouseClicked
+
+    private void pagarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pagarMouseClicked
+      ControllerNF.pagarNota(gidNF);
+      CancelaPag.setVisible(true);
+      pagar.setVisible(false);
+    }//GEN-LAST:event_pagarMouseClicked
+
+    private void ativarNFMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ativarNFMouseClicked
+       ControllerNF.inativarNota(gidNF);
+       ativarNF.setVisible(false);
+       inativarNF.setVisible(true);
+    }//GEN-LAST:event_ativarNFMouseClicked
+
+    private void CancelaPagMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CancelaPagMouseClicked
+        ControllerNF.cancelaPagar(gidNF);
+        pagar.setVisible(true);
+        CancelaPag.setVisible(false);
+    }//GEN-LAST:event_CancelaPagMouseClicked
+
+    private void addGravarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addGravarMouseClicked
+        try {
+            if (ControllerNF.updNF(new String[] {
+                jTextFieldFornecedor.getText(),
+                jTextFieldValor.getText(),
+                jTextFieldNumeroNF.getText(),
+                jTextFieldColaborador.getText(),
+                jTextFieldObservacao.getText(),            
+                jComboBoxPedidoCompra.getSelectedItem().toString(),
+                Integer.toString(gidNF)})){
+                this.dispose();
+            
+        }}
+        catch (SQLException ex) {
+            Logger.getLogger(AddNF.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }//GEN-LAST:event_addGravarMouseClicked
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel CancelaPag;
+    private javax.swing.JPanel addGravar;
     private javax.swing.JPanel addUser;
+    private javax.swing.JPanel ativarNF;
     private javax.swing.JPanel cleanUser;
+    private javax.swing.JPanel inativarNF;
     private javax.swing.JComboBox<String> jComboBoxPedidoCompra;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -284,11 +511,21 @@ public class AddNF extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JSeparator jSeparator4;
+    private javax.swing.JSeparator jSeparator5;
+    private javax.swing.JSeparator jSeparator6;
+    private javax.swing.JSeparator jSeparator7;
+    private javax.swing.JSeparator jSeparator8;
     private javax.swing.JTextField jTextFieldColaborador;
     private javax.swing.JTextField jTextFieldFornecedor;
     private javax.swing.JTextField jTextFieldNumeroNF;
     private javax.swing.JTextField jTextFieldObservacao;
     private javax.swing.JTextField jTextFieldValor;
+    private javax.swing.JPanel pagar;
+    private javax.swing.JLabel pagarUpd;
+    private javax.swing.JLabel pagarUpd1;
+    private javax.swing.JLabel pagarUpd2;
+    private javax.swing.JLabel pagarUpd3;
     // End of variables declaration//GEN-END:variables
 
 }
