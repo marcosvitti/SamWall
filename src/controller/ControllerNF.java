@@ -18,6 +18,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import screens.ActionViewAddNF;
 import screens.AddNF;
+import screens.AddProd;
 import screens.ListViewNF;
 import screens.ListViewPC;
 
@@ -49,7 +50,7 @@ public class ControllerNF {
 
         for (int i = 0; i < campos.length; i++) {
             if (campos[i].equals("")) {
-                if (i != 3) {
+                if (i != 2) {
                     JOptionPane.showMessageDialog(null, "Todos os campo precisam ser preenchidos!", "ERRO", JOptionPane.ERROR_MESSAGE); // Cria uma tela de aviso ao usuário
                     return false;
                 }
@@ -68,6 +69,7 @@ public class ControllerNF {
             JOptionPane.showMessageDialog(null, "Nota Fiscal cadastrado com sucesso!", "SUCESSO", JOptionPane.INFORMATION_MESSAGE);
         } catch (SQLException ex) { // Caso a validação do usuário falhe é lançado uma exception
             JOptionPane.showMessageDialog(null, "Nota fiscal esta incorreto", "ERRO", JOptionPane.ERROR_MESSAGE); // Cria uma tela de aviso ao usuário
+            return false;
         } finally {
             disconnection();
         }
@@ -247,13 +249,16 @@ public class ControllerNF {
                 }
             });
             if(pag==1){
-                pagamento.addItem("Pago");
                 pagamento.addItem("Pendente");
-                pagamento.setSelectedItem("Pago");
-            }else{
-                pagamento.addItem("Pendente");
-                pagamento.addItem("Pago");
                 pagamento.setSelectedItem("Pendente");
+            }
+            if(pag==0){
+                pagamento.addItem("Rejeitada");
+                pagamento.setSelectedItem("Rejeitada");
+            }
+            if(pag==2){
+                pagamento.addItem("Pago");
+                pagamento.setSelectedItem("Pago");
             }
 
             DefaultTableCellRenderer hRenderer = new DefaultTableCellRenderer();
@@ -273,6 +278,11 @@ public class ControllerNF {
             }
         }
         return jTable;
+    }
+    public static synchronized void listarProdutos(String login, String action, int id, int nF) {
+        AddProd produtos = new AddProd(login, action, id, false, nF);
+        produtos.setLocationRelativeTo(null);
+        produtos.setVisible(true);
     }
 
     public static ArrayList<String> GetPedidoCompra(String pedido, String login) {
@@ -322,7 +332,7 @@ public class ControllerNF {
         }
         return ids;
     }
-     public static int idNF() throws SQLException{
+    public static int idNF() throws SQLException{
         connection();
             int id = con.selectIdNF();
         disconnection();
@@ -382,14 +392,15 @@ public class ControllerNF {
     }
     
     public static boolean verifPago(int id_nf) throws SQLException{
-     ArrayList campo;
-     connection();
-     campo = con.select("NF_A", new String[]{"ID_NF_A","PAGAMENTO"}, new String[]{Integer.toString(id_nf)});
-    
-     if(campo.get(1)!= "1")
-     {
-     return false;
-     }else return true;
+        ArrayList campo;
+        connection();
+        campo = con.select("NF_A", new String[]{"ID_NF_A","PAGAMENTO"}, new String[]{Integer.toString(id_nf)});
+        System.out.println(campo);
+        if(Integer.parseInt(campo.get(1).toString()) == 2) {
+            return true;
+        } else {
+            return false;
+        }
     }
     
     public static boolean verifInativo(int id_nf) throws SQLException{

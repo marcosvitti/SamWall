@@ -332,7 +332,7 @@ public class ControllerPC {
     }
 
     public static synchronized void inserirItens(String login, String action, int idPc){
-        AddProd prod = new AddProd(login, action, idPc);
+        AddProd prod = new AddProd(login, action, idPc, true, 0);
         prod.setLocationRelativeTo(null);
         prod.setVisible(true);
     }
@@ -521,6 +521,31 @@ public class ControllerPC {
         
         }
         return true;
+    }
+    
+    public static synchronized void acao(int acao, int id) {
+        //1=>pendente
+        //0=>recusado
+
+        try {
+            connection();          
+            
+            con.update("nf_a", new String[] { "PAGAMENTO"}, 
+                    new String[] {Integer.toString(acao)} , new String[]{"ID_NF_A"} , new String[]{Integer.toString(id)});
+
+            if (acao == 1) {
+                JOptionPane.showMessageDialog(null, "Nota pendente (Aguardando pagamento)!", "SUCESSO", JOptionPane.INFORMATION_MESSAGE);          
+            }
+
+            if (acao == 0) {
+                JOptionPane.showMessageDialog(null, "Nota rejeitada!", "SUCESSO", JOptionPane.INFORMATION_MESSAGE);          
+            }
+
+        } catch (SQLException ex) { // Caso a validação do usuário falhe é lançado uma exception
+            JOptionPane.showMessageDialog(null, "Erro na nota", "ERRO", JOptionPane.ERROR_MESSAGE); // Cria uma tela de aviso ao usuário
+        } finally {
+            disconnection();
+        }
     }
 }
 

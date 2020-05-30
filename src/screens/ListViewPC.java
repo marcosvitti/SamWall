@@ -74,6 +74,10 @@ public class ListViewPC extends javax.swing.JFrame {
         jComboBoxColaborador = new javax.swing.JComboBox<>();
         jTextFieldId = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
+        filterNF1 = new javax.swing.JPanel();
+        jLabel21 = new javax.swing.JLabel();
+        jSeparator6 = new javax.swing.JSeparator();
+        jLabel22 = new javax.swing.JLabel();
         filterNF = new javax.swing.JPanel();
         jLabel17 = new javax.swing.JLabel();
         jSeparator4 = new javax.swing.JSeparator();
@@ -158,7 +162,7 @@ public class ListViewPC extends javax.swing.JFrame {
 
         jPanel4.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 960, 460));
 
-        getContentPane().add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 0, 1040, 550));
+        getContentPane().add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 0, 1040, 710));
 
         jPanel1.setBackground(new java.awt.Color(84, 127, 206));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -199,6 +203,26 @@ public class ListViewPC extends javax.swing.JFrame {
         jLabel1.setText("ID :");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 290, 30));
 
+        filterNF1.setBackground(new java.awt.Color(71, 120, 197));
+        filterNF1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        filterNF1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                filterNF1MouseClicked(evt);
+            }
+        });
+        filterNF1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/novosIcones/icons8_plus_32px_1.png"))); // NOI18N
+        filterNF1.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 8, 40, 30));
+        filterNF1.add(jSeparator6, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 52, 180, 10));
+
+        jLabel22.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        jLabel22.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel22.setText("Adicionar Pedido");
+        filterNF1.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 69, 190, 48));
+
+        jPanel1.add(filterNF1, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 70, 200, 130));
+
         filterNF.setBackground(new java.awt.Color(71, 120, 197));
         filterNF.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         filterNF.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -217,7 +241,7 @@ public class ListViewPC extends javax.swing.JFrame {
         jLabel18.setText("Filtrar Pedidos");
         filterNF.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 69, 190, 48));
 
-        jPanel1.add(filterNF, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 90, 200, 130));
+        jPanel1.add(filterNF, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 210, 200, 130));
 
         cleanNF.setBackground(new java.awt.Color(71, 120, 197));
         cleanNF.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -237,7 +261,7 @@ public class ListViewPC extends javax.swing.JFrame {
         jLabel16.setText("Limpar Filtros");
         cleanNF.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 69, 190, 48));
 
-        jPanel1.add(cleanNF, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 240, 200, 130));
+        jPanel1.add(cleanNF, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 350, 200, 130));
 
         alterNF.setBackground(new java.awt.Color(71, 120, 197));
         alterNF.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -257,7 +281,7 @@ public class ListViewPC extends javax.swing.JFrame {
         jLabel20.setText("Sair");
         alterNF.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 69, 190, 48));
 
-        jPanel1.add(alterNF, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 390, 200, 130));
+        jPanel1.add(alterNF, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 500, 200, 130));
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
@@ -306,7 +330,7 @@ public class ListViewPC extends javax.swing.JFrame {
         });
         jPanel1.add(jTextFieldDataInicial, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 120, -1));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 550, 550));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 550, 710));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -398,10 +422,20 @@ public class ListViewPC extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jTextFieldDataInicialjTextFieldsKeyTyped
 
+    private void filterNF1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_filterNF1MouseClicked
+        // TODO add your handling code here:
+        try {
+            ControllerPC.main(this.login, "Criar Pedido de Compra", -1, -1);
+        } catch (SQLException ex) {
+        }
+        dispose();
+    }//GEN-LAST:event_filterNF1MouseClicked
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel alterNF;
     private javax.swing.JPanel cleanNF;
     private javax.swing.JPanel filterNF;
+    private javax.swing.JPanel filterNF1;
     private javax.swing.JComboBox<String> jComboBoxColaborador;
     private javax.swing.JComboBox<String> jComboBoxFornecedor;
     private javax.swing.JLabel jLabel1;
@@ -414,6 +448,8 @@ public class ListViewPC extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel8;
@@ -424,6 +460,7 @@ public class ListViewPC extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
+    private javax.swing.JSeparator jSeparator6;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextFieldContato;
     private javax.swing.JTextField jTextFieldDataFinal;

@@ -28,6 +28,7 @@ public class AddNF extends javax.swing.JFrame {
         if (id > 0) {
             addUser.setVisible(false);
             addGravar.setVisible(true);
+            ListProdutos.setVisible(true);
             gidNF = id;
             ArrayList campos = ControllerNF.carregarCamposNF(gidNF, jComboBoxPedidoCompra);
             //ID_NF_A","ID_FORNECEDOR_FK", "VALOR_NF", "NUM_NF", "ID_COLAB_FK", "OBSERVACOES", "ID_PEDIDO_FK
@@ -59,6 +60,7 @@ public class AddNF extends javax.swing.JFrame {
             pagar.setVisible(false);
             CancelaPag.setVisible(false);
             inativarNF.setVisible(false);
+            ListProdutos.setVisible(false);
 
             //botões incluir e gravar
             addUser.setVisible(true);
@@ -122,6 +124,9 @@ public class AddNF extends javax.swing.JFrame {
         jLabel21 = new javax.swing.JLabel();
         jSeparator7 = new javax.swing.JSeparator();
         pagarUpd3 = new javax.swing.JLabel();
+        ListProdutos = new javax.swing.JPanel();
+        jLabel23 = new javax.swing.JLabel();
+        jLabel24 = new javax.swing.JLabel();
         addUser = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
@@ -303,6 +308,26 @@ public class AddNF extends javax.swing.JFrame {
 
         jPanel6.add(CancelaPag, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 270, 250, 130));
 
+        ListProdutos.setBackground(new java.awt.Color(71, 120, 197));
+        ListProdutos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        ListProdutos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ListProdutosMouseClicked(evt);
+            }
+        });
+        ListProdutos.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel23.setIcon(new javax.swing.ImageIcon(getClass().getResource("/novosIcones/icons8_forward_24px.png"))); // NOI18N
+        ListProdutos.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 0, -1, 30));
+
+        jLabel24.setBackground(new java.awt.Color(71, 120, 197));
+        jLabel24.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel24.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel24.setText("Ver Produtos");
+        ListProdutos.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 160, 30));
+
+        jPanel6.add(ListProdutos, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 130, 170, 30));
+
         jPanel4.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, 720, 570));
 
         addUser.setBackground(new java.awt.Color(84, 127, 206));
@@ -403,10 +428,15 @@ public class AddNF extends javax.swing.JFrame {
                 inativarNF.setVisible(true);
                 pagar.setVisible(true);
                 addGravar.setVisible(true);
+                ListProdutos.setVisible(true);
                 addUser.setVisible(false);
             } catch (SQLException ex) {
 
             }
+
+            this.dispose();
+
+            ControllerNF.listarProdutos(login, "Produtos da nota N° : " + jTextFieldNumeroNF.getText(), Integer.parseInt(jComboBoxPedidoCompra.getSelectedItem().toString()), gidNF);
         }
 
 
@@ -442,7 +472,7 @@ public class AddNF extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldFornecedorKeyTyped
 
     private void inativarNFMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_inativarNFMouseClicked
-        ControllerNF.AtivaNota(gidNF);
+        ControllerNF.inativarNota(gidNF);
         ativarNF.setVisible(true);
         inativarNF.setVisible(false);
     }//GEN-LAST:event_inativarNFMouseClicked
@@ -454,7 +484,7 @@ public class AddNF extends javax.swing.JFrame {
     }//GEN-LAST:event_pagarMouseClicked
 
     private void ativarNFMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ativarNFMouseClicked
-        ControllerNF.inativarNota(gidNF);
+        ControllerNF.AtivaNota(gidNF);
         ativarNF.setVisible(false);
         inativarNF.setVisible(true);
     }//GEN-LAST:event_ativarNFMouseClicked
@@ -484,8 +514,15 @@ public class AddNF extends javax.swing.JFrame {
 
     }//GEN-LAST:event_addGravarMouseClicked
 
+    private void ListProdutosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ListProdutosMouseClicked
+        // TODO add your handling code here:
+        ControllerNF.listarProdutos(login, "Produtos da nota N° : " + jTextFieldNumeroNF.getText(), Integer.parseInt(jComboBoxPedidoCompra.getSelectedItem().toString()), gidNF);
+        this.dispose();
+    }//GEN-LAST:event_ListProdutosMouseClicked
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel CancelaPag;
+    private javax.swing.JPanel ListProdutos;
     private javax.swing.JPanel addGravar;
     private javax.swing.JPanel addUser;
     private javax.swing.JPanel ativarNF;
@@ -504,6 +541,8 @@ public class AddNF extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;

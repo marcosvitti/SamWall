@@ -72,6 +72,10 @@ public class ListViewNF extends javax.swing.JFrame {
         jComboBoxColaborador = new javax.swing.JComboBox<>();
         jTextFieldId = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
+        addNF = new javax.swing.JPanel();
+        jLabel19 = new javax.swing.JLabel();
+        jSeparator5 = new javax.swing.JSeparator();
+        jLabel20 = new javax.swing.JLabel();
         filterNF = new javax.swing.JPanel();
         jLabel17 = new javax.swing.JLabel();
         jSeparator4 = new javax.swing.JSeparator();
@@ -184,7 +188,7 @@ public class ListViewNF extends javax.swing.JFrame {
         jComboBoxColaborador.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jComboBoxColaborador.setForeground(new java.awt.Color(51, 51, 51));
         jComboBoxColaborador.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione..." }));
-        jPanel1.add(jComboBoxColaborador, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, 420, -1));
+        jPanel1.add(jComboBoxColaborador, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, 200, -1));
 
         jTextFieldId.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jTextFieldId.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -192,12 +196,32 @@ public class ListViewNF extends javax.swing.JFrame {
                 jTextFieldIdKeyTyped(evt);
             }
         });
-        jPanel1.add(jTextFieldId, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 190, -1));
+        jPanel1.add(jTextFieldId, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 120, -1));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("ID :");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 290, 30));
+
+        addNF.setBackground(new java.awt.Color(71, 120, 197));
+        addNF.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        addNF.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                addNFMouseClicked(evt);
+            }
+        });
+        addNF.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel19.setIcon(new javax.swing.ImageIcon(getClass().getResource("/novosIcones/icons8_plus_32px_1.png"))); // NOI18N
+        addNF.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 8, 30, 30));
+        addNF.add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 52, 180, 10));
+
+        jLabel20.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        jLabel20.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel20.setText("Adicionar Nota");
+        addNF.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 69, 190, 48));
+
+        jPanel1.add(addNF, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 80, 200, 130));
 
         filterNF.setBackground(new java.awt.Color(71, 120, 197));
         filterNF.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -217,7 +241,7 @@ public class ListViewNF extends javax.swing.JFrame {
         jLabel18.setText("Filtrar Notas");
         filterNF.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 69, 190, 48));
 
-        jPanel1.add(filterNF, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 420, 200, 130));
+        jPanel1.add(filterNF, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 230, 200, 130));
 
         cleanNF.setBackground(new java.awt.Color(71, 120, 197));
         cleanNF.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -237,7 +261,7 @@ public class ListViewNF extends javax.swing.JFrame {
         jLabel16.setText("Limpar Filtros");
         cleanNF.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 69, 190, 48));
 
-        jPanel1.add(cleanNF, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 420, 200, 130));
+        jPanel1.add(cleanNF, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 380, 200, 130));
 
         jTextFieldNF.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jTextFieldNF.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -245,7 +269,7 @@ public class ListViewNF extends javax.swing.JFrame {
                 jTextFieldsKeyTyped(evt);
             }
         });
-        jPanel1.add(jTextFieldNF, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 420, -1));
+        jPanel1.add(jTextFieldNF, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 200, -1));
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
@@ -256,12 +280,12 @@ public class ListViewNF extends javax.swing.JFrame {
         jComboBoxStatus.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jComboBoxStatus.setForeground(new java.awt.Color(51, 51, 51));
         jComboBoxStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione...", "Ativo", "Inativo" }));
-        jPanel1.add(jComboBoxStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 380, 420, -1));
+        jPanel1.add(jComboBoxStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 380, 200, -1));
 
         jComboBoxFornecedor.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jComboBoxFornecedor.setForeground(new java.awt.Color(51, 51, 51));
         jComboBoxFornecedor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione..." }));
-        jPanel1.add(jComboBoxFornecedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 310, 420, -1));
+        jPanel1.add(jComboBoxFornecedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 310, 200, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 470, 570));
 
@@ -308,7 +332,17 @@ public class ListViewNF extends javax.swing.JFrame {
         } // Fim da vetificação
     }//GEN-LAST:event_jTextFieldsKeyTyped
 
+    private void addNFMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addNFMouseClicked
+        // TODO add your handling code here:
+        try {
+            ControllerNF.main(this.login, "Criar Nota Fiscal", -1, -1);
+        } catch (SQLException ex) {
+        }
+        dispose();
+    }//GEN-LAST:event_addNFMouseClicked
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel addNF;
     private javax.swing.JPanel cleanNF;
     private javax.swing.JPanel filterNF;
     private javax.swing.JComboBox<String> jComboBoxColaborador;
@@ -321,6 +355,8 @@ public class ListViewNF extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
+    private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -330,6 +366,7 @@ public class ListViewNF extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
+    private javax.swing.JSeparator jSeparator5;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextFieldId;
     private javax.swing.JTextField jTextFieldNF;

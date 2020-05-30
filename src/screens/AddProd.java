@@ -1,5 +1,6 @@
 package screens;
 
+import controller.ControllerNF;
 import controller.ControllerPC;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -15,13 +16,18 @@ public class AddProd extends javax.swing.JFrame {
     private final String login;
     private final ArrayList<Integer> update;
     public int gIdPC;
-    public AddProd(String login, String action, int idPC) {
+    public int gIdNF;
+    public AddProd(String login, String action, int idPC, boolean jPanel, int nF) {
         
         initComponents(); // Inicia Componentes do frame de addProd
         jLabel14.setText(action); // Defini o nome da função desempenhada
-       // jTable1.getColumnModel().getColumn(5).getMinWidth();
-       // jTable1 = ControllerPC.listarPd(jTable1, idPC); // Chamada do método responsável por listar os colaboradores do sistema
+
         gIdPC = idPC;
+        gIdNF = nF;
+
+        jPanel1.setVisible(jPanel);
+        jPanel2.setVisible(!jPanel);
+
         ControllerPC.listarPd(jTable1, gIdPC);
         jTable1.getSelectionModel().addListSelectionListener((e) -> {
             if (!e.getValueIsAdjusting()) {
@@ -58,14 +64,24 @@ public class AddProd extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        EditPd = new javax.swing.JPanel();
-        jLabel23 = new javax.swing.JLabel();
-        jSeparator7 = new javax.swing.JSeparator();
-        jLabel24 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jLabel14 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        jPanel2 = new javax.swing.JPanel();
+        Rejeitar = new javax.swing.JPanel();
+        jLabel32 = new javax.swing.JLabel();
+        jSeparator10 = new javax.swing.JSeparator();
+        jLabel29 = new javax.swing.JLabel();
+        jlabelId1 = new javax.swing.JLabel();
+        Aceitar = new javax.swing.JPanel();
+        jLabel30 = new javax.swing.JLabel();
+        jSeparator11 = new javax.swing.JSeparator();
+        jLabel31 = new javax.swing.JLabel();
+        Exit1 = new javax.swing.JPanel();
+        jLabel18 = new javax.swing.JLabel();
+        jSeparator8 = new javax.swing.JSeparator();
+        jLabel25 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jTextFieldQtd = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
@@ -92,6 +108,10 @@ public class AddProd extends javax.swing.JFrame {
         jSeparator6 = new javax.swing.JSeparator();
         jLabel22 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
+        EditPd = new javax.swing.JPanel();
+        jLabel23 = new javax.swing.JLabel();
+        jSeparator7 = new javax.swing.JSeparator();
+        jLabel24 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setIconImage(getIconImage());
@@ -102,26 +122,6 @@ public class AddProd extends javax.swing.JFrame {
             }
         });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        EditPd.setBackground(new java.awt.Color(71, 120, 197));
-        EditPd.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        EditPd.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                EditPdMouseClicked(evt);
-            }
-        });
-        EditPd.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel23.setIcon(new javax.swing.ImageIcon(getClass().getResource("/novosIcones/icons8_save_26px.png"))); // NOI18N
-        EditPd.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 13, 25, 25));
-        EditPd.add(jSeparator7, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 52, 180, 10));
-
-        jLabel24.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        jLabel24.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel24.setText("Gravar Alteração");
-        EditPd.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 69, 190, 48));
-
-        getContentPane().add(EditPd, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 60, 200, 130));
 
         jPanel4.setBackground(new java.awt.Color(71, 120, 197));
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -182,6 +182,76 @@ public class AddProd extends javax.swing.JFrame {
         jPanel4.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, 1060, 610));
 
         getContentPane().add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 0, 1120, 710));
+
+        jPanel2.setBackground(new java.awt.Color(84, 127, 206));
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        Rejeitar.setBackground(new java.awt.Color(71, 120, 197));
+        Rejeitar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        Rejeitar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                RejeitarMouseClicked(evt);
+            }
+        });
+        Rejeitar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel32.setIcon(new javax.swing.ImageIcon(getClass().getResource("/novosIcones/icons8_xbox_x_32px.png"))); // NOI18N
+        Rejeitar.add(jLabel32, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 13, 30, 25));
+        Rejeitar.add(jSeparator10, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 52, 220, 10));
+
+        jLabel29.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        jLabel29.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel29.setText("Rejeitar");
+        Rejeitar.add(jLabel29, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 69, 190, 48));
+
+        jPanel2.add(Rejeitar, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 60, 240, 130));
+
+        jlabelId1.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jlabelId1.setForeground(new java.awt.Color(255, 255, 255));
+        jlabelId1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jPanel2.add(jlabelId1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 290, 30));
+
+        Aceitar.setBackground(new java.awt.Color(71, 120, 197));
+        Aceitar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        Aceitar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                AceitarMouseClicked(evt);
+            }
+        });
+        Aceitar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel30.setIcon(new javax.swing.ImageIcon(getClass().getResource("/novosIcones/icons8_checked_32px.png"))); // NOI18N
+        Aceitar.add(jLabel30, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 6, 30, -1));
+        Aceitar.add(jSeparator11, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 52, 220, 10));
+
+        jLabel31.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        jLabel31.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel31.setText("Aceitar");
+        Aceitar.add(jLabel31, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 69, 190, 48));
+
+        jPanel2.add(Aceitar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 240, 130));
+
+        Exit1.setBackground(new java.awt.Color(71, 120, 197));
+        Exit1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        Exit1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Exit1MouseClicked(evt);
+            }
+        });
+        Exit1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/novosIcones/icons8_back_to_32px.png"))); // NOI18N
+        Exit1.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 40, 30));
+        Exit1.add(jSeparator8, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 52, 120, 10));
+
+        jLabel25.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        jLabel25.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel25.setText("Sair");
+        Exit1.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 69, 190, 48));
+
+        jPanel2.add(Exit1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 550, 150, 130));
+
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 550, 710));
 
         jPanel1.setBackground(new java.awt.Color(84, 127, 206));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -248,8 +318,8 @@ public class AddProd extends javax.swing.JFrame {
         });
         Exit.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/novosIcones/icon_close.png"))); // NOI18N
-        Exit.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 30, 25));
+        jLabel15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/novosIcones/icons8_back_to_32px.png"))); // NOI18N
+        Exit.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 40, 30));
         Exit.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 52, 180, 10));
 
         jLabel17.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
@@ -288,7 +358,7 @@ public class AddProd extends javax.swing.JFrame {
         });
         DelPD.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-    
+        jLabel19.setIcon(new javax.swing.ImageIcon(getClass().getResource("/novosIcones/icon_close.png"))); // NOI18N
         DelPD.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 13, 25, 25));
         DelPD.add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 52, 180, 10));
 
@@ -333,6 +403,26 @@ public class AddProd extends javax.swing.JFrame {
         jLabel9.setText("Produto:");
         jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 290, 30));
 
+        EditPd.setBackground(new java.awt.Color(71, 120, 197));
+        EditPd.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        EditPd.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                EditPdMouseClicked(evt);
+            }
+        });
+        EditPd.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel23.setIcon(new javax.swing.ImageIcon(getClass().getResource("/novosIcones/icons8_save_26px.png"))); // NOI18N
+        EditPd.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 13, 25, 25));
+        EditPd.add(jSeparator7, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 52, 180, 10));
+
+        jLabel24.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        jLabel24.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel24.setText("Gravar Alteração");
+        EditPd.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 69, 190, 48));
+
+        jPanel1.add(EditPd, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 60, 200, 130));
+
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 550, 710));
 
         pack();
@@ -349,25 +439,6 @@ public class AddProd extends javax.swing.JFrame {
       limpaCampos(); // Chama o método para limpar os campos
       ControllerPC.listarPd(jTable1, gIdPC);
     }//GEN-LAST:event_DelPDMouseClicked
-
-    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
-        // TODO add your handling code here:
-        if (evt.getClickCount() == 2) {
-           int totalRows = jTable1.getRowCount();
-
-            for (int i = 0; i < totalRows; i++) {
-            jTextFieldProd.setText((String) jTable1.getModel().getValueAt(i, 0));
-            jTextFieldQtd.setText((String) jTable1.getModel().getValueAt(i, 1));
-            jTextFieldPcUnit.setText((String) jTable1.getModel().getValueAt(i, 2));
-            jTextFieldPT.setText((String) jTable1.getModel().getValueAt(i, 3));
-            jlabelId.setText((String) jTable1.getModel().getValueAt(i,4));
-            
-            AddPd.setVisible(false);
-            EditPd.setVisible(true);
-            }
-        }
-        
-    }//GEN-LAST:event_jTable1MouseClicked
 
     private void jTextFieldsKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldsKeyTyped
         // Método usado para verificar a entrada do usuário para evitar SQLInjection
@@ -409,10 +480,12 @@ public class AddProd extends javax.swing.JFrame {
 
     private void ExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ExitMouseClicked
        try {
-        ControllerPC.totalPC(gIdPC);
-        ControllerPC.main(login, "Editar Pedido de Compra", -1,gIdPC);     } catch (SQLException ex) {
-        Logger.getLogger(AddProd.class.getName()).log(Level.SEVERE, null, ex);
-    }finally{
+            ControllerPC.totalPC(gIdPC);
+            ControllerNF.listNF(login, "Listagem de Notas Fiscais");
+        } catch (SQLException ex) {
+            Logger.getLogger(AddProd.class.getName()).log(Level.SEVERE, null, ex);
+        } finally{
+
         this.dispose();
     }
     }//GEN-LAST:event_ExitMouseClicked
@@ -421,41 +494,101 @@ public class AddProd extends javax.swing.JFrame {
     
     }//GEN-LAST:event_formWindowClosed
 
+    private void RejeitarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RejeitarMouseClicked
+        // TODO add your handling code here:
+        ControllerPC.acao(0, this.gIdNF);
+        ControllerNF.listNF(login, "Listagem de Notas Fiscais");
+        this.dispose();
+    }//GEN-LAST:event_RejeitarMouseClicked
+
+    private void AceitarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AceitarMouseClicked
+        // TODO add your handling code here:
+        ControllerPC.acao(1, this.gIdNF);
+        ControllerNF.listNF(login, "Listagem de Notas Fiscais");
+        this.dispose();
+    }//GEN-LAST:event_AceitarMouseClicked
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        // TODO add your handling code here:
+        if (evt.getClickCount() == 2) {
+            int totalRows = jTable1.getRowCount();
+
+            for (int i = 0; i < totalRows; i++) {
+                jTextFieldProd.setText((String) jTable1.getModel().getValueAt(i, 0));
+                jTextFieldQtd.setText((String) jTable1.getModel().getValueAt(i, 1));
+                jTextFieldPcUnit.setText((String) jTable1.getModel().getValueAt(i, 2));
+                jTextFieldPT.setText((String) jTable1.getModel().getValueAt(i, 3));
+                jlabelId.setText((String) jTable1.getModel().getValueAt(i,4));
+
+                AddPd.setVisible(false);
+                EditPd.setVisible(true);
+            }
+        }
+
+    }//GEN-LAST:event_jTable1MouseClicked
+
+    private void Exit1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Exit1MouseClicked
+        // TODO add your handling code here:
+        try {
+            ControllerPC.totalPC(gIdPC);
+            ControllerNF.listNF(login, "Listagem de Notas Fiscais");
+        } catch (SQLException ex) {
+            Logger.getLogger(AddProd.class.getName()).log(Level.SEVERE, null, ex);
+        } finally{
+
+            this.dispose();
+        }
+    }//GEN-LAST:event_Exit1MouseClicked
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel Aceitar;
     private javax.swing.JPanel AddPd;
     private javax.swing.JPanel DelPD;
     private javax.swing.JPanel EditPd;
     private javax.swing.JPanel Exit;
+    private javax.swing.JPanel Exit1;
+    private javax.swing.JPanel Rejeitar;
     private javax.swing.JPanel cleanUser;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel29;
+    private javax.swing.JLabel jLabel30;
+    private javax.swing.JLabel jLabel31;
+    private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JSeparator jSeparator10;
+    private javax.swing.JSeparator jSeparator11;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JSeparator jSeparator6;
     private javax.swing.JSeparator jSeparator7;
+    private javax.swing.JSeparator jSeparator8;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextFieldPT;
     private javax.swing.JTextField jTextFieldPcUnit;
     private javax.swing.JTextField jTextFieldProd;
     private javax.swing.JTextField jTextFieldQtd;
     private javax.swing.JLabel jlabelId;
+    private javax.swing.JLabel jlabelId1;
     // End of variables declaration//GEN-END:variables
 
 }
