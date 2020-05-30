@@ -423,8 +423,7 @@ public class ControllerNF {
         }
     }
 
-    public static boolean updNF(String [] campos) throws SQLException
-    {
+    public static boolean updNF(String [] campos) throws SQLException {
         String fornece= campos[0];
         String valor = campos[1];
         String num = campos[2];

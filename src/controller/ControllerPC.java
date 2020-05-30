@@ -305,7 +305,7 @@ public class ControllerPC {
             disconnection();
         }
 
-        for(i=0; i<resp.size(); i+=6) {
+        for(i=0; i<resp.size(); i+=5) {
 //            System.out.println(i+" = I\n");
             String idPCc = resp.get(i).toString();
             // System.out.println((i+1)+" = I+1\n");

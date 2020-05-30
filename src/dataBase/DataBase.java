@@ -32,13 +32,18 @@ public class DataBase {
     private final String usuario = "root";
     private final String senha = "root";
     */
-    
-    /*PARA HABILITAR O AZURE DESCOMENTE ESSE CODIGO E O DA LINHA 88*/
-    
+
     private final String driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
-    private final String caminho = "jdbc:sqlserver://samwall.database.windows.net;databaseName=projeto_nf";
+    private final String caminho = "jdbc:sqlserver://samwall1.database.windows.net;databaseName=projeto";
     private final String usuario = "samwall";
     private final String senha = "root_s4mw4a!!";
+        
+    /*PARA HABILITAR O AZURE DESCOMENTE ESSE CODIGO E O DA LINHA 88*/
+    
+    /*private final String driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
+    private final String caminho = "jdbc:sqlserver://samwall.database.windows.net;databaseName=projeto_nf";
+    private final String usuario = "samwall";
+    private final String senha = "root_s4mw4a!!";*/
     
     
     public static synchronized DataBase getInstance(){
@@ -60,7 +65,7 @@ public class DataBase {
             System.setProperty("jdbc.Drivers", driver);
             con = DriverManager.getConnection(caminho, usuario, senha);
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro de conexão com o banco de dados!", "ERROR", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Erro de conexão com o banco de dados!\n" + ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
             System.exit(0);
         }
     }
