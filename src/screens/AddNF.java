@@ -12,64 +12,66 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class AddNF extends javax.swing.JFrame {
+
     public int gidNF;
     public String login; // Declaração da variável logLogin, usada para relatórios de inserção de usuários
     boolean pago;
     boolean inativo;
+
     public AddNF(String login, String action, int codigo, int id) throws SQLException { // Método para instanciar o frame addUser
         initComponents(); // Inicia Componentes do frame de addUser
         this.login = login;
-        
+
         ControllerNF.carregarComboBox(jComboBoxPedidoCompra, "PEDIDO");
         jLabel14.setText(action);
-        
-        if(id>0){
-        addUser.setVisible(false);
-        addGravar.setVisible(true);
-        gidNF=id;
-        ArrayList campos = ControllerNF.carregarCamposNF(gidNF, jComboBoxPedidoCompra);
-        //ID_NF_A","ID_FORNECEDOR_FK", "VALOR_NF", "NUM_NF", "ID_COLAB_FK", "OBSERVACOES", "ID_PEDIDO_FK
-        jTextFieldFornecedor.setText(campos.get(1).toString());
-        jTextFieldValor.setText(campos.get(2).toString());
-        jTextFieldNumeroNF.setText(campos.get(3).toString());
-        jTextFieldColaborador.setText(campos.get(4).toString());
-        jTextFieldObservacao.setText(campos.get(5).toString());
-        
-            pago =ControllerNF.verifPago(gidNF);
-            if(pago==true){
+
+        if (id > 0) {
+            addUser.setVisible(false);
+            addGravar.setVisible(true);
+            gidNF = id;
+            ArrayList campos = ControllerNF.carregarCamposNF(gidNF, jComboBoxPedidoCompra);
+            //ID_NF_A","ID_FORNECEDOR_FK", "VALOR_NF", "NUM_NF", "ID_COLAB_FK", "OBSERVACOES", "ID_PEDIDO_FK
+            jTextFieldFornecedor.setText(campos.get(1).toString());
+            jTextFieldValor.setText(campos.get(2).toString());
+            jTextFieldNumeroNF.setText(campos.get(3).toString());
+            jTextFieldColaborador.setText(campos.get(4).toString());
+            jTextFieldObservacao.setText(campos.get(5).toString());
+
+            pago = ControllerNF.verifPago(gidNF);
+            if (pago == true) {
                 pagar.setVisible(false);
                 CancelaPag.setVisible(true);
-            }else {
+            } else {
                 pagar.setVisible(true);
                 CancelaPag.setVisible(false);
             }
-                
-             inativo =ControllerNF.verifInativo(gidNF);
-            if(inativo==true){
+
+            inativo = ControllerNF.verifInativo(gidNF);
+            if (inativo == true) {
                 ativarNF.setVisible(true);
                 inativarNF.setVisible(false);
-            }else {
+            } else {
                 inativarNF.setVisible(true);
                 ativarNF.setVisible(false);
             }
-        }else{
+        } else {
             ativarNF.setVisible(false);
             pagar.setVisible(false);
             CancelaPag.setVisible(false);
             inativarNF.setVisible(false);
-            
+
             //botões incluir e gravar
             addUser.setVisible(true);
             addGravar.setVisible(false);
         }
-        
+
     }
 
     @Override
     public Image getIconImage() { // Método para alterar o icone da barra de tarefas
         return Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("pictures/iconLogoBar.png")); // Seta uma imagem como ícone
     } // Fim do método para alterar o icone da barra de tarefas
-    
+
     private void carregarCampos(ArrayList<String> campos) {
         jTextFieldFornecedor.setText(campos.get(0));
         jTextFieldColaborador.setText(campos.get(1));
@@ -82,9 +84,9 @@ public class AddNF extends javax.swing.JFrame {
         jTextFieldObservacao.setText(""); // Limpa campo observação
         jTextFieldNumeroNF.setText("");
     }
-    
-    private void sanitaze(Matcher matcher, KeyEvent evt){
-        if(!matcher.find()){
+
+    private void sanitaze(Matcher matcher, KeyEvent evt) {
+        if (!matcher.find()) {
             evt.consume();
         }
     }
@@ -389,25 +391,25 @@ public class AddNF extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void addUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addUserMouseClicked
-        if (ControllerNF.criarNF(new String[] {
+        if (ControllerNF.criarNF(new String[]{
             jTextFieldNumeroNF.getText(),
             jTextFieldValor.getText(),
-            jTextFieldObservacao.getText(), 
-            jComboBoxPedidoCompra.getSelectedItem().toString(), 
+            jTextFieldObservacao.getText(),
+            jComboBoxPedidoCompra.getSelectedItem().toString(),
             jTextFieldColaborador.getText(),
-            jTextFieldFornecedor.getText()})) {            
+            jTextFieldFornecedor.getText()})) {
+            try {
+                gidNF = ControllerNF.idNF();
+                inativarNF.setVisible(true);
+                pagar.setVisible(true);
+                addGravar.setVisible(true);
+                addUser.setVisible(false);
+            } catch (SQLException ex) {
+
+            }
         }
-        String newIdPC;
-        try {
-            gidNF = ControllerNF.idNF();
-            inativarNF.setVisible(true);
-            pagar.setVisible(true);
-            addGravar.setVisible(true);
-            addUser.setVisible(false);
-        } catch (SQLException ex) {
-            
-        }
-         
+
+
     }//GEN-LAST:event_addUserMouseClicked
 
     private void cleanUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cleanUserMouseClicked
@@ -425,7 +427,7 @@ public class AddNF extends javax.swing.JFrame {
 
     private void jComboBoxPedidoCompraItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxPedidoCompraItemStateChanged
         // TODO add your handling code here:
-        if(!jComboBoxPedidoCompra.equals("")) {
+        if (!jComboBoxPedidoCompra.equals("")) {
             ArrayList<String> camposPedido = ControllerNF.GetPedidoCompra(jComboBoxPedidoCompra.getSelectedItem().toString(), login);
             carregarCampos(camposPedido);
         }
@@ -440,21 +442,21 @@ public class AddNF extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldFornecedorKeyTyped
 
     private void inativarNFMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_inativarNFMouseClicked
-      ControllerNF.AtivaNota(gidNF);
-      ativarNF.setVisible(true);
-      inativarNF.setVisible(false);
+        ControllerNF.AtivaNota(gidNF);
+        ativarNF.setVisible(true);
+        inativarNF.setVisible(false);
     }//GEN-LAST:event_inativarNFMouseClicked
 
     private void pagarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pagarMouseClicked
-      ControllerNF.pagarNota(gidNF);
-      CancelaPag.setVisible(true);
-      pagar.setVisible(false);
+        ControllerNF.pagarNota(gidNF);
+        CancelaPag.setVisible(true);
+        pagar.setVisible(false);
     }//GEN-LAST:event_pagarMouseClicked
 
     private void ativarNFMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ativarNFMouseClicked
-       ControllerNF.inativarNota(gidNF);
-       ativarNF.setVisible(false);
-       inativarNF.setVisible(true);
+        ControllerNF.inativarNota(gidNF);
+        ativarNF.setVisible(false);
+        inativarNF.setVisible(true);
     }//GEN-LAST:event_ativarNFMouseClicked
 
     private void CancelaPagMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CancelaPagMouseClicked
@@ -465,21 +467,21 @@ public class AddNF extends javax.swing.JFrame {
 
     private void addGravarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addGravarMouseClicked
         try {
-            if (ControllerNF.updNF(new String[] {
+            if (ControllerNF.updNF(new String[]{
                 jTextFieldFornecedor.getText(),
                 jTextFieldValor.getText(),
                 jTextFieldNumeroNF.getText(),
                 jTextFieldColaborador.getText(),
-                jTextFieldObservacao.getText(),            
+                jTextFieldObservacao.getText(),
                 jComboBoxPedidoCompra.getSelectedItem().toString(),
-                Integer.toString(gidNF)})){
+                Integer.toString(gidNF)})) {
                 this.dispose();
-            
-        }}
-        catch (SQLException ex) {
+
+            }
+        } catch (SQLException ex) {
             Logger.getLogger(AddNF.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }//GEN-LAST:event_addGravarMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

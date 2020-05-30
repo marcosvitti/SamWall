@@ -277,7 +277,7 @@ public class ListViewNF extends javax.swing.JFrame {
     private void filterNFMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_filterNFMouseClicked
         // TODO add your handling code here:
         ArrayList ids = ControllerNF.GetNomesByIds(new String[] {jComboBoxColaborador.getSelectedItem().toString(), jComboBoxFornecedor.getSelectedItem().toString()});
-        jTable1 = ControllerNF.listarNF(jTable1, new String[] {jTextFieldId.getText(), jTextFieldNF.getText(), ids.get(0).toString(), ids.get(1).toString(), jComboBoxStatus.getSelectedItem().toString()} , this);
+        jTable1 = ControllerNF.listarNF(jTable1, new String[] {jTextFieldId.getText(), "", jTextFieldNF.getText(), ids.get(0).toString(), ids.get(1).toString(), jComboBoxStatus.getSelectedItem().toString()} , this);
     }//GEN-LAST:event_filterNFMouseClicked
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked

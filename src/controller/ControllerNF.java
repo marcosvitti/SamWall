@@ -4,7 +4,11 @@ import dataBase.DataBase;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Date;
 import javax.swing.DefaultCellEditor;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
@@ -59,8 +63,8 @@ public class ControllerNF {
             ArrayList colab = con.select("COLABORADORES", new String[]{"NOME", "ID_USER"}, new String[]{colaborador});
             ArrayList npedido = con.select("PEDIDO_COMPRA", new String[]{"ID_PEDIDO"}, new String[]{pedido});
             con.insert("nf_a",
-                    new String[]{"ID_FORNECEDOR_FK", "VALOR_NF", "NUM_NF", "ID_COLAB_FK", "OBSERVACOES", "ID_PEDIDO_FK", "PAGAMENTO"},
-                    new String[]{forn.get(1).toString(), valor, NumeroNF, colab.get(1).toString(), observacao, npedido.get(0).toString(),"0"});
+                    new String[]{"ID_FORNECEDOR_FK", "VALOR_NF", "NUM_NF", "ID_COLAB_FK", "OBSERVACOES", "ID_PEDIDO_FK", "PAGAMENTO", "DATA_ENTRADA", "STATUS_NF"},
+                    new String[]{forn.get(1).toString(), valor, NumeroNF, colab.get(1).toString(), observacao, npedido.get(0).toString(),"0", "GETDATE()","1"});
             JOptionPane.showMessageDialog(null, "Nota Fiscal cadastrado com sucesso!", "SUCESSO", JOptionPane.INFORMATION_MESSAGE);
         } catch (SQLException ex) { // Caso a validação do usuário falhe é lançado uma exception
             JOptionPane.showMessageDialog(null, "Nota fiscal esta incorreto", "ERRO", JOptionPane.ERROR_MESSAGE); // Cria uma tela de aviso ao usuário
